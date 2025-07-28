@@ -1,0 +1,352 @@
+.configForm {
+  min-height: 100vh;
+  background: var(--ollamaflow-bg-light);
+  padding: 24px;
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: var(--ollamaflow-card-bg);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+  }
+
+  &__header {
+    background: linear-gradient(135deg, var(--ollamaflow-primary) 0%, var(--ollamaflow-primary-light) 100%);
+    color: white;
+    padding: 24px 32px;
+    margin-bottom: 0;
+
+    &Content {
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &Title {
+      margin: 0;
+      color: white;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    &Actions {
+      gap: 12px;
+    }
+
+    &BackButton {
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      padding: 8px 16px;
+      height: auto;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+    }
+
+    &ActionButton {
+      border-radius: 8px;
+      padding: 8px 16px;
+      height: auto;
+      font-weight: 500;
+      transition: all 0.3s ease;
+
+      &.primary {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.3);
+          border-color: rgba(255, 255, 255, 0.5);
+        }
+      }
+
+      &.secondary {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.1);
+          border-color: rgba(255, 255, 255, 0.5);
+        }
+      }
+    }
+  }
+
+  &__steps {
+    background: var(--ollamaflow-card-bg);
+    padding: 24px 32px;
+    border-bottom: 1px solid var(--ollamaflow-border-base);
+    margin-bottom: 0;
+
+    .ant-steps {
+      .ant-steps-item {
+        .ant-steps-item-title {
+          font-weight: 500;
+          color: var(--ollamaflow-text-base);
+        }
+
+        &.ant-steps-item-active {
+          .ant-steps-item-title {
+            color: var(--ollamaflow-primary);
+            font-weight: 600;
+          }
+        }
+
+        &.ant-steps-item-finish {
+          .ant-steps-item-title {
+            color: var(--ollamaflow-primary);
+          }
+        }
+      }
+    }
+  }
+
+  &__content {
+    padding: 32px;
+    background: var(--ollamaflow-card-bg);
+  }
+
+  &__section {
+    margin-bottom: 32px;
+
+    &Title {
+      margin-bottom: 16px;
+      color: var(--ollamaflow-primary);
+      font-size: 20px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      &::before {
+        content: '';
+        width: 4px;
+        height: 20px;
+        background: var(--ollamaflow-primary);
+        border-radius: 2px;
+      }
+    }
+
+    &Description {
+      margin-bottom: 24px;
+      color: var(--ollamaflow-sub-heading);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+  }
+
+  &__card {
+    margin-bottom: 20px;
+    border: 1px solid var(--ollamaflow-border-base);
+    border-radius: 12px;
+    background: var(--ollamaflow-card-bg);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      border-color: var(--ollamaflow-primary) 30;
+    }
+
+    &Header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 20px 24px 0;
+
+      &Title {
+        margin: 0;
+        color: var(--ollamaflow-text-base);
+        font-size: 16px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        &::before {
+          content: '';
+          width: 3px;
+          height: 16px;
+          background: var(--ollamaflow-primary);
+          border-radius: 2px;
+        }
+      }
+
+      &Remove {
+        border: none;
+        padding: 6px 12px;
+        color: #ff4d4f;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        font-size: 12px;
+
+        &:hover {
+          background: #ff4d4f10;
+          color: #ff4d4f;
+        }
+
+        &:disabled {
+          color: var(--ollamaflow-sub-heading);
+          cursor: not-allowed;
+        }
+      }
+    }
+
+    &Content {
+      padding: 0 24px 24px;
+    }
+  }
+
+  &__formRow {
+    margin-bottom: 16px;
+
+    .ant-form-item {
+      margin-bottom: 16px;
+
+      .ant-form-item-label {
+        label {
+          font-weight: 500;
+          color: var(--ollamaflow-text-base);
+          font-size: 13px;
+        }
+      }
+
+      .ant-input,
+      .ant-input-number,
+      .ant-select-selector {
+        border-radius: 8px;
+        border: 1px solid var(--ollamaflow-border-base);
+        transition: all 0.3s ease;
+
+        &:hover {
+          border-color: var(--ollamaflow-primary) 50;
+        }
+
+        &:focus,
+        &.ant-input-focused,
+        &.ant-select-focused .ant-select-selector {
+          border-color: var(--ollamaflow-primary);
+          box-shadow: 0 0 0 2px var(--ollamaflow-primary) 10;
+        }
+      }
+
+      .ant-switch {
+        &.ant-switch-checked {
+          background-color: var(--ollamaflow-primary);
+        }
+      }
+    }
+  }
+
+  &__actions {
+    margin-top: 32px;
+    text-align: center;
+    padding: 24px 32px;
+    background: var(--ollamaflow-bg-light);
+    border-top: 1px solid var(--ollamaflow-border-base);
+
+    .ant-space {
+      gap: 16px;
+    }
+
+    .ant-btn {
+      border-radius: 8px;
+      padding: 8px 24px;
+      height: 40px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+
+      &.ant-btn-primary {
+        background: var(--ollamaflow-primary);
+        border-color: var(--ollamaflow-primary);
+        box-shadow: 0 2px 8px rgba(85, 143, 66, 0.3);
+
+        &:hover {
+          background: var(--ollamaflow-primary-light);
+          border-color: var(--ollamaflow-primary-light);
+          box-shadow: 0 4px 12px rgba(85, 143, 66, 0.4);
+        }
+      }
+
+      &.ant-btn-default {
+        border-color: var(--ollamaflow-border-base);
+        color: var(--ollamaflow-text-base);
+
+        &:hover {
+          border-color: var(--ollamaflow-primary);
+          color: var(--ollamaflow-primary);
+        }
+      }
+    }
+  }
+
+  &__review {
+    &Card {
+      margin-bottom: 20px;
+      border-radius: 12px;
+      border: 1px solid var(--ollamaflow-border-base);
+      background: var(--ollamaflow-card-bg);
+      overflow: hidden;
+
+      .ant-card-head {
+        background: var(--ollamaflow-bg-light);
+        border-bottom: 1px solid var(--ollamaflow-border-base);
+        padding: 16px 24px;
+
+        .ant-card-head-title {
+          font-weight: 600;
+          color: var(--ollamaflow-text-base);
+        }
+      }
+
+      .ant-card-body {
+        padding: 20px 24px;
+      }
+    }
+
+    &Item {
+      margin-bottom: 12px;
+      padding: 12px 16px;
+      background: var(--ollamaflow-bg-light);
+      border-radius: 8px;
+      border-left: 3px solid var(--ollamaflow-primary);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    &Empty {
+      color: var(--ollamaflow-sub-heading);
+      font-style: italic;
+      text-align: center;
+      padding: 20px;
+      background: var(--ollamaflow-bg-light);
+      border-radius: 8px;
+      border: 1px dashed var(--ollamaflow-border-base);
+    }
+  }
+
+  &__addButton {
+    margin-top: 20px;
+    border-radius: 8px;
+    border: 2px dashed var(--ollamaflow-border-base);
+    color: var(--ollamaflow-primary);
+    font-weight: 500;
+    height: 48px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      border-color: var(--ollamaflow-primary);
+      color: var(--ollamaflow-primary);
+      background: var(--ollamaflow-primary) 05;
+    }
+  }
+}
