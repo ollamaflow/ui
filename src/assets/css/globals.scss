@@ -1,7 +1,7 @@
 // Global SCSS variables and styles
 :root {
-  --ollamaflow-primary: #558f42;
-  --ollamaflow-primary-light: #6baa52;
+  --ollamaflow-primary: #1890ff;
+  --ollamaflow-primary-light: #40a9ff;
   --ollamaflow-secondary-blue: #1890ff;
   --ollamaflow-border-gray: #d9d9d9;
   --ollamaflow-sub-heading: #666666;
@@ -10,6 +10,8 @@
   --ollamaflow-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   --ollamaflow-border-radius: 20px;
   --ollamaflow-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --ollamaflow-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 
   // Theme-aware variables
   --ollamaflow-bg-base: var(--ant-color-bg-base, #ffffff);
@@ -41,8 +43,7 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: var(--ollamaflow-font-family);
   background: var(--ollamaflow-bg-base);
   color: var(--ollamaflow-text-base);
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -355,22 +356,29 @@ a {
 
 // Sidebar styles
 .sidebar {
+  background: var(--ollamaflow-card-bg) !important;
+  border-right: 1px solid var(--ollamaflow-border-base);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+
   &__header {
-    padding: 16px;
+    padding: 20px 16px;
     text-align: center;
     border-bottom: 1px solid var(--ollamaflow-border-base);
-    margin-bottom: 8px;
+    margin-bottom: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background: linear-gradient(135deg, var(--ollamaflow-primary) 0%, var(--ollamaflow-primary-light) 100%);
+    color: white;
 
     &-title {
       margin: 0;
-      color: var(--ollamaflow-primary);
+      color: white;
       font-size: 18px;
       font-weight: 600;
       flex: 1;
       text-align: left;
+      transition: all 0.3s ease;
     }
 
     &-title--collapsed {
@@ -381,19 +389,33 @@ a {
 
     &-actions {
       display: flex;
-      gap: 4px;
+      gap: 8px;
       align-items: center;
     }
 
     &-toggle {
-      border: none;
-      padding: 4px;
-      color: var(--ollamaflow-primary);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 6px;
+      padding: 6px;
+      color: white;
+      background: rgba(255, 255, 255, 0.1);
       transition: all 0.3s ease;
+      min-width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       &:hover {
-        background: var(--ollamaflow-primary) 10;
-        color: var(--ollamaflow-primary);
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.5);
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      }
+
+      &:active {
+        transform: translateY(0);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
       }
     }
   }
@@ -401,5 +423,105 @@ a {
   &__menu {
     border: none;
     background: transparent;
+    padding: 8px;
+
+    .ant-menu-item {
+      border-radius: 8px;
+      margin: 4px 8px;
+      height: 40px;
+      line-height: 40px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+
+      &:hover {
+        background: var(--ollamaflow-primary) 10 !important;
+        color: var(--ollamaflow-primary) !important;
+        transform: translateX(4px);
+        box-shadow: 0 2px 8px var(--ollamaflow-primary) 20;
+      }
+
+      &.ant-menu-item-selected {
+        background: var(--ollamaflow-primary) !important;
+        color: white !important;
+        box-shadow: 0 2px 8px var(--ollamaflow-primary) 30;
+
+        &:hover {
+          background: var(--ollamaflow-primary-light) !important;
+          transform: translateX(4px);
+        }
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: var(--ollamaflow-primary);
+        transform: scaleY(0);
+        transition: transform 0.3s ease;
+      }
+
+      &:hover::before,
+      &.ant-menu-item-selected::before {
+        transform: scaleY(1);
+      }
+    }
+
+    .ant-menu-submenu {
+      border-radius: 8px;
+      margin: 4px 8px;
+      transition: all 0.3s ease;
+
+      .ant-menu-submenu-title {
+        border-radius: 8px;
+        height: 40px;
+        line-height: 40px;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: var(--ollamaflow-primary) 10 !important;
+          color: var(--ollamaflow-primary) !important;
+          transform: translateX(4px);
+          box-shadow: 0 2px 8px var(--ollamaflow-primary) 20;
+        }
+      }
+
+      &.ant-menu-submenu-open {
+        .ant-menu-submenu-title {
+          background: var(--ollamaflow-primary) 10 !important;
+          color: var(--ollamaflow-primary) !important;
+        }
+      }
+    }
+
+    .ant-menu-sub {
+      background: transparent !important;
+      padding-left: 16px;
+
+      .ant-menu-item {
+        margin: 2px 0;
+        height: 36px;
+        line-height: 36px;
+        font-size: 13px;
+        border-radius: 6px;
+
+        &:hover {
+          background: var(--ollamaflow-primary) 10 !important;
+          color: var(--ollamaflow-primary) !important;
+          transform: translateX(4px);
+          box-shadow: 0 2px 8px var(--ollamaflow-primary) 20;
+        }
+
+        &.ant-menu-item-selected {
+          background: var(--ollamaflow-primary) 15 !important;
+          color: var(--ollamaflow-primary) !important;
+          font-weight: 500;
+          box-shadow: 0 2px 8px var(--ollamaflow-primary) 30;
+        }
+      }
+    }
   }
 }

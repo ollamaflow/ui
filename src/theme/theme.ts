@@ -1,8 +1,8 @@
 import { theme, ThemeConfig } from 'antd';
 
 export const OllamaFlowTheme = {
-  primary: '#558f42', //95DB7B
-  primaryLight: '#86d96a',
+  primary: '#1890ff', // Ant Design default blue
+  primaryLight: '#40a9ff', // Lighter blue
   primaryRed: '#d9383a',
   secondaryBlue: '#b1e5ff',
   secondaryYellow: '#ffe362',

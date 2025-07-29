@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Tabs, Upload, message, Input } from 'antd';
 import { InboxOutlined, FileTextOutlined } from '@ant-design/icons';
-import OllamaFlowModal from './base/modal/Modal';
-import OllamaFlowCard from './base/card/Card';
-import OllamaFlowButton from './base/button/Button';
-import OllamaFlowTitle from './base/typograpghy/Title';
-import OllamaFlowText from './base/typograpghy/Text';
+import OllamaFlowModal from '../../components/base/modal/Modal';
+import OllamaFlowCard from '../../components/base/card/Card';
+import OllamaFlowButton from '../../components/base/button/Button';
+import OllamaFlowTitle from '../../components/base/typograpghy/Title';
+import OllamaFlowText from '../../components/base/typograpghy/Text';
 import styles from './ConfigUploadModal.module.scss';
 
 const { Dragger } = Upload;
@@ -14,9 +14,10 @@ const { TextArea } = Input;
 interface ConfigUploadModalProps {
   visible: boolean;
   onClose: () => void;
+  onConfigLoaded?: (config: Record<string, unknown>) => void;
 }
 
-const ConfigUploadModal: React.FC<ConfigUploadModalProps> = ({ visible, onClose }) => {
+const ConfigUploadModal: React.FC<ConfigUploadModalProps> = ({ visible, onClose, onConfigLoaded }) => {
   const [configText, setConfigText] = useState('');
 
   const handleUpload = (file: File) => {
@@ -30,12 +31,31 @@ const ConfigUploadModal: React.FC<ConfigUploadModalProps> = ({ visible, onClose 
     return false; // Prevent default upload behavior
   };
 
+  const handleFileUpload = (file: File) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const content = e.target?.result as string;
+      try {
+        const config = JSON.parse(content);
+        console.log('Parsed config from file:', config);
+        message.success('Configuration loaded successfully!');
+        onConfigLoaded?.(config);
+        onClose();
+      } catch (error) {
+        message.error('Invalid JSON format in uploaded file. Please check your configuration.');
+      }
+    };
+    reader.readAsText(file);
+    return false; // Prevent default upload behavior
+  };
+
   const handlePaste = () => {
     if (configText.trim()) {
       try {
         const config = JSON.parse(configText);
         console.log('Parsed config:', config);
         message.success('Configuration parsed successfully!');
+        onConfigLoaded?.(config);
         onClose();
       } catch (error) {
         message.error('Invalid JSON format. Please check your configuration.');
@@ -60,7 +80,7 @@ const ConfigUploadModal: React.FC<ConfigUploadModalProps> = ({ visible, onClose 
             <Dragger
               name="file"
               multiple={false}
-              beforeUpload={handleUpload}
+              beforeUpload={handleFileUpload}
               accept=".json,.yaml,.yml,.txt"
               showUploadList={false}
             >

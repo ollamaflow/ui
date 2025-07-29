@@ -2,27 +2,28 @@ import React, { useState, useEffect } from 'react';
 import { Layout, Menu, Button } from 'antd';
 import {
   FileTextOutlined,
-  SettingOutlined,
   HomeOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   SunOutlined,
   MoonOutlined,
+  PlusOutlined,
 } from '@ant-design/icons';
 import classNames from 'classnames';
 import { useAppContext } from '../../../hooks/appHooks';
-import { ThemeEnum } from '../../../types/types';
-import '../../../styles/global.scss';
+import { ThemeEnum, Configuration } from '../../../types/types';
+import '../../../assets/css/globals.scss';
 
 const { Sider } = Layout;
 
 interface SidebarProps {
   collapsed?: boolean;
   onCollapse?: (collapsed: boolean) => void;
+  onNavigate?: (view: string, config?: Configuration) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse }) => {
-  const { theme, setTheme } = useAppContext();
+const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse, onNavigate }) => {
+  const { theme, setTheme, configurations } = useAppContext();
   const [mounted, setMounted] = useState(false);
 
   // Set mounted flag after mount to avoid hydration mismatch
@@ -30,27 +31,29 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse }) => {
     setMounted(true);
   }, []);
 
-  const menuItems = [
-    {
-      key: 'home',
-      icon: <HomeOutlined />,
-      label: 'Home',
-    },
-    {
-      key: 'configs',
-      icon: <FileTextOutlined />,
-      label: 'Configurations',
-    },
-    {
-      key: 'settings',
-      icon: <SettingOutlined />,
-      label: 'Settings',
-    },
-  ];
-
   const handleThemeToggle = () => {
     const newTheme = theme === ThemeEnum.LIGHT ? ThemeEnum.DARK : ThemeEnum.LIGHT;
     setTheme(newTheme);
+  };
+
+  const handleMenuClick = ({ key }: { key: string }) => {
+    if (key === 'home') {
+      onNavigate?.('home');
+    } else if (key === 'new-config') {
+      onNavigate?.('create-config');
+    } else if (key.startsWith('config-')) {
+      const configId = key.replace('config-', '');
+      const config = configurations.find((c) => c.id === configId);
+      if (config) {
+        onNavigate?.('view-config', config);
+      }
+    } else if (key.startsWith('edit-config-')) {
+      const configId = key.replace('edit-config-', '');
+      const config = configurations.find((c) => c.id === configId);
+      if (config) {
+        onNavigate?.('edit-config', config);
+      }
+    }
   };
 
   // Only render theme toggle when mounted to avoid hydration mismatch
@@ -69,6 +72,27 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse }) => {
       />
     );
   };
+
+  // Create menu items with configurations as sub-items
+  const menuItems = [
+    {
+      key: 'home',
+      icon: <HomeOutlined />,
+      label: 'Home',
+    },
+    {
+      key: 'configurations',
+      icon: <FileTextOutlined />,
+      label: 'Configurations',
+      children: [
+        ...configurations.map((config) => ({
+          key: `config-${config.id}`,
+          label: config.name,
+          icon: <FileTextOutlined />,
+        })),
+      ],
+    },
+  ];
 
   return (
     <Sider collapsed={collapsed} className="sidebar">
@@ -91,7 +115,13 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse }) => {
           />
         </div>
       </div>
-      <Menu mode="inline" defaultSelectedKeys={['home']} items={menuItems} className="sidebar__menu" />
+      <Menu
+        mode="inline"
+        defaultSelectedKeys={['home']}
+        items={menuItems}
+        className="sidebar__menu"
+        onClick={handleMenuClick}
+      />
     </Sider>
   );
 };

@@ -1,40 +1,54 @@
 import React, { useState } from 'react';
-import { Layout, Row, Col } from 'antd';
+import { Layout, Row, Col, message } from 'antd';
 import { PlusOutlined, EditOutlined, FileTextOutlined, UploadOutlined } from '@ant-design/icons';
-import OllamaFlowCard from './base/card/Card';
-import OllamaFlowButton from './base/button/Button';
-import OllamaFlowTitle from './base/typograpghy/Title';
-import OllamaFlowText from './base/typograpghy/Text';
-import OllamaFlowFlex from './base/flex/Flex';
-import ConfigForm from '../components/ConfigForm';
-import ConfigUploadModal from '../components/ConfigUploadModal';
-import '../styles/global.scss';
+import OllamaFlowCard from '../../components/base/card/Card';
+import OllamaFlowButton from '../../components/base/button/Button';
+import OllamaFlowTitle from '../../components/base/typograpghy/Title';
+import OllamaFlowText from '../../components/base/typograpghy/Text';
+import OllamaFlowFlex from '../../components/base/flex/Flex';
+import ConfigUploadModal from '../upload/ConfigUploadModal';
+import { Configuration } from '../../types/types';
+import { useAppContext } from '../../hooks/appHooks';
+import '../../assets/css/globals.scss';
 
 const { Content } = Layout;
 
-const LandingScreen: React.FC = () => {
-  const [showConfigForm, setShowConfigForm] = useState(false);
+interface LandingScreenProps {
+  onNavigate?: (view: string, config?: Configuration) => void;
+}
+
+const LandingScreen: React.FC<LandingScreenProps> = ({ onNavigate }) => {
   const [showUploadModal, setShowUploadModal] = useState(false);
+  const { addConfiguration } = useAppContext();
 
   const handleGenerateNew = () => {
-    setShowConfigForm(true);
+    onNavigate?.('create-config');
   };
 
   const handleEditExisting = () => {
     setShowUploadModal(true);
   };
 
-  const handleCloseConfigForm = () => {
-    setShowConfigForm(false);
-  };
-
   const handleCloseUploadModal = () => {
     setShowUploadModal(false);
   };
 
-  if (showConfigForm) {
-    return <ConfigForm onClose={handleCloseConfigForm} />;
-  }
+  const handleConfigLoaded = (config: Record<string, unknown>) => {
+    const configuration: Configuration = {
+      id: Date.now().toString(),
+      name: 'Loaded Configuration',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      config: config,
+    };
+
+    // Save the loaded configuration to localStorage
+    addConfiguration(configuration);
+    message.success('Configuration loaded and saved to localStorage!');
+
+    onNavigate?.('edit-config', configuration);
+    setShowUploadModal(false);
+  };
 
   return (
     <Layout className="landing-screen">
@@ -128,7 +142,11 @@ const LandingScreen: React.FC = () => {
         </div>
       </Content>
 
-      <ConfigUploadModal visible={showUploadModal} onClose={handleCloseUploadModal} />
+      <ConfigUploadModal
+        visible={showUploadModal}
+        onClose={handleCloseUploadModal}
+        onConfigLoaded={handleConfigLoaded}
+      />
     </Layout>
   );
 };

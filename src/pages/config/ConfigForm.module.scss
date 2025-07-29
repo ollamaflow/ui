@@ -39,9 +39,13 @@
       color: white;
       border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 8px;
-      padding: 8px 16px;
-      height: auto;
+      padding: 8px;
+      height: 40px;
+      width: 40px;
       transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       &:hover {
         background: rgba(255, 255, 255, 0.1);
@@ -51,10 +55,14 @@
 
     &ActionButton {
       border-radius: 8px;
-      padding: 8px 16px;
-      height: auto;
+      padding: 8px;
+      height: 40px;
+      width: 40px;
       font-weight: 500;
       transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       &.primary {
         background: rgba(255, 255, 255, 0.2);
@@ -75,6 +83,31 @@
         &:hover {
           background: rgba(255, 255, 255, 0.1);
           border-color: rgba(255, 255, 255, 0.5);
+        }
+      }
+    }
+
+    &ToggleContainer {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-right: 16px;
+    }
+
+    &ToggleLabel {
+      color: white;
+      font-size: 14px;
+      font-weight: 500;
+      opacity: 0.8;
+    }
+
+    &ToggleSwitch {
+      .ant-switch {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+
+        &.ant-switch-checked {
+          background: rgba(255, 255, 255, 0.3);
         }
       }
     }

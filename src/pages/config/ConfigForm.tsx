@@ -1,13 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import { Layout, Form, Input, Select, Switch, Space, Divider, Row, Col, Steps, InputNumber } from 'antd';
-import { ArrowLeftOutlined, SaveOutlined, DownloadOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icons';
-import OllamaFlowCard from './base/card/Card';
-import OllamaFlowButton from './base/button/Button';
-import OllamaFlowTitle from './base/typograpghy/Title';
-import OllamaFlowText from './base/typograpghy/Text';
-import OllamaFlowFlex from './base/flex/Flex';
-import OllamaFlowModal from './base/modal/Modal';
+import {
+  Layout,
+  Form,
+  Input,
+  Select,
+  Switch,
+  Space,
+  Divider,
+  Row,
+  Col,
+  Steps,
+  InputNumber,
+  Tooltip,
+  message,
+} from 'antd';
+import {
+  ArrowLeftOutlined,
+  SaveOutlined,
+  DownloadOutlined,
+  PlusOutlined,
+  DeleteOutlined,
+  EditOutlined,
+  EyeOutlined,
+  FileTextOutlined,
+} from '@ant-design/icons';
+import OllamaFlowCard from '../../components/base/card/Card';
+import OllamaFlowButton from '../../components/base/button/Button';
+import OllamaFlowTitle from '../../components/base/typograpghy/Title';
+import OllamaFlowText from '../../components/base/typograpghy/Text';
+import OllamaFlowFlex from '../../components/base/flex/Flex';
+import OllamaFlowModal from '../../components/base/modal/Modal';
 import type { FormInstance } from 'antd/es/form';
+import { useAppContext } from '../../hooks/appHooks';
+import { Configuration } from '../../types/types';
 import styles from './ConfigForm.module.scss';
 
 const { Content } = Layout;
@@ -16,6 +41,8 @@ const { Option } = Select;
 
 interface ConfigFormProps {
   onClose: () => void;
+  editConfig?: Configuration | null;
+  mode?: 'create' | 'edit' | 'preview';
 }
 
 interface Backend {
@@ -55,54 +82,68 @@ interface Frontend {
 }
 
 interface ConfigFormData {
-  Logging: any;
+  Logging: Record<string, unknown>;
   Frontends: Frontend[];
   Backends: Backend[];
-  Webserver: any;
+  Webserver: Record<string, unknown>;
 }
 
-const ConfigForm: React.FC<ConfigFormProps> = ({ onClose }) => {
+const ConfigForm: React.FC<ConfigFormProps> = ({ onClose, editConfig = null, mode = 'create' }) => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
-  const [backends, setBackends] = useState([
-    {
-      Identifier: '',
-      Name: '',
-      Hostname: 'localhost',
-      Port: 11435,
-      Ssl: false,
-      ModelRefreshIntervalMs: 30000,
-      HealthCheckIntervalMs: 5000,
-      UnhealthyThreshold: 2,
-      HealthyThreshold: 2,
-      HealthCheckMethod: {
-        Method: 'HEAD',
+  const { addConfiguration, updateConfiguration } = useAppContext();
+  const [isPreviewMode, setIsPreviewMode] = useState(mode === 'preview');
+  const isEditMode = mode === 'edit';
+  const isCreateMode = mode === 'create';
+  const [backends, setBackends] = useState(() => {
+    if (editConfig && editConfig.config.Backends) {
+      return editConfig.config.Backends;
+    }
+    return [
+      {
+        Identifier: '',
+        Name: '',
+        Hostname: 'localhost',
+        Port: 11435,
+        Ssl: false,
+        ModelRefreshIntervalMs: 30000,
+        HealthCheckIntervalMs: 5000,
+        UnhealthyThreshold: 2,
+        HealthyThreshold: 2,
+        HealthCheckMethod: {
+          Method: 'HEAD',
+        },
+        HealthCheckUrl: '/',
+        MaxParallelRequests: 4,
+        RateLimitRequestsThreshold: 10,
+        LogRequestBody: false,
+        LogResponseBody: false,
       },
-      HealthCheckUrl: '/',
-      MaxParallelRequests: 4,
-      RateLimitRequestsThreshold: 10,
-      LogRequestBody: false,
-      LogResponseBody: false,
-    },
-  ]);
-  const [frontends, setFrontends] = useState([
-    {
-      Identifier: '',
-      Name: '',
-      Hostname: 'localhost',
-      TimeoutMs: 60000,
-      LoadBalancing: 'RoundRobin',
-      BlockHttp10: true,
-      LogRequestFull: false,
-      LogRequestBody: false,
-      LogResponseBody: false,
-      MaxRequestBodySize: 536870912,
-      Backends: [],
-      RequiredModels: ['all-minilm'],
-      LastIndex: 0,
-    },
-  ]);
+    ];
+  });
+  const [frontends, setFrontends] = useState(() => {
+    if (editConfig && editConfig.config.Frontends) {
+      return editConfig.config.Frontends;
+    }
+    return [
+      {
+        Identifier: '',
+        Name: '',
+        Hostname: 'localhost',
+        TimeoutMs: 60000,
+        LoadBalancing: 'RoundRobin',
+        BlockHttp10: true,
+        LogRequestFull: false,
+        LogRequestBody: false,
+        LogResponseBody: false,
+        MaxRequestBodySize: 536870912,
+        Backends: [],
+        RequiredModels: ['all-minilm'],
+        LastIndex: 0,
+      },
+    ];
+  });
 
   // Default configuration template
   const defaultConfig: ConfigFormData = {
@@ -169,13 +210,13 @@ const ConfigForm: React.FC<ConfigFormProps> = ({ onClose }) => {
     },
   };
 
-  const handleBackendChange = (index: number, field: string, value: any) => {
+  const handleBackendChange = (index: number, field: string, value: unknown) => {
     const newBackends = [...backends];
     newBackends[index] = { ...newBackends[index], [field]: value };
     setBackends(newBackends);
   };
 
-  const handleFrontendChange = (index: number, field: string, value: any) => {
+  const handleFrontendChange = (index: number, field: string, value: unknown) => {
     const newFrontends = [...frontends];
     newFrontends[index] = { ...newFrontends[index], [field]: value };
     setFrontends(newFrontends);
@@ -208,7 +249,7 @@ const ConfigForm: React.FC<ConfigFormProps> = ({ onClose }) => {
 
   const removeBackend = (index: number) => {
     if (backends.length > 1) {
-      setBackends(backends.filter((_, i) => i !== index));
+      setBackends(backends.filter((_: Backend, i: number) => i !== index));
     }
   };
 
@@ -234,7 +275,7 @@ const ConfigForm: React.FC<ConfigFormProps> = ({ onClose }) => {
   };
 
   const removeFrontend = (index: number) => {
-    setFrontends(frontends.filter((_, i) => i !== index));
+    setFrontends(frontends.filter((_: Frontend, i: number) => i !== index));
   };
 
   const handleSubmit = async (values: ConfigFormData) => {
@@ -277,10 +318,44 @@ const ConfigForm: React.FC<ConfigFormProps> = ({ onClose }) => {
 
       console.log('Final config to save:', finalConfig);
 
+      // Generate a configuration name based on the first backend
+      const configName = backends[0]?.Name || 'New Configuration';
+
+      // Create configuration object
+      const newConfiguration = {
+        id: Date.now().toString(),
+        name: configName,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        config: finalConfig,
+      };
+
+      // Save to app context
+      if (isEditMode && editConfig) {
+        updateConfiguration(editConfig.id, { ...newConfiguration, id: editConfig.id });
+        message.success('Configuration updated and saved to localStorage!');
+      } else {
+        addConfiguration(newConfiguration);
+        message.success('Configuration created and saved to localStorage!');
+      }
+
+      // Auto-download the configuration
+      const configData = JSON.stringify(finalConfig, null, 2);
+      const blob = new Blob([configData], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${configName.replace(/\s+/g, '-').toLowerCase()}-config.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      // Here you would typically save the config
+      // Close the form
+      onClose();
     } catch (error) {
       console.error('Error saving config:', error);
     } finally {
@@ -304,16 +379,19 @@ const ConfigForm: React.FC<ConfigFormProps> = ({ onClose }) => {
 
   const steps = [
     {
-      title: 'Backends',
-      description: 'Configure your backend servers',
+      title: 'Backend Config',
+      description: 'Configure backend servers',
+      icon: <FileTextOutlined />,
     },
     {
-      title: 'Frontends',
-      description: 'Configure your frontend settings',
+      title: 'Frontend Config',
+      description: 'Configure frontend settings',
+      icon: <FileTextOutlined />,
     },
     {
-      title: 'Review',
-      description: 'Review and save configuration',
+      title: 'Preview',
+      description: 'Review configuration',
+      icon: <EyeOutlined />,
     },
   ];
 
@@ -322,11 +400,8 @@ const ConfigForm: React.FC<ConfigFormProps> = ({ onClose }) => {
       <OllamaFlowTitle level={3} className={styles.configForm__sectionTitle}>
         Backend Configuration
       </OllamaFlowTitle>
-      <OllamaFlowText className={styles.configForm__sectionDescription}>
-        Configure your Ollama backend servers. These are the servers that will handle your model requests.
-      </OllamaFlowText>
 
-      {backends.map((backend, index) => (
+      {backends.map((backend: Backend, index: number) => (
         <BackendCard
           key={`backend-${index}`}
           backend={backend}
@@ -334,18 +409,21 @@ const ConfigForm: React.FC<ConfigFormProps> = ({ onClose }) => {
           onRemove={() => removeBackend(index)}
           onChange={(field, value) => handleBackendChange(index, field, value)}
           canRemove={backends.length > 1}
+          isPreview={isPreviewMode}
         />
       ))}
 
-      <OllamaFlowButton
-        type="dashed"
-        onClick={addBackend}
-        block
-        icon={<PlusOutlined />}
-        className={styles.configForm__addButton}
-      >
-        Add Backend
-      </OllamaFlowButton>
+      {!isPreviewMode && (
+        <OllamaFlowButton
+          type="dashed"
+          onClick={addBackend}
+          block
+          icon={<PlusOutlined />}
+          className={styles.configForm__addButton}
+        >
+          Add Backend
+        </OllamaFlowButton>
+      )}
     </div>
   );
 
@@ -358,7 +436,7 @@ const ConfigForm: React.FC<ConfigFormProps> = ({ onClose }) => {
         Configure your frontend settings. These settings control how requests are routed to your backends.
       </OllamaFlowText>
 
-      {frontends.map((frontend, index) => (
+      {frontends.map((frontend: Frontend, index: number) => (
         <FrontendCard
           key={`frontend-${index}`}
           frontend={frontend}
@@ -366,18 +444,21 @@ const ConfigForm: React.FC<ConfigFormProps> = ({ onClose }) => {
           onRemove={() => removeFrontend(index)}
           onChange={(field, value) => handleFrontendChange(index, field, value)}
           backends={backends}
+          isPreview={isPreviewMode}
         />
       ))}
 
-      <OllamaFlowButton
-        type="dashed"
-        onClick={addFrontend}
-        block
-        icon={<PlusOutlined />}
-        className={styles.configForm__addButton}
-      >
-        Add Frontend
-      </OllamaFlowButton>
+      {!isPreviewMode && (
+        <OllamaFlowButton
+          type="dashed"
+          onClick={addFrontend}
+          block
+          icon={<PlusOutlined />}
+          className={styles.configForm__addButton}
+        >
+          Add Frontend
+        </OllamaFlowButton>
+      )}
     </div>
   );
 
@@ -433,12 +514,56 @@ const ConfigForm: React.FC<ConfigFormProps> = ({ onClose }) => {
     );
   };
 
+  // Validation functions
+  const validateBackends = () => {
+    return backends.every(
+      (backend) =>
+        backend.Name &&
+        backend.Name.trim() !== '' &&
+        backend.Identifier &&
+        backend.Identifier.trim() !== '' &&
+        backend.Hostname &&
+        backend.Hostname.trim() !== '' &&
+        backend.Port &&
+        backend.Port > 0
+    );
+  };
+
+  const validateFrontends = () => {
+    return frontends.every(
+      (frontend) =>
+        frontend.Name &&
+        frontend.Name.trim() !== '' &&
+        frontend.Identifier &&
+        frontend.Identifier.trim() !== '' &&
+        frontend.Hostname &&
+        frontend.Hostname.trim() !== '' &&
+        frontend.LoadBalancing &&
+        frontend.LoadBalancing.trim() !== ''
+    );
+  };
+
+  const canProceedToNext = () => {
+    if (currentStep === 0) {
+      return validateBackends();
+    } else if (currentStep === 1) {
+      return validateFrontends();
+    }
+    return true;
+  };
+
   const next = () => {
-    setCurrentStep(currentStep + 1);
+    if (canProceedToNext()) {
+      setCurrentStep(currentStep + 1);
+    }
   };
 
   const prev = () => {
     setCurrentStep(currentStep - 1);
+  };
+
+  const handleToggleMode = () => {
+    setIsPreviewMode(!isPreviewMode);
   };
 
   return (
@@ -449,34 +574,51 @@ const ConfigForm: React.FC<ConfigFormProps> = ({ onClose }) => {
           <div className={styles.configForm__header}>
             <OllamaFlowFlex align="center" className={styles.configForm__headerContent}>
               <OllamaFlowFlex>
-                <OllamaFlowButton
-                  icon={<ArrowLeftOutlined />}
-                  onClick={onClose}
-                  className={styles.configForm__headerBackButton}
-                >
-                  Back to Home
-                </OllamaFlowButton>
+                <Tooltip title="Back to Home">
+                  <OllamaFlowButton
+                    icon={<ArrowLeftOutlined />}
+                    onClick={onClose}
+                    className={styles.configForm__headerBackButton}
+                  />
+                </Tooltip>
                 <OllamaFlowTitle level={2} className={styles.configForm__headerTitle}>
-                  Generate New Configuration
+                  {isPreviewMode
+                    ? `Preview: ${editConfig?.name || 'Configuration'}`
+                    : isEditMode
+                    ? `Edit: ${editConfig?.name || 'Configuration'}`
+                    : 'Generate New Configuration'}
                 </OllamaFlowTitle>
               </OllamaFlowFlex>
               <OllamaFlowFlex className={styles.configForm__headerActions}>
-                <OllamaFlowButton
-                  icon={<DownloadOutlined />}
-                  onClick={handleDownload}
-                  className={`${styles.configForm__headerActionButton} ${styles.configForm__headerActionButtonSecondary}`}
-                >
-                  Download Config
-                </OllamaFlowButton>
-                <OllamaFlowButton
-                  type="primary"
-                  icon={<SaveOutlined />}
-                  onClick={handleManualSubmit}
-                  loading={loading}
-                  className={`${styles.configForm__headerActionButton} ${styles.configForm__headerActionButtonPrimary}`}
-                >
-                  Save Configuration
-                </OllamaFlowButton>
+                {(isEditMode || mode === 'preview') && (
+                  <div className={styles.configForm__toggleContainer}>
+                    <span className={styles.configForm__toggleLabel}>Preview</span>
+                    <Switch
+                      checked={!isPreviewMode}
+                      onChange={handleToggleMode}
+                      className={styles.configForm__toggleSwitch}
+                    />
+                    <span className={styles.configForm__toggleLabel}>Edit</span>
+                  </div>
+                )}
+                <Tooltip title="Download Configuration">
+                  <OllamaFlowButton
+                    icon={<DownloadOutlined />}
+                    onClick={handleDownload}
+                    className={`${styles.configForm__headerActionButton} ${styles.configForm__headerActionButtonSecondary}`}
+                  />
+                </Tooltip>
+                {!isPreviewMode && (
+                  <Tooltip title={isEditMode ? 'Update Configuration' : 'Save Configuration'}>
+                    <OllamaFlowButton
+                      type="primary"
+                      icon={<SaveOutlined />}
+                      onClick={handleManualSubmit}
+                      loading={loading}
+                      className={`${styles.configForm__headerActionButton} ${styles.configForm__headerActionButtonPrimary}`}
+                    />
+                  </Tooltip>
+                )}
               </OllamaFlowFlex>
             </OllamaFlowFlex>
           </div>
@@ -497,13 +639,13 @@ const ConfigForm: React.FC<ConfigFormProps> = ({ onClose }) => {
                 <OllamaFlowFlex gap="large">
                   {currentStep > 0 && <OllamaFlowButton onClick={prev}>Previous</OllamaFlowButton>}
                   {currentStep < steps.length - 1 && (
-                    <OllamaFlowButton type="primary" onClick={next}>
+                    <OllamaFlowButton type="primary" onClick={next} disabled={!isPreviewMode && !canProceedToNext()}>
                       Next
                     </OllamaFlowButton>
                   )}
-                  {currentStep === steps.length - 1 && (
+                  {currentStep === steps.length - 1 && !isPreviewMode && (
                     <OllamaFlowButton type="primary" onClick={handleManualSubmit} loading={loading}>
-                      Generate Configuration
+                      {isEditMode ? 'Update Configuration' : 'Generate Configuration'}
                     </OllamaFlowButton>
                   )}
                 </OllamaFlowFlex>
@@ -521,9 +663,10 @@ const BackendCard: React.FC<{
   backend: Backend;
   index: number;
   onRemove: () => void;
-  onChange: (field: string, value: any) => void;
+  onChange: (field: string, value: unknown) => void;
   canRemove: boolean;
-}> = ({ backend, index, onRemove, onChange, canRemove }) => {
+  isPreview?: boolean;
+}> = ({ backend, index, onRemove, onChange, canRemove, isPreview = false }) => {
   const backendName = backend.Name;
 
   return (
@@ -532,16 +675,18 @@ const BackendCard: React.FC<{
         <OllamaFlowTitle level={4} className={styles.configForm__cardHeaderTitle}>
           {backendName ? `Backend: ${backendName}` : `Backend ${index + 1}`}
         </OllamaFlowTitle>
-        <OllamaFlowButton
-          type="text"
-          danger
-          icon={<DeleteOutlined />}
-          onClick={onRemove}
-          disabled={!canRemove}
-          className={styles.configForm__cardHeaderRemove}
-        >
-          Remove
-        </OllamaFlowButton>
+        {!isPreview && (
+          <OllamaFlowButton
+            type="text"
+            danger
+            icon={<DeleteOutlined />}
+            onClick={onRemove}
+            disabled={!canRemove}
+            className={styles.configForm__cardHeaderRemove}
+          >
+            Remove
+          </OllamaFlowButton>
+        )}
       </div>
 
       <div className={styles.configForm__cardContent}>
@@ -552,6 +697,7 @@ const BackendCard: React.FC<{
                 placeholder="e.g., backend1"
                 value={backend.Name}
                 onChange={(e) => onChange('Name', e.target.value)}
+                disabled={isPreview}
               />
             </Form.Item>
           </Col>
@@ -561,6 +707,7 @@ const BackendCard: React.FC<{
                 placeholder="Auto-generated from name"
                 value={backend.Identifier}
                 onChange={(e) => onChange('Identifier', e.target.value)}
+                disabled={isPreview}
               />
             </Form.Item>
           </Col>
@@ -573,6 +720,7 @@ const BackendCard: React.FC<{
                 placeholder="localhost"
                 value={backend.Hostname}
                 onChange={(e) => onChange('Hostname', e.target.value)}
+                disabled={isPreview}
               />
             </Form.Item>
           </Col>
@@ -585,6 +733,7 @@ const BackendCard: React.FC<{
                 max={65535}
                 value={backend.Port}
                 onChange={(value) => onChange('Port', value)}
+                disabled={isPreview}
               />
             </Form.Item>
           </Col>
@@ -593,7 +742,7 @@ const BackendCard: React.FC<{
         <Row gutter={[16, 16]} className={styles.configForm__formRow}>
           <Col span={8}>
             <Form.Item label="SSL" valuePropName="checked">
-              <Switch checked={backend.Ssl} onChange={(checked) => onChange('Ssl', checked)} />
+              <Switch checked={backend.Ssl} onChange={(checked) => onChange('Ssl', checked)} disabled={isPreview} />
             </Form.Item>
           </Col>
           <Col span={8}>
@@ -608,6 +757,7 @@ const BackendCard: React.FC<{
                 max={100}
                 value={backend.MaxParallelRequests}
                 onChange={(value) => onChange('MaxParallelRequests', value)}
+                disabled={isPreview}
               />
             </Form.Item>
           </Col>
@@ -623,6 +773,7 @@ const BackendCard: React.FC<{
                 max={1000}
                 value={backend.RateLimitRequestsThreshold}
                 onChange={(value) => onChange('RateLimitRequestsThreshold', value)}
+                disabled={isPreview}
               />
             </Form.Item>
           </Col>
@@ -641,6 +792,7 @@ const BackendCard: React.FC<{
                 max={300000}
                 value={backend.ModelRefreshIntervalMs}
                 onChange={(value) => onChange('ModelRefreshIntervalMs', value)}
+                disabled={isPreview}
               />
             </Form.Item>
           </Col>
@@ -656,6 +808,7 @@ const BackendCard: React.FC<{
                 max={60000}
                 value={backend.HealthCheckIntervalMs}
                 onChange={(value) => onChange('HealthCheckIntervalMs', value)}
+                disabled={isPreview}
               />
             </Form.Item>
           </Col>
@@ -665,6 +818,7 @@ const BackendCard: React.FC<{
                 placeholder="/"
                 value={backend.HealthCheckUrl}
                 onChange={(e) => onChange('HealthCheckUrl', e.target.value)}
+                disabled={isPreview}
               />
             </Form.Item>
           </Col>
@@ -680,6 +834,7 @@ const BackendCard: React.FC<{
                 placeholder="Select health check method"
                 value={backend.HealthCheckMethod?.Method}
                 onChange={(value) => onChange('HealthCheckMethod', { Method: value })}
+                disabled={isPreview}
               >
                 <Option value="HEAD">HEAD</Option>
                 <Option value="GET">GET</Option>
@@ -703,6 +858,7 @@ const BackendCard: React.FC<{
                 max={10}
                 value={backend.UnhealthyThreshold}
                 onChange={(value) => onChange('UnhealthyThreshold', value)}
+                disabled={isPreview}
               />
             </Form.Item>
           </Col>
@@ -718,6 +874,7 @@ const BackendCard: React.FC<{
                 max={10}
                 value={backend.HealthyThreshold}
                 onChange={(value) => onChange('HealthyThreshold', value)}
+                disabled={isPreview}
               />
             </Form.Item>
           </Col>
@@ -726,12 +883,20 @@ const BackendCard: React.FC<{
         <Row gutter={[16, 16]} className={styles.configForm__formRow}>
           <Col span={12}>
             <Form.Item label="Log Request Body" valuePropName="checked">
-              <Switch checked={backend.LogRequestBody} onChange={(checked) => onChange('LogRequestBody', checked)} />
+              <Switch
+                checked={backend.LogRequestBody}
+                onChange={(checked) => onChange('LogRequestBody', checked)}
+                disabled={isPreview}
+              />
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item label="Log Response Body" valuePropName="checked">
-              <Switch checked={backend.LogResponseBody} onChange={(checked) => onChange('LogResponseBody', checked)} />
+              <Switch
+                checked={backend.LogResponseBody}
+                onChange={(checked) => onChange('LogResponseBody', checked)}
+                disabled={isPreview}
+              />
             </Form.Item>
           </Col>
         </Row>
@@ -744,9 +909,10 @@ const FrontendCard: React.FC<{
   frontend: Frontend;
   index: number;
   onRemove: () => void;
-  onChange: (field: string, value: any) => void;
+  onChange: (field: string, value: unknown) => void;
   backends: Backend[];
-}> = ({ frontend, index, onRemove, onChange, backends }) => {
+  isPreview?: boolean;
+}> = ({ frontend, index, onRemove, onChange, backends, isPreview = false }) => {
   const frontendName = frontend.Name;
 
   return (
@@ -755,15 +921,17 @@ const FrontendCard: React.FC<{
         <OllamaFlowTitle level={4} className={styles.configForm__cardHeaderTitle}>
           {frontendName ? `Frontend: ${frontendName}` : `Frontend ${index + 1}`}
         </OllamaFlowTitle>
-        <OllamaFlowButton
-          type="text"
-          danger
-          icon={<DeleteOutlined />}
-          onClick={onRemove}
-          className={styles.configForm__cardHeaderRemove}
-        >
-          Remove
-        </OllamaFlowButton>
+        {!isPreview && (
+          <OllamaFlowButton
+            type="text"
+            danger
+            icon={<DeleteOutlined />}
+            onClick={onRemove}
+            className={styles.configForm__cardHeaderRemove}
+          >
+            Remove
+          </OllamaFlowButton>
+        )}
       </div>
 
       <div className={styles.configForm__cardContent}>
@@ -774,6 +942,7 @@ const FrontendCard: React.FC<{
                 placeholder="e.g., frontend"
                 value={frontend.Identifier}
                 onChange={(e) => onChange('Identifier', e.target.value)}
+                disabled={isPreview}
               />
             </Form.Item>
           </Col>
@@ -783,6 +952,7 @@ const FrontendCard: React.FC<{
                 placeholder="e.g., Default Ollama frontend"
                 value={frontend.Name}
                 onChange={(e) => onChange('Name', e.target.value)}
+                disabled={isPreview}
               />
             </Form.Item>
           </Col>
@@ -795,6 +965,7 @@ const FrontendCard: React.FC<{
                 placeholder="localhost"
                 value={frontend.Hostname}
                 onChange={(e) => onChange('Hostname', e.target.value)}
+                disabled={isPreview}
               />
             </Form.Item>
           </Col>
@@ -807,6 +978,7 @@ const FrontendCard: React.FC<{
                 max={300000}
                 value={frontend.TimeoutMs}
                 onChange={(value) => onChange('TimeoutMs', value)}
+                disabled={isPreview}
               />
             </Form.Item>
           </Col>
@@ -822,6 +994,7 @@ const FrontendCard: React.FC<{
                 placeholder="Select load balancing method"
                 value={frontend.LoadBalancing}
                 onChange={(value) => onChange('LoadBalancing', value)}
+                disabled={isPreview}
               >
                 <Option value="RoundRobin">Round Robin</Option>
                 <Option value="LeastConnections">Least Connections</Option>
@@ -841,6 +1014,7 @@ const FrontendCard: React.FC<{
                 max={1073741824}
                 value={frontend.MaxRequestBodySize}
                 onChange={(value) => onChange('MaxRequestBodySize', value)}
+                disabled={isPreview}
               />
             </Form.Item>
           </Col>
@@ -849,17 +1023,29 @@ const FrontendCard: React.FC<{
         <Row gutter={[16, 16]} className={styles.configForm__formRow}>
           <Col span={8}>
             <Form.Item label="Block HTTP/1.0" valuePropName="checked">
-              <Switch checked={frontend.BlockHttp10} onChange={(checked) => onChange('BlockHttp10', checked)} />
+              <Switch
+                checked={frontend.BlockHttp10}
+                onChange={(checked) => onChange('BlockHttp10', checked)}
+                disabled={isPreview}
+              />
             </Form.Item>
           </Col>
           <Col span={8}>
             <Form.Item label="Log Full Request" valuePropName="checked">
-              <Switch checked={frontend.LogRequestFull} onChange={(checked) => onChange('LogRequestFull', checked)} />
+              <Switch
+                checked={frontend.LogRequestFull}
+                onChange={(checked) => onChange('LogRequestFull', checked)}
+                disabled={isPreview}
+              />
             </Form.Item>
           </Col>
           <Col span={8}>
             <Form.Item label="Log Request Body" valuePropName="checked">
-              <Switch checked={frontend.LogRequestBody} onChange={(checked) => onChange('LogRequestBody', checked)} />
+              <Switch
+                checked={frontend.LogRequestBody}
+                onChange={(checked) => onChange('LogRequestBody', checked)}
+                disabled={isPreview}
+              />
             </Form.Item>
           </Col>
         </Row>
@@ -867,7 +1053,11 @@ const FrontendCard: React.FC<{
         <Row gutter={[16, 16]} className={styles.configForm__formRow}>
           <Col span={24}>
             <Form.Item label="Log Response Body" valuePropName="checked">
-              <Switch checked={frontend.LogResponseBody} onChange={(checked) => onChange('LogResponseBody', checked)} />
+              <Switch
+                checked={frontend.LogResponseBody}
+                onChange={(checked) => onChange('LogResponseBody', checked)}
+                disabled={isPreview}
+              />
             </Form.Item>
           </Col>
         </Row>
@@ -883,6 +1073,7 @@ const FrontendCard: React.FC<{
                 placeholder="Enter backend identifiers (e.g., backend1, backend2)"
                 value={frontend.Backends}
                 onChange={(value) => onChange('Backends', value)}
+                disabled={isPreview}
               >
                 {backends.map((backend: Backend, index: number) => (
                   <Option key={backend.Identifier} value={backend.Identifier}>
@@ -902,6 +1093,7 @@ const FrontendCard: React.FC<{
                 placeholder="Enter required models (e.g., all-minilm)"
                 value={frontend.RequiredModels}
                 onChange={(value) => onChange('RequiredModels', value)}
+                disabled={isPreview}
               >
                 <Option value="all-minilm">all-minilm</Option>
                 <Option value="llama2">llama2</Option>
