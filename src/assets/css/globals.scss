@@ -1,4 +1,5 @@
-// Global SCSS variables and styles
+@import "antd/dist/reset.css";
+
 :root {
   --ollamaflow-primary: #1890ff;
   --ollamaflow-primary-light: #40a9ff;
@@ -10,8 +11,9 @@
   --ollamaflow-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   --ollamaflow-border-radius: 20px;
   --ollamaflow-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  --ollamaflow-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  --ollamaflow-font-family: "Inter", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
 
   // Theme-aware variables
   --ollamaflow-bg-base: var(--ant-color-bg-base, #ffffff);
@@ -21,9 +23,9 @@
 }
 
 // Dark theme overrides - applied to both html and body
-[data-theme='dark'],
-html[data-theme='dark'],
-body[data-theme='dark'] {
+[data-theme="dark"],
+html[data-theme="dark"],
+body[data-theme="dark"] {
   --ollamaflow-bg-base: #222222;
   --ollamaflow-text-base: #ffffff;
   --ollamaflow-border-base: #666666;
@@ -53,6 +55,150 @@ body {
   color: var(--ollamaflow-text-base);
   background: var(--ollamaflow-bg-base);
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.mb {
+  margin-bottom: var(--ant-margin) !important;
+}
+
+.mb-sm {
+  margin-bottom: var(--ant-margin-sm);
+}
+
+.mb-lg {
+  margin-bottom: var(--ant-margin-lg);
+}
+.mt-lg {
+  margin-top: var(--ant-margin-lg);
+}
+.mt-xs {
+  margin-top: var(--ant-margin-xs);
+}
+
+.mb-sm {
+  margin-bottom: var(--ant-margin-sm);
+}
+
+.mt {
+  margin-top: var(--ant-margin) !important;
+}
+
+.ml {
+  margin-left: var(--ant-margin);
+}
+
+.mt-0 {
+  margin-top: 0;
+}
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+
+.mr-0 {
+  margin-right: 0;
+}
+.ml-0 {
+  margin-left: 0;
+}
+.mr {
+  margin-right: var(--ant-margin);
+}
+
+.p {
+  padding: var(--ant-padding) !important;
+}
+
+.pl {
+  padding-left: var(--ant-padding);
+}
+
+.pr {
+  padding-right: var(--ant-padding);
+}
+
+.pb {
+  padding-bottom: var(--ant-padding);
+}
+
+.pt {
+  padding-top: var(--ant-padding);
+}
+
+.p-lg {
+  padding: var(--ant-padding-lg);
+}
+
+.p-sm {
+  padding: var(--ant-padding-sm);
+}
+.p-xs {
+  padding: var(--ant-padding-xs);
+}
+.pl-lg {
+  padding-left: var(--ant-padding-lg);
+}
+.pl-0 {
+  padding-left: 0 !important;
+}
+
+.pr-lg {
+  padding-right: var(--ant-padding-lg);
+}
+
+.pl-sm {
+  padding-left: var(--ant-padding-sm);
+}
+
+.pr-sm {
+  padding-right: var(--ant-padding-sm);
+}
+.ml-auto {
+  margin-left: auto !important;
+}
+
+.pl-xs {
+  padding-left: var(--ant-padding-xs);
+}
+
+.pr-xs {
+  padding-right: var(--ant-padding-xs);
+}
+
+.pt-lg {
+  padding-top: var(--ant-padding-lg);
+}
+
+.pb-lg {
+  padding-bottom: var(--ant-padding-lg);
+}
+
+.pt-sm {
+  padding-top: var(--ant-padding-sm);
+}
+
+.pb-sm {
+  padding-bottom: var(--ant-padding-sm);
+}
+
+.pt-xs {
+  padding-top: var(--ant-padding-xs);
+}
+
+.pb-xs {
+  padding-bottom: var(--ant-padding-xs);
+}
+
+.text-link {
+  color: var(--ant-color-primary);
+  font-weight: 500;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.w-100 {
+  width: 100%;
+}
+.cursor-pointer {
+  cursor: pointer;
 }
 
 a {
@@ -110,7 +256,6 @@ a {
 // Landing screen styles
 .landing-screen {
   min-height: 100vh;
-  background: linear-gradient(135deg, var(--ollamaflow-bg-light) 0%, var(--ollamaflow-bg-base) 100%);
   padding: 24px;
   transition: background 0.3s ease;
 
@@ -175,7 +320,11 @@ a {
       border: 2px solid;
 
       &--primary {
-        background: linear-gradient(135deg, var(--ollamaflow-primary) 20 0%, var(--ollamaflow-primary) 10 100%);
+        background: linear-gradient(
+          135deg,
+          var(--ollamaflow-primary) 20 0%,
+          var(--ollamaflow-primary) 10 100%
+        );
         border-color: var(--ollamaflow-primary) 30;
       }
 
@@ -203,7 +352,11 @@ a {
     }
 
     &-button {
-      background: linear-gradient(135deg, var(--ollamaflow-primary) 0%, var(--ollamaflow-primary-light) 100%);
+      background: linear-gradient(
+        135deg,
+        var(--ollamaflow-primary) 0%,
+        var(--ollamaflow-primary-light) 100%
+      );
       border: none;
       border-radius: 12px;
       height: 52px;
@@ -350,7 +503,7 @@ a {
 
   &__textarea {
     min-height: 200px;
-    font-family: 'Courier New', monospace;
+    font-family: "Courier New", monospace;
   }
 }
 
@@ -368,7 +521,11 @@ a {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: linear-gradient(135deg, var(--ollamaflow-primary) 0%, var(--ollamaflow-primary-light) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--ollamaflow-primary) 0%,
+      var(--ollamaflow-primary-light) 100%
+    );
     color: white;
 
     &-title {
@@ -453,7 +610,7 @@ a {
       }
 
       &::before {
-        content: '';
+        content: "";
         position: absolute;
         left: 0;
         top: 0;

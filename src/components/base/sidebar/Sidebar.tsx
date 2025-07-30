@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Layout, Menu, Button } from 'antd';
+import React, { useState, useEffect } from "react";
+import { Layout, Menu, Button } from "antd";
 import {
   FileTextOutlined,
   HomeOutlined,
@@ -8,11 +8,13 @@ import {
   SunOutlined,
   MoonOutlined,
   PlusOutlined,
-} from '@ant-design/icons';
-import classNames from 'classnames';
-import { useAppContext } from '../../../hooks/appHooks';
-import { ThemeEnum, Configuration } from '../../../types/types';
-import '../../../assets/css/globals.scss';
+} from "@ant-design/icons";
+import classNames from "classnames";
+import { useAppContext } from "../../../hooks/appHooks";
+import { ThemeEnum, Configuration } from "../../../types/types";
+import "../../../assets/css/globals.scss";
+import OllamaFlowFlex from "../flex/Flex";
+import ThemeModeSwitch from "#/components/theme-mode-switch/ThemeModeSwitch";
 
 const { Sider } = Layout;
 
@@ -22,7 +24,11 @@ interface SidebarProps {
   onNavigate?: (view: string, config?: Configuration) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse, onNavigate }) => {
+const Sidebar: React.FC<SidebarProps> = ({
+  collapsed = false,
+  onCollapse,
+  onNavigate,
+}) => {
   const { theme, setTheme, configurations } = useAppContext();
   const [mounted, setMounted] = useState(false);
 
@@ -32,58 +38,42 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse, onNavi
   }, []);
 
   const handleThemeToggle = () => {
-    const newTheme = theme === ThemeEnum.LIGHT ? ThemeEnum.DARK : ThemeEnum.LIGHT;
+    const newTheme =
+      theme === ThemeEnum.LIGHT ? ThemeEnum.DARK : ThemeEnum.LIGHT;
     setTheme(newTheme);
   };
 
   const handleMenuClick = ({ key }: { key: string }) => {
-    if (key === 'home') {
-      onNavigate?.('home');
-    } else if (key === 'new-config') {
-      onNavigate?.('create-config');
-    } else if (key.startsWith('config-')) {
-      const configId = key.replace('config-', '');
+    if (key === "home") {
+      onNavigate?.("home");
+    } else if (key === "new-config") {
+      onNavigate?.("create-config");
+    } else if (key.startsWith("config-")) {
+      const configId = key.replace("config-", "");
       const config = configurations.find((c) => c.id === configId);
       if (config) {
-        onNavigate?.('view-config', config);
+        onNavigate?.("view-config", config);
       }
-    } else if (key.startsWith('edit-config-')) {
-      const configId = key.replace('edit-config-', '');
+    } else if (key.startsWith("edit-config-")) {
+      const configId = key.replace("edit-config-", "");
       const config = configurations.find((c) => c.id === configId);
       if (config) {
-        onNavigate?.('edit-config', config);
+        onNavigate?.("edit-config", config);
       }
     }
-  };
-
-  // Only render theme toggle when mounted to avoid hydration mismatch
-  const renderThemeToggle = () => {
-    if (!mounted) {
-      return <Button type="text" icon={<SunOutlined />} className="sidebar__header-toggle" title="Switch to Dark" />;
-    }
-
-    return (
-      <Button
-        type="text"
-        icon={theme === ThemeEnum.LIGHT ? <MoonOutlined /> : <SunOutlined />}
-        onClick={handleThemeToggle}
-        className="sidebar__header-toggle"
-        title={theme === ThemeEnum.LIGHT ? 'Switch to Dark' : 'Switch to Light'}
-      />
-    );
   };
 
   // Create menu items with configurations as sub-items
   const menuItems = [
     {
-      key: 'home',
+      key: "home",
       icon: <HomeOutlined />,
-      label: 'Home',
+      label: "Home",
     },
     {
-      key: 'configurations',
+      key: "configurations",
       icon: <FileTextOutlined />,
-      label: 'Configurations',
+      label: "Configurations",
       children: [
         ...configurations.map((config) => ({
           key: `config-${config.id}`,
@@ -95,31 +85,37 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse, onNavi
   ];
 
   return (
-    <Sider collapsed={collapsed} className="sidebar">
+    <Sider collapsed={collapsed} className="sidebar" collapsedWidth={60}>
       <div className="sidebar__header">
         <h3
-          className={classNames('sidebar__header-title', {
-            'sidebar__header-title--collapsed': collapsed,
+          className={classNames("sidebar__header-title", {
+            "sidebar__header-title--collapsed": collapsed,
           })}
         >
-          {collapsed ? 'OF' : 'OllamaFlow'}
+          {collapsed ? "OF" : "OllamaFlow"}
         </h3>
-        <div className="sidebar__header-actions">
-          {renderThemeToggle()}
-          <Button
-            type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={() => onCollapse?.(!collapsed)}
-            className="sidebar__header-toggle"
-            title={collapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}
-          />
-        </div>
+        <div className="sidebar__header-actions"></div>
       </div>
+      <OllamaFlowFlex
+        justify="center"
+        className="mb mt"
+        vertical
+        align="center"
+        gap={10}
+      >
+        <Button
+          type="text"
+          icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+          onClick={() => onCollapse?.(!collapsed)}
+          className="sidebar__header-toggle"
+          title={collapsed ? "Expand Sidebar" : "Collapse Sidebar"}
+        />
+        <ThemeModeSwitch />
+      </OllamaFlowFlex>
       <Menu
         mode="inline"
-        defaultSelectedKeys={['home']}
+        defaultSelectedKeys={["home"]}
         items={menuItems}
-        className="sidebar__menu"
         onClick={handleMenuClick}
       />
     </Sider>

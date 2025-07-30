@@ -1,19 +1,19 @@
-import { theme, ThemeConfig } from 'antd';
+import { theme, ThemeConfig } from "antd";
 
 export const OllamaFlowTheme = {
-  primary: '#1890ff', // Ant Design default blue
-  primaryLight: '#40a9ff', // Lighter blue
-  primaryRed: '#d9383a',
-  secondaryBlue: '#b1e5ff',
-  secondaryYellow: '#ffe362',
-  borderGray: '#C1C1C1',
-  borderGrayDark: '#666666',
-  white: '#ffffff',
+  primary: "#1890ff", // Ant Design default blue
+  primaryLight: "#40a9ff", // Lighter blue
+  primaryRed: "#d9383a",
+  secondaryBlue: "#b1e5ff",
+  secondaryYellow: "#ffe362",
+  borderGray: "#C1C1C1",
+  borderGrayDark: "#666666",
+  white: "#ffffff",
   fontFamily: '"Inter", "serif"',
-  colorBgContainerDisabled: '#E9E9E9',
-  colorBgContainerDisabledDark: '#555555',
-  textDisabled: '#bbbbbb',
-  subHeadingColor: '#666666',
+  colorBgContainerDisabled: "#E9E9E9",
+  colorBgContainerDisabledDark: "#555555",
+  textDisabled: "#bbbbbb",
+  subHeadingColor: "#666666",
 };
 
 export const primaryTheme: ThemeConfig = {
@@ -28,7 +28,7 @@ export const primaryTheme: ThemeConfig = {
   },
   components: {
     Tabs: {
-      cardBg: '#F2F2F2',
+      cardBg: "#F2F2F2",
       titleFontSize: 12,
     },
     Typography: {
@@ -38,19 +38,19 @@ export const primaryTheme: ThemeConfig = {
       fontFamily: OllamaFlowTheme.fontFamily,
     },
     Menu: {
-      itemSelectedBg: '#fff',
+      itemSelectedBg: "#fff",
     },
     Button: {
       borderRadius: 4,
       primaryColor: OllamaFlowTheme.white,
-      defaultColor: '#333333',
+      defaultColor: "#333333",
       colorLink: OllamaFlowTheme.primary,
       colorLinkHover: OllamaFlowTheme.primary,
     },
     Table: {
-      headerBg: '#ffffff',
+      headerBg: "#ffffff",
       padding: 18,
-      borderColor: '#d1d5db',
+      borderColor: "#d1d5db",
     },
     Collapse: {
       headerBg: OllamaFlowTheme.white,
@@ -72,7 +72,7 @@ export const primaryTheme: ThemeConfig = {
     },
     Form: {
       labelColor: OllamaFlowTheme.subHeadingColor,
-      colorBorder: 'none',
+      colorBorder: "none",
       verticalLabelPadding: 0,
       itemMarginBottom: 10,
     },
@@ -81,9 +81,8 @@ export const primaryTheme: ThemeConfig = {
 
 export const darkTheme: ThemeConfig = {
   cssVar: true,
-  algorithm: theme.darkAlgorithm,
   token: {
-    colorBgBase: '#222222',
+    colorBgBase: "#222222",
     colorPrimary: OllamaFlowTheme.primaryLight,
     fontFamily: OllamaFlowTheme.fontFamily,
     colorBorder: OllamaFlowTheme.borderGrayDark,
@@ -92,7 +91,7 @@ export const darkTheme: ThemeConfig = {
   },
   components: {
     Tabs: {
-      cardBg: '#F2F2F2',
+      cardBg: "#F2F2F2",
       titleFontSize: 12,
     },
     Typography: {
@@ -102,20 +101,20 @@ export const darkTheme: ThemeConfig = {
       fontFamily: OllamaFlowTheme.fontFamily,
     },
     Menu: {
-      itemSelectedBg: '#222222',
-      itemSelectedColor: 'var(--ant-color-primary)',
+      itemSelectedBg: "#222222",
+      itemSelectedColor: "var(--ant-color-primary)",
     },
     Button: {
       borderRadius: 4,
       primaryColor: OllamaFlowTheme.white,
-      defaultColor: 'var(--ant-color-text-base)',
+      defaultColor: "var(--ant-color-text-base)",
       colorLink: OllamaFlowTheme.primaryLight,
       colorLinkHover: OllamaFlowTheme.primaryLight,
     },
     Table: {
-      headerBg: 'var(--ant-color-bg-container)',
+      headerBg: "var(--ant-color-bg-container)",
       padding: 18,
-      borderColor: 'var(--ant-color-border)',
+      borderColor: "var(--ant-color-border)",
     },
     Collapse: {
       headerBg: OllamaFlowTheme.white,
@@ -136,8 +135,8 @@ export const darkTheme: ThemeConfig = {
       fontFamily: OllamaFlowTheme.fontFamily,
     },
     Form: {
-      labelColor: 'var(--ant-color-text-base)',
-      colorBorder: 'none',
+      labelColor: "var(--ant-color-text-base)",
+      colorBorder: "none",
       verticalLabelPadding: 0,
       itemMarginBottom: 10,
     },
