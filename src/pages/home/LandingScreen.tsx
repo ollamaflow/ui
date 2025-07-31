@@ -15,6 +15,7 @@ import { Configuration } from "../../types/types";
 import { useAppContext } from "../../hooks/appHooks";
 import OllamaFlowFlex from "#/components/base/flex/Flex";
 import styles from "./home.module.scss";
+import Link from "next/link";
 
 interface LandingScreenProps {
   onNavigate?: (view: string, config?: Configuration) => void;
@@ -57,7 +58,7 @@ const LandingScreen: React.FC<LandingScreenProps> = ({ onNavigate }) => {
     <>
       {/* <Content className="landing-screen__content"> */}
       <div>
-        <OllamaFlowFlex vertical align="center" className="mb">
+        <OllamaFlowFlex vertical align="center" className="mt-xl">
           <OllamaFlowTitle level={1}>Welcome to OllamaFlow</OllamaFlowTitle>
           <OllamaFlowText>
             Create and manage your Ollama configuration files with our intuitive
@@ -66,10 +67,14 @@ const LandingScreen: React.FC<LandingScreenProps> = ({ onNavigate }) => {
         </OllamaFlowFlex>
 
         {/* Main Options */}
-        <Row gutter={[40, 40]} justify="center">
+        <Row gutter={[40, 40]} justify="center" className="mt-xl">
           <Col xs={24} sm={20} md={10} lg={8}>
-            <OllamaFlowCard onClick={handleGenerateNew}>
-              <OllamaFlowFlex vertical align="center" className="mb">
+            <OllamaFlowCard
+              onClick={handleGenerateNew}
+              className={styles.card}
+              hoverable
+            >
+              <OllamaFlowFlex vertical align="center" className="h-100">
                 <div>
                   <PlusOutlined
                     style={{
@@ -78,25 +83,33 @@ const LandingScreen: React.FC<LandingScreenProps> = ({ onNavigate }) => {
                     }}
                   />
                 </div>
-                <OllamaFlowTitle level={2}>Generate New Config</OllamaFlowTitle>
-                <OllamaFlowText>
+                <OllamaFlowTitle level={2} className="mt">
+                  Generate New Config
+                </OllamaFlowTitle>
+                <OllamaFlowText className="text-center">
                   Create a new configuration file from scratch with our
                   comprehensive guided form
                 </OllamaFlowText>
+                <Link href="/create-config" className="mt-auto">
+                  <OllamaFlowButton
+                    type="primary"
+                    size="large"
+                    icon={<FileTextOutlined />}
+                  >
+                    Start Creating
+                  </OllamaFlowButton>
+                </Link>
               </OllamaFlowFlex>
-              <OllamaFlowButton
-                type="primary"
-                size="large"
-                icon={<FileTextOutlined />}
-              >
-                Start Creating
-              </OllamaFlowButton>
             </OllamaFlowCard>
           </Col>
 
           <Col xs={24} sm={20} md={10} lg={8}>
-            <OllamaFlowCard onClick={handleEditExisting}>
-              <OllamaFlowFlex vertical align="center" className="mb">
+            <OllamaFlowCard
+              hoverable
+              onClick={handleEditExisting}
+              className={styles.card}
+            >
+              <OllamaFlowFlex vertical align="center" className="h-100">
                 <div>
                   <EditOutlined
                     style={{
@@ -105,17 +118,21 @@ const LandingScreen: React.FC<LandingScreenProps> = ({ onNavigate }) => {
                     }}
                   />
                 </div>
-                <OllamaFlowTitle level={2}>
+                <OllamaFlowTitle level={2} className="mt">
                   Edit Existing Config
                 </OllamaFlowTitle>
-                <OllamaFlowText>
+                <OllamaFlowText className="text-center">
                   Upload and edit your existing configuration files with our
                   visual editor
                 </OllamaFlowText>
+                <OllamaFlowButton
+                  className="mt-auto"
+                  size="large"
+                  icon={<UploadOutlined />}
+                >
+                  Upload & Edit
+                </OllamaFlowButton>
               </OllamaFlowFlex>
-              <OllamaFlowButton size="large" icon={<UploadOutlined />}>
-                Upload & Edit
-              </OllamaFlowButton>
             </OllamaFlowCard>
           </Col>
         </Row>

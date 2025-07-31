@@ -1,37 +1,8 @@
 @import "antd/dist/reset.css";
 
 :root {
-  --ollamaflow-primary: #1890ff;
-  --ollamaflow-primary-light: #40a9ff;
-  --ollamaflow-secondary-blue: #1890ff;
-  --ollamaflow-border-gray: #d9d9d9;
-  --ollamaflow-sub-heading: #666666;
-  --ollamaflow-white: #ffffff;
-  --ollamaflow-bg-light: #f5f5f5;
-  --ollamaflow-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  --ollamaflow-border-radius: 20px;
-  --ollamaflow-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  --ollamaflow-font-family: "Inter", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
-    "Droid Sans", "Helvetica Neue", sans-serif;
-
-  // Theme-aware variables
-  --ollamaflow-bg-base: var(--ant-color-bg-base, #ffffff);
-  --ollamaflow-text-base: var(--ant-color-text-base, #000000);
-  --ollamaflow-border-base: var(--ant-color-border, #d9d9d9);
-  --ollamaflow-card-bg: var(--ant-color-bg-container, #ffffff);
-}
-
-// Dark theme overrides - applied to both html and body
-[data-theme="dark"],
-html[data-theme="dark"],
-body[data-theme="dark"] {
-  --ollamaflow-bg-base: #222222;
-  --ollamaflow-text-base: #ffffff;
-  --ollamaflow-border-base: #666666;
-  --ollamaflow-card-bg: #333333;
-  --ollamaflow-bg-light: #2a2a2a;
-  --ollamaflow-sub-heading: #cccccc;
+  --ant-color-primary-light: #4b70f5;
+  --ant-color-primary-extra-light: #8cabff;
 }
 
 // Global styles (reset, fonts, scrollbar, Ant Design overrides)
@@ -39,22 +10,6 @@ body[data-theme="dark"] {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-  font-family: var(--ollamaflow-font-family);
-  background: var(--ollamaflow-bg-base);
-  color: var(--ollamaflow-text-base);
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-body {
-  color: var(--ollamaflow-text-base);
-  background: var(--ollamaflow-bg-base);
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .mb {
@@ -68,11 +23,19 @@ body {
 .mb-lg {
   margin-bottom: var(--ant-margin-lg);
 }
+.mt-xl {
+  margin-top: var(--ant-margin-xl) !important;
+}
 .mt-lg {
   margin-top: var(--ant-margin-lg);
 }
+
 .mt-xs {
   margin-top: var(--ant-margin-xs);
+}
+
+.mt-auto {
+  margin-top: auto !important;
 }
 
 .mb-sm {
@@ -194,8 +157,14 @@ body {
   text-decoration: underline;
   cursor: pointer;
 }
+.text-center {
+  text-align: center;
+}
 .w-100 {
   width: 100%;
+}
+.h-100 {
+  height: 100%;
 }
 .cursor-pointer {
   cursor: pointer;
@@ -223,257 +192,6 @@ a {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--ollamaflow-sub-heading);
-}
-
-// Ant Design overrides
-.ant-layout-sider {
-  background: var(--ollamaflow-card-bg) !important;
-  border-right: 1px solid var(--ollamaflow-border-base) !important;
-}
-
-.ant-menu-inline .ant-menu-item-selected {
-  background-color: var(--ollamaflow-primary) !important;
-  color: var(--ollamaflow-white) !important;
-}
-
-.ant-menu-inline .ant-menu-item:hover {
-  background-color: var(--ollamaflow-primary) 10 !important;
-}
-
-.ant-card {
-  background: var(--ollamaflow-card-bg) !important;
-  border-color: var(--ollamaflow-border-base) !important;
-}
-
-.ant-layout {
-  background: var(--ollamaflow-bg-base) !important;
-}
-
-.ant-layout-content {
-  background: var(--ollamaflow-bg-base) !important;
-}
-
-// Landing screen styles
-.landing-screen {
-  min-height: 100vh;
-  padding: 24px;
-  transition: background 0.3s ease;
-
-  &__content {
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-
-  &__header {
-    text-align: center;
-    margin-bottom: 64px;
-    margin-top: 32px;
-
-    &-title {
-      color: var(--ollamaflow-primary);
-      margin-bottom: 20px;
-      font-size: 3.5rem;
-      font-weight: 700;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    &-subtitle {
-      font-size: 20px;
-      color: var(--ollamaflow-sub-heading);
-      max-width: 600px;
-      margin: 0 auto;
-      line-height: 1.6;
-    }
-  }
-
-  &__options {
-    margin-top: 40px;
-  }
-
-  &__card {
-    text-align: center;
-    border: none;
-    border-radius: var(--ollamaflow-border-radius);
-    cursor: pointer;
-    transition: var(--ollamaflow-transition);
-    box-shadow: var(--ollamaflow-shadow);
-    background: var(--ollamaflow-card-bg);
-    height: 100%;
-    min-height: 320px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    &:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-    }
-
-    &-icon {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 24px;
-      border: 2px solid;
-
-      &--primary {
-        background: linear-gradient(
-          135deg,
-          var(--ollamaflow-primary) 20 0%,
-          var(--ollamaflow-primary) 10 100%
-        );
-        border-color: var(--ollamaflow-primary) 30;
-      }
-
-      &--secondary {
-        background: linear-gradient(
-          135deg,
-          var(--ollamaflow-secondary-blue) 20 0%,
-          var(--ollamaflow-secondary-blue) 10 100%
-        );
-        border-color: var(--ollamaflow-secondary-blue) 30;
-      }
-    }
-
-    &-title {
-      margin-bottom: 16px;
-      color: var(--ollamaflow-text-base);
-      font-weight: 600;
-    }
-
-    &-description {
-      color: var(--ollamaflow-sub-heading);
-      margin-bottom: 0;
-      font-size: 16px;
-      line-height: 1.6;
-    }
-
-    &-button {
-      background: linear-gradient(
-        135deg,
-        var(--ollamaflow-primary) 0%,
-        var(--ollamaflow-primary-light) 100%
-      );
-      border: none;
-      border-radius: 12px;
-      height: 52px;
-      font-size: 16px;
-      font-weight: 600;
-      box-shadow: 0 4px 12px rgba(85, 143, 66, 0.3);
-      margin-top: 24px;
-    }
-
-    &-button--secondary {
-      background: transparent;
-      border: 2px solid var(--ollamaflow-secondary-blue);
-      color: var(--ollamaflow-secondary-blue);
-      border-radius: 12px;
-      height: 52px;
-      font-size: 16px;
-      font-weight: 600;
-      margin-top: 24px;
-      transition: all 0.3s ease;
-
-      &:hover {
-        background: var(--ollamaflow-secondary-blue);
-        color: white;
-      }
-    }
-  }
-}
-
-// Config form styles
-.config-form {
-  min-height: 100vh;
-  background: var(--ollamaflow-bg-light);
-
-  &__header {
-    margin-bottom: 24px;
-
-    &Content {
-      width: 100%;
-      justify-content: space-between;
-    }
-
-    &Title {
-      margin: 0;
-      color: var(--ollamaflow-primary);
-    }
-
-    &Actions {
-      gap: 8px;
-    }
-  }
-
-  &__steps {
-    margin-bottom: 24px;
-  }
-
-  &__content {
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-
-  &__section {
-    margin-bottom: 24px;
-
-    &Title {
-      margin-bottom: 24px;
-      color: var(--ollamaflow-primary);
-    }
-
-    &Description {
-      margin-bottom: 24px;
-      color: var(--ollamaflow-sub-heading);
-    }
-  }
-
-  &__card {
-    margin-bottom: 16px;
-    border: 1px solid var(--ollamaflow-border-base);
-
-    &Header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-
-      &Title {
-        margin: 0;
-      }
-
-      &Remove {
-        border: none;
-        padding: 4px;
-        color: var(--ollamaflow-primary);
-        margin-left: 8px;
-      }
-    }
-  }
-
-  &__actions {
-    margin-top: 24px;
-    text-align: center;
-    gap: 16px;
-  }
-
-  &__review {
-    &Card {
-      margin-bottom: 16px;
-    }
-
-    &Item {
-      margin-bottom: 8px;
-    }
-
-    &Empty {
-      color: var(--ollamaflow-sub-heading);
-      font-style: italic;
-    }
-  }
 }
 
 // Modal styles
@@ -506,179 +224,25 @@ a {
     font-family: "Courier New", monospace;
   }
 }
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+.d-none {
+  display: none;
+}
 
-// Sidebar styles
-.sidebar {
-  background: var(--ollamaflow-card-bg) !important;
-  border-right: 1px solid var(--ollamaflow-border-base);
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+.divider-primary {
+  border-color: var(--ant-color-border) !important;
+}
 
-  &__header {
-    padding: 20px 16px;
-    text-align: center;
-    border-bottom: 1px solid var(--ollamaflow-border-base);
-    margin-bottom: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: linear-gradient(
-      135deg,
-      var(--ollamaflow-primary) 0%,
-      var(--ollamaflow-primary-light) 100%
-    );
-    color: white;
-
-    &-title {
-      margin: 0;
-      color: white;
-      font-size: 18px;
-      font-weight: 600;
-      flex: 1;
-      text-align: left;
-      transition: all 0.3s ease;
-    }
-
-    &-title--collapsed {
-      font-size: 14px;
-      text-align: center;
-      flex: none;
-    }
-
-    &-actions {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-
-    &-toggle {
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 6px;
-      padding: 6px;
-      color: white;
-      background: rgba(255, 255, 255, 0.1);
-      transition: all 0.3s ease;
-      min-width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      &:hover {
-        background: rgba(255, 255, 255, 0.2);
-        border-color: rgba(255, 255, 255, 0.5);
-        transform: translateY(-1px);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-      }
-
-      &:active {
-        transform: translateY(0);
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-      }
-    }
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
   }
-
-  &__menu {
-    border: none;
-    background: transparent;
-    padding: 8px;
-
-    .ant-menu-item {
-      border-radius: 8px;
-      margin: 4px 8px;
-      height: 40px;
-      line-height: 40px;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-
-      &:hover {
-        background: var(--ollamaflow-primary) 10 !important;
-        color: var(--ollamaflow-primary) !important;
-        transform: translateX(4px);
-        box-shadow: 0 2px 8px var(--ollamaflow-primary) 20;
-      }
-
-      &.ant-menu-item-selected {
-        background: var(--ollamaflow-primary) !important;
-        color: white !important;
-        box-shadow: 0 2px 8px var(--ollamaflow-primary) 30;
-
-        &:hover {
-          background: var(--ollamaflow-primary-light) !important;
-          transform: translateX(4px);
-        }
-      }
-
-      &::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 3px;
-        background: var(--ollamaflow-primary);
-        transform: scaleY(0);
-        transition: transform 0.3s ease;
-      }
-
-      &:hover::before,
-      &.ant-menu-item-selected::before {
-        transform: scaleY(1);
-      }
-    }
-
-    .ant-menu-submenu {
-      border-radius: 8px;
-      margin: 4px 8px;
-      transition: all 0.3s ease;
-
-      .ant-menu-submenu-title {
-        border-radius: 8px;
-        height: 40px;
-        line-height: 40px;
-        transition: all 0.3s ease;
-
-        &:hover {
-          background: var(--ollamaflow-primary) 10 !important;
-          color: var(--ollamaflow-primary) !important;
-          transform: translateX(4px);
-          box-shadow: 0 2px 8px var(--ollamaflow-primary) 20;
-        }
-      }
-
-      &.ant-menu-submenu-open {
-        .ant-menu-submenu-title {
-          background: var(--ollamaflow-primary) 10 !important;
-          color: var(--ollamaflow-primary) !important;
-        }
-      }
-    }
-
-    .ant-menu-sub {
-      background: transparent !important;
-      padding-left: 16px;
-
-      .ant-menu-item {
-        margin: 2px 0;
-        height: 36px;
-        line-height: 36px;
-        font-size: 13px;
-        border-radius: 6px;
-
-        &:hover {
-          background: var(--ollamaflow-primary) 10 !important;
-          color: var(--ollamaflow-primary) !important;
-          transform: translateX(4px);
-          box-shadow: 0 2px 8px var(--ollamaflow-primary) 20;
-        }
-
-        &.ant-menu-item-selected {
-          background: var(--ollamaflow-primary) 15 !important;
-          color: var(--ollamaflow-primary) !important;
-          font-weight: 500;
-          box-shadow: 0 2px 8px var(--ollamaflow-primary) 30;
-        }
-      }
-    }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

@@ -6,9 +6,9 @@ import React, { useState, useEffect } from "react";
 import { ThemeEnum, Configuration } from "../types/types";
 import { darkTheme, primaryTheme } from "../theme/theme";
 import { ConfigProvider } from "antd";
-// import AuthLayout from '@/components/layout/AuthLayout';
-// import StoreProvider from '@/lib/store/StoreProvider';
 import { localStorageKeys } from "../constants/constant";
+import DashboardLayout from "#/components/layout/DashboardLayout";
+import StoreProvider from "#/lib/store/StoreProvider";
 
 const getThemeFromLocalStorage = () => {
   let theme;
@@ -88,28 +88,28 @@ const AppProviders = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    // <StoreProvider>
-    <AppContext.Provider
-      value={{
-        theme,
-        setTheme: handleThemeChange,
-        configurations,
-        addConfiguration,
-        removeConfiguration,
-        updateConfiguration,
-      }}
-    >
-      <StyleProvider hashPriority="high">
-        <AntdRegistry>
-          <ConfigProvider
-            theme={theme === ThemeEnum.LIGHT ? primaryTheme : darkTheme}
-          >
-            {children}
-          </ConfigProvider>
-        </AntdRegistry>
-      </StyleProvider>
-    </AppContext.Provider>
-    // </StoreProvider>
+    <StoreProvider>
+      <AppContext.Provider
+        value={{
+          theme,
+          setTheme: handleThemeChange,
+          configurations,
+          addConfiguration,
+          removeConfiguration,
+          updateConfiguration,
+        }}
+      >
+        <StyleProvider hashPriority="high">
+          <AntdRegistry>
+            <ConfigProvider
+              theme={theme === ThemeEnum.LIGHT ? primaryTheme : darkTheme}
+            >
+              <DashboardLayout>{children}</DashboardLayout>
+            </ConfigProvider>
+          </AntdRegistry>
+        </StyleProvider>
+      </AppContext.Provider>
+    </StoreProvider>
   );
 };
 

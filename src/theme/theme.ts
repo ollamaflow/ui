@@ -1,9 +1,10 @@
 import { theme, ThemeConfig } from "antd";
 
-export const OllamaFlowTheme = {
-  primary: "#1890ff", // Ant Design default blue
-  primaryLight: "#40a9ff", // Lighter blue
-  primaryRed: "#d9383a",
+export const LightGraphTheme = {
+  primary: "#4C3BCF", //95DB7B
+  primaryLight: "#4B70F5",
+  primaryExtraLight: "#8CABFF",
+  primaryRed: "#B2B0E8",
   secondaryBlue: "#b1e5ff",
   secondaryYellow: "#ffe362",
   borderGray: "#C1C1C1",
@@ -20,11 +21,13 @@ export const primaryTheme: ThemeConfig = {
   cssVar: true,
   algorithm: theme.defaultAlgorithm,
   token: {
-    colorPrimary: OllamaFlowTheme.primary,
-    fontFamily: OllamaFlowTheme.fontFamily,
-    colorBorder: OllamaFlowTheme.borderGray,
-    colorTextDisabled: OllamaFlowTheme.textDisabled,
-    colorBgContainerDisabled: OllamaFlowTheme.colorBgContainerDisabled,
+    colorBgElevated: "#f5f5f5",
+    colorBgBase: "#ffffff",
+    colorPrimary: LightGraphTheme.primary,
+    fontFamily: LightGraphTheme.fontFamily,
+    colorBorder: LightGraphTheme.borderGray,
+    colorTextDisabled: LightGraphTheme.textDisabled,
+    colorBgContainerDisabled: LightGraphTheme.colorBgContainerDisabled,
   },
   components: {
     Tabs: {
@@ -35,17 +38,17 @@ export const primaryTheme: ThemeConfig = {
       fontWeightStrong: 400,
     },
     Layout: {
-      fontFamily: OllamaFlowTheme.fontFamily,
+      fontFamily: LightGraphTheme.fontFamily,
     },
     Menu: {
       itemSelectedBg: "#fff",
     },
     Button: {
       borderRadius: 4,
-      primaryColor: OllamaFlowTheme.white,
+      primaryColor: LightGraphTheme.white,
       defaultColor: "#333333",
-      colorLink: OllamaFlowTheme.primary,
-      colorLinkHover: OllamaFlowTheme.primary,
+      colorLink: LightGraphTheme.primary,
+      colorLinkHover: LightGraphTheme.primary,
     },
     Table: {
       headerBg: "#ffffff",
@@ -53,7 +56,7 @@ export const primaryTheme: ThemeConfig = {
       borderColor: "#d1d5db",
     },
     Collapse: {
-      headerBg: OllamaFlowTheme.white,
+      headerBg: LightGraphTheme.white,
     },
     Input: {
       borderRadiusLG: 3,
@@ -64,14 +67,14 @@ export const primaryTheme: ThemeConfig = {
       borderRadiusLG: 3,
       borderRadius: 3,
       borderRadiusXS: 3,
-      optionSelectedColor: OllamaFlowTheme.white,
-      optionSelectedBg: OllamaFlowTheme.primary,
+      optionSelectedColor: LightGraphTheme.white,
+      optionSelectedBg: LightGraphTheme.primary,
     },
     Pagination: {
-      fontFamily: OllamaFlowTheme.fontFamily,
+      fontFamily: LightGraphTheme.fontFamily,
     },
     Form: {
-      labelColor: OllamaFlowTheme.subHeadingColor,
+      labelColor: LightGraphTheme.subHeadingColor,
       colorBorder: "none",
       verticalLabelPadding: 0,
       itemMarginBottom: 10,
@@ -81,13 +84,15 @@ export const primaryTheme: ThemeConfig = {
 
 export const darkTheme: ThemeConfig = {
   cssVar: true,
+  algorithm: theme.darkAlgorithm,
   token: {
+    colorBgElevated: "#353535",
     colorBgBase: "#222222",
-    colorPrimary: OllamaFlowTheme.primaryLight,
-    fontFamily: OllamaFlowTheme.fontFamily,
-    colorBorder: OllamaFlowTheme.borderGrayDark,
-    colorTextDisabled: OllamaFlowTheme.textDisabled,
-    colorBgContainerDisabled: OllamaFlowTheme.colorBgContainerDisabledDark,
+    colorPrimary: LightGraphTheme.primaryLight,
+    fontFamily: LightGraphTheme.fontFamily,
+    colorBorder: LightGraphTheme.borderGrayDark,
+    colorTextDisabled: LightGraphTheme.textDisabled,
+    colorBgContainerDisabled: LightGraphTheme.colorBgContainerDisabledDark,
   },
   components: {
     Tabs: {
@@ -98,18 +103,18 @@ export const darkTheme: ThemeConfig = {
       fontWeightStrong: 400,
     },
     Layout: {
-      fontFamily: OllamaFlowTheme.fontFamily,
+      fontFamily: LightGraphTheme.fontFamily,
     },
     Menu: {
       itemSelectedBg: "#222222",
-      itemSelectedColor: "var(--ant-color-primary)",
+      itemSelectedColor: LightGraphTheme.primaryExtraLight,
     },
     Button: {
       borderRadius: 4,
-      primaryColor: OllamaFlowTheme.white,
+      primaryColor: LightGraphTheme.white,
       defaultColor: "var(--ant-color-text-base)",
-      colorLink: OllamaFlowTheme.primaryLight,
-      colorLinkHover: OllamaFlowTheme.primaryLight,
+      colorLink: LightGraphTheme.primaryLight,
+      colorLinkHover: LightGraphTheme.primaryLight,
     },
     Table: {
       headerBg: "var(--ant-color-bg-container)",
@@ -117,7 +122,7 @@ export const darkTheme: ThemeConfig = {
       borderColor: "var(--ant-color-border)",
     },
     Collapse: {
-      headerBg: OllamaFlowTheme.white,
+      headerBg: LightGraphTheme.white,
     },
     Input: {
       borderRadiusLG: 3,
@@ -128,11 +133,11 @@ export const darkTheme: ThemeConfig = {
       borderRadiusLG: 3,
       borderRadius: 3,
       borderRadiusXS: 3,
-      optionSelectedColor: OllamaFlowTheme.white,
-      optionSelectedBg: OllamaFlowTheme.primary,
+      optionSelectedColor: LightGraphTheme.white,
+      optionSelectedBg: LightGraphTheme.primary,
     },
     Pagination: {
-      fontFamily: OllamaFlowTheme.fontFamily,
+      fontFamily: LightGraphTheme.fontFamily,
     },
     Form: {
       labelColor: "var(--ant-color-text-base)",

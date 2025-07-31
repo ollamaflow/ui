@@ -15,6 +15,10 @@ import { ThemeEnum, Configuration } from "../../../types/types";
 import "../../../assets/css/globals.scss";
 import OllamaFlowFlex from "../flex/Flex";
 import ThemeModeSwitch from "#/components/theme-mode-switch/ThemeModeSwitch";
+import styles from "./sidebar.module.scss";
+import OllamaFlowTitle from "../typograpghy/Title";
+import OllamaFlowText from "../typograpghy/Text";
+import Link from "next/link";
 
 const { Sider } = Layout;
 
@@ -68,7 +72,12 @@ const Sidebar: React.FC<SidebarProps> = ({
     {
       key: "home",
       icon: <HomeOutlined />,
-      label: "Home",
+      label: <Link href="/">Home</Link>,
+    },
+    {
+      key: "create-config",
+      icon: <PlusOutlined />,
+      label: <Link href="/create-config">Create Config</Link>,
     },
     {
       key: "configurations",
@@ -77,7 +86,7 @@ const Sidebar: React.FC<SidebarProps> = ({
       children: [
         ...configurations.map((config) => ({
           key: `config-${config.id}`,
-          label: config.name,
+          label: <Link href={`/config/${config.id}`}>{config.name}</Link>,
           icon: <FileTextOutlined />,
         })),
       ],
@@ -85,20 +94,40 @@ const Sidebar: React.FC<SidebarProps> = ({
   ];
 
   return (
-    <Sider collapsed={collapsed} className="sidebar" collapsedWidth={60}>
-      <div className="sidebar__header">
-        <h3
-          className={classNames("sidebar__header-title", {
-            "sidebar__header-title--collapsed": collapsed,
-          })}
-        >
-          {collapsed ? "OF" : "OllamaFlow"}
-        </h3>
-        <div className="sidebar__header-actions"></div>
-      </div>
+    <Sider
+      theme="light"
+      width={200}
+      trigger={null}
+      collapsible
+      collapsed={collapsed}
+      collapsedWidth={60}
+      className={styles.sidebarContainer}
+    >
       <OllamaFlowFlex
         justify="center"
-        className="mb mt"
+        gap={8}
+        align="center"
+        className={styles.logoContainer}
+      >
+        <OllamaFlowText weight={600} fontSize={20}>
+          {collapsed ? (
+            <img
+              src="/images/ollama-flow-icon.png"
+              alt="OllamaFlow"
+              height={30}
+            />
+          ) : (
+            <img
+              src="/images/ollama-flow-logo.png"
+              alt="OllamaFlow"
+              height={35}
+            />
+          )}
+        </OllamaFlowText>
+      </OllamaFlowFlex>
+      <OllamaFlowFlex
+        justify="center"
+        className=" mt"
         vertical
         align="center"
         gap={10}
@@ -107,10 +136,8 @@ const Sidebar: React.FC<SidebarProps> = ({
           type="text"
           icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
           onClick={() => onCollapse?.(!collapsed)}
-          className="sidebar__header-toggle"
           title={collapsed ? "Expand Sidebar" : "Collapse Sidebar"}
         />
-        <ThemeModeSwitch />
       </OllamaFlowFlex>
       <Menu
         mode="inline"
