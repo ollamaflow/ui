@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Layout, Row, Col, message } from "antd";
 import {
   PlusOutlined,
-  EditOutlined,
   FileTextOutlined,
   UploadOutlined,
 } from "@ant-design/icons";
@@ -111,12 +110,7 @@ const LandingScreen: React.FC<LandingScreenProps> = ({ onNavigate }) => {
             >
               <OllamaFlowFlex vertical align="center" className="h-100">
                 <div>
-                  <EditOutlined
-                    style={{
-                      fontSize: "40px",
-                      color: "var(--ant-color-primary)",
-                    }}
-                  />
+                  <FileTextOutlined />
                 </div>
                 <OllamaFlowTitle level={2} className="mt">
                   Edit Existing Config

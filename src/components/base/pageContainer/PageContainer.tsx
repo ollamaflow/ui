@@ -1,10 +1,9 @@
-import React from 'react';
-import classNames from 'classnames';
-import OllamaFlowFlex from '../flex/Flex';
-import OllamaFlowText from '../typograpghy/Text';
-import styles from './pageContainer.module.scss';
-import { Content } from 'antd/es/layout/layout';
-import { useAppDispatch } from '@/lib/store/hooks';
+import React from "react";
+import classNames from "classnames";
+import OllamaFlowFlex from "../flex/Flex";
+import OllamaFlowText from "../typograpghy/Text";
+import styles from "./pageContainer.module.scss";
+import { Content } from "antd/es/layout/layout";
 
 const PageContainer = ({
   children,
@@ -18,17 +17,24 @@ const PageContainer = ({
   className?: string;
   withoutWhiteBG?: boolean;
   id?: string;
-  pageTitle?: JSX.Element | string;
-  pageTitleRightContent?: JSX.Element;
+  pageTitle?: React.ReactNode | string;
+  pageTitleRightContent?: React.ReactNode;
   showGraphSelector?: boolean;
 }) => {
-  const dispatch = useAppDispatch();
-
   return (
-    <Content className={classNames(className, !withoutWhiteBG && styles.pageContainer)} id={id}>
+    <Content
+      className={classNames(className, !withoutWhiteBG && styles.pageContainer)}
+      id={id}
+    >
       {(pageTitle || pageTitleRightContent) && (
         <>
-          <OllamaFlowFlex className={styles.pageTitleContainer} wrap gap="small" align="center" justify="space-between">
+          <OllamaFlowFlex
+            className={styles.pageTitleContainer}
+            wrap
+            gap="small"
+            align="center"
+            justify="space-between"
+          >
             <OllamaFlowText fontSize={16} weight={600} data-testid="heading">
               {pageTitle}
             </OllamaFlowText>

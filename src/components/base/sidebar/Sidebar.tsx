@@ -5,18 +5,13 @@ import {
   HomeOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  SunOutlined,
-  MoonOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
-import classNames from "classnames";
-import { useAppContext } from "../../../hooks/appHooks";
-import { ThemeEnum, Configuration } from "../../../types/types";
+import { useAppContext } from "#/hooks/appHooks";
+import { ThemeEnum, Configuration } from "#/types/types";
 import "../../../assets/css/globals.scss";
 import OllamaFlowFlex from "../flex/Flex";
-import ThemeModeSwitch from "#/components/theme-mode-switch/ThemeModeSwitch";
 import styles from "./sidebar.module.scss";
-import OllamaFlowTitle from "../typograpghy/Title";
 import OllamaFlowText from "../typograpghy/Text";
 import Link from "next/link";
 
