@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Layout, Menu, Button } from "antd";
 import {
   FileTextOutlined,
@@ -6,73 +6,47 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   PlusOutlined,
+  CloudServerOutlined,
 } from "@ant-design/icons";
 import { useAppContext } from "#/hooks/appHooks";
-import { ThemeEnum, Configuration } from "#/types/types";
 import "../../../assets/css/globals.scss";
 import OllamaFlowFlex from "../flex/Flex";
 import styles from "./sidebar.module.scss";
 import OllamaFlowText from "../typograpghy/Text";
 import Link from "next/link";
+import { paths } from "#/constants/constant";
 
 const { Sider } = Layout;
 
 interface SidebarProps {
   collapsed?: boolean;
   onCollapse?: (collapsed: boolean) => void;
-  onNavigate?: (view: string, config?: Configuration) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({
-  collapsed = false,
-  onCollapse,
-  onNavigate,
-}) => {
-  const { theme, setTheme, configurations } = useAppContext();
-  const [mounted, setMounted] = useState(false);
-
-  // Set mounted flag after mount to avoid hydration mismatch
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const handleThemeToggle = () => {
-    const newTheme =
-      theme === ThemeEnum.LIGHT ? ThemeEnum.DARK : ThemeEnum.LIGHT;
-    setTheme(newTheme);
-  };
-
-  const handleMenuClick = ({ key }: { key: string }) => {
-    if (key === "home") {
-      onNavigate?.("home");
-    } else if (key === "new-config") {
-      onNavigate?.("create-config");
-    } else if (key.startsWith("config-")) {
-      const configId = key.replace("config-", "");
-      const config = configurations.find((c) => c.id === configId);
-      if (config) {
-        onNavigate?.("view-config", config);
-      }
-    } else if (key.startsWith("edit-config-")) {
-      const configId = key.replace("edit-config-", "");
-      const config = configurations.find((c) => c.id === configId);
-      if (config) {
-        onNavigate?.("edit-config", config);
-      }
-    }
-  };
+const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse }) => {
+  const { configurations } = useAppContext();
 
   // Create menu items with configurations as sub-items
   const menuItems = [
     {
       key: "home",
       icon: <HomeOutlined />,
-      label: <Link href="/">Home</Link>,
+      label: <Link href={paths.Dashboard}>Home</Link>,
     },
     {
       key: "create-config",
       icon: <PlusOutlined />,
-      label: <Link href="/create-config">Create Config</Link>,
+      label: <Link href={paths.DashboardCreateConfig}>Create Config</Link>,
+    },
+    {
+      key: "frontends",
+      icon: <FileTextOutlined />,
+      label: <Link href={paths.DashboardFrontends}>Frontends</Link>,
+    },
+    {
+      key: "backends",
+      icon: <CloudServerOutlined />,
+      label: <Link href={paths.DashboardBackends}>Backends</Link>,
     },
     {
       key: "configurations",
@@ -81,7 +55,9 @@ const Sidebar: React.FC<SidebarProps> = ({
       children: [
         ...configurations.map((config) => ({
           key: `config-${config.id}`,
-          label: <Link href={`/config/${config.id}`}>{config.name}</Link>,
+          label: (
+            <Link href={`${paths.Dashboard}/${config.id}`}>{config.name}</Link>
+          ),
           icon: <FileTextOutlined />,
         })),
       ],
@@ -109,14 +85,17 @@ const Sidebar: React.FC<SidebarProps> = ({
             <img
               src="/images/ollama-flow-icon.png"
               alt="OllamaFlow"
-              height={30}
+              height={40}
             />
           ) : (
-            <img
-              src="/images/ollama-flow-logo.png"
-              alt="OllamaFlow"
-              height={35}
-            />
+            <OllamaFlowFlex align="center" gap={7} className="fade-in">
+              <img
+                src="/images/ollama-flow-icon.png"
+                alt="OllamaFlow"
+                height={40}
+              />
+              OllamaFlow
+            </OllamaFlowFlex>
           )}
         </OllamaFlowText>
       </OllamaFlowFlex>
@@ -134,12 +113,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           title={collapsed ? "Expand Sidebar" : "Collapse Sidebar"}
         />
       </OllamaFlowFlex>
-      <Menu
-        mode="inline"
-        defaultSelectedKeys={["home"]}
-        items={menuItems}
-        onClick={handleMenuClick}
-      />
+      <Menu mode="inline" defaultSelectedKeys={["home"]} items={menuItems} />
     </Sider>
   );
 };

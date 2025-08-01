@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
-import LoginPage from "#/pages/login/LoginPage";
+import LandingScreen from "#/pages/home/LandingScreen";
 
 const page = () => {
-  return <LoginPage />;
+  return <LandingScreen />;
 };
 
 export default page;

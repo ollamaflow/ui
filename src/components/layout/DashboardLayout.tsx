@@ -10,12 +10,17 @@ import OllamaFlowTooltip from "#/components/base/tooltip/Tooltip";
 
 import styles from "./dashboardLayout.module.scss";
 import { useAppContext } from "#/hooks/appHooks";
+import { useLogout } from "#/hooks/authHooks";
+import OllamaFlowButton from "../base/button/Button";
+import { LogoutOutlined } from "@ant-design/icons";
 
 const { Content, Header } = Layout;
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const { theme } = useAppContext();
   const [collapsed, setCollapsed] = useState(false);
+
+  const logout = useLogout();
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -35,6 +40,15 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
               <ThemeModeSwitch />
             </OllamaFlowTooltip>
           </OllamaFlowFlex>
+          <OllamaFlowButton
+            type="primary"
+            variant="link"
+            onClick={logout}
+            className="text-white"
+            icon={<LogoutOutlined />}
+          >
+            Logout
+          </OllamaFlowButton>
         </Header>
         {children}
       </Layout>

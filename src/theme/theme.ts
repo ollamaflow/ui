@@ -1,8 +1,8 @@
 import { theme, ThemeConfig } from "antd";
 
 export const LightGraphTheme = {
-  primary: "#4C3BCF", //95DB7B
-  primaryLight: "#4B70F5",
+  primary: "#0d8064", //95DB7B
+  primaryLight: "#10a37f",
   primaryExtraLight: "#8CABFF",
   primaryRed: "#B2B0E8",
   secondaryBlue: "#b1e5ff",

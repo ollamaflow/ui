@@ -1,10 +1,6 @@
 import React, { useState } from "react";
-import { Layout, Row, Col, message } from "antd";
-import {
-  PlusOutlined,
-  FileTextOutlined,
-  UploadOutlined,
-} from "@ant-design/icons";
+import { Row, Col, message } from "antd";
+import { PlusOutlined, EditOutlined, UploadOutlined } from "@ant-design/icons";
 import OllamaFlowCard from "../../components/base/card/Card";
 import OllamaFlowButton from "../../components/base/button/Button";
 import OllamaFlowTitle from "../../components/base/typograpghy/Title";
@@ -93,7 +89,7 @@ const LandingScreen: React.FC<LandingScreenProps> = ({ onNavigate }) => {
                   <OllamaFlowButton
                     type="primary"
                     size="large"
-                    icon={<FileTextOutlined />}
+                    icon={<PlusOutlined />}
                   >
                     Start Creating
                   </OllamaFlowButton>
@@ -110,7 +106,12 @@ const LandingScreen: React.FC<LandingScreenProps> = ({ onNavigate }) => {
             >
               <OllamaFlowFlex vertical align="center" className="h-100">
                 <div>
-                  <FileTextOutlined />
+                  <EditOutlined
+                    style={{
+                      fontSize: "40px",
+                      color: "var(--ant-color-primary)",
+                    }}
+                  />
                 </div>
                 <OllamaFlowTitle level={2} className="mt">
                   Edit Existing Config

@@ -1,12 +1,12 @@
-import React from 'react';
-import { LoadingOutlined } from '@ant-design/icons';
-import styles from './pageLoding.module.css';
-import OllamaFlowText from '../typograpghy/Text';
-import OllamaFlowFlex from '../flex/Flex';
-import PageContainer from '../pageContainer/PageContainer';
+import React from "react";
+import { LoadingOutlined } from "@ant-design/icons";
+import styles from "./pageLoding.module.scss";
+import OllamaFlowText from "../typograpghy/Text";
+import OllamaFlowFlex from "../flex/Flex";
+import PageContainer from "../pageContainer/PageContainer";
 
 const PageLoading = ({
-  message = 'Loading...',
+  message = "Loading...",
   withoutWhiteBG = false,
   className,
 }: {

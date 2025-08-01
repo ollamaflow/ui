@@ -7,8 +7,8 @@ import { ThemeEnum, Configuration } from "../types/types";
 import { darkTheme, primaryTheme } from "../theme/theme";
 import { ConfigProvider } from "antd";
 import { localStorageKeys } from "../constants/constant";
-import DashboardLayout from "#/components/layout/DashboardLayout";
 import StoreProvider from "#/lib/store/StoreProvider";
+import AuthLayout from "./AuthLayout";
 
 const getThemeFromLocalStorage = () => {
   let theme;
@@ -104,7 +104,7 @@ const AppProviders = ({ children }: { children: React.ReactNode }) => {
             <ConfigProvider
               theme={theme === ThemeEnum.LIGHT ? primaryTheme : darkTheme}
             >
-              <DashboardLayout>{children}</DashboardLayout>
+              <AuthLayout>{children}</AuthLayout>
             </ConfigProvider>
           </AntdRegistry>
         </StyleProvider>

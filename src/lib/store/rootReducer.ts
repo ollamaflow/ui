@@ -1,17 +1,32 @@
-import { UnknownAction, combineReducers } from "@reduxjs/toolkit";
+import { UnknownAction, combineReducers, createAction } from "@reduxjs/toolkit";
 import { rtkQueryErrorLogger } from "./rtkApiMiddlewear";
-import sdkSlice from "./rtk/rtkSdkInstance";
+import apiSlice from "./rtk/rtkApiInstance";
+import ollamaFlowReducer from "./ollamaflow/reducer";
+import { localStorageKeys, paths } from "#/constants/constant";
 
 const rootReducer = combineReducers({
-  [sdkSlice.reducerPath]: sdkSlice.reducer,
+  [apiSlice.reducerPath]: apiSlice.reducer,
+  ollamaFlow: ollamaFlowReducer,
 });
 
-export const apiMiddleWares = [rtkQueryErrorLogger, sdkSlice.middleware];
+export const apiMiddleWares = [rtkQueryErrorLogger, apiSlice.middleware];
+
+export const logout = createAction("logout");
+
+export const handleLogout = (path?: string) => {
+  console.log("handleLogout");
+  localStorage.removeItem(localStorageKeys.adminAccessKey);
+  localStorage.removeItem(localStorageKeys.serverUrl);
+  window.location.href = path ? path : paths.Login;
+};
 
 const resettableRootReducer = (
   state: ReturnType<typeof rootReducer> | undefined,
   action: UnknownAction
 ) => {
+  if (action.type === "logout") {
+    handleLogout(action.payload as any);
+  }
   return rootReducer(state, action);
 };
 
