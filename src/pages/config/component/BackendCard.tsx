@@ -6,7 +6,6 @@ import {
   HeartOutlined,
   FileTextOutlined,
 } from "@ant-design/icons";
-import OllamaFlowButton from "../../../components/base/button/Button";
 import FormHeading from "./FormHeading";
 import styles from "../ConfigForm.module.scss";
 
@@ -34,25 +33,15 @@ interface Backend {
 
 interface BackendCardProps {
   backend: Backend;
-  index: number;
-  onRemove: () => void;
   onChange: (field: string, value: unknown) => void;
-  canRemove: boolean;
   isPreview?: boolean;
-  isValid?: boolean;
 }
 
 const BackendCard: React.FC<BackendCardProps> = ({
   backend,
-  index,
-  onRemove,
   onChange,
-  canRemove,
   isPreview = false,
-  isValid = false,
 }) => {
-  const backendName = backend.Name;
-
   return (
     <div className={`${styles.beFeCard} pl pr mb`}>
       <div>

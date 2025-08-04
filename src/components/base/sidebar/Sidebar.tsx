@@ -1,5 +1,5 @@
-import React from "react";
-import { Layout, Menu, Button } from "antd";
+import React from 'react';
+import { Layout, Menu, Button } from 'antd';
 import {
   FileTextOutlined,
   HomeOutlined,
@@ -7,14 +7,14 @@ import {
   MenuUnfoldOutlined,
   PlusOutlined,
   CloudServerOutlined,
-} from "@ant-design/icons";
-import { useAppContext } from "#/hooks/appHooks";
-import "../../../assets/css/globals.scss";
-import OllamaFlowFlex from "../flex/Flex";
-import styles from "./sidebar.module.scss";
-import OllamaFlowText from "../typograpghy/Text";
-import Link from "next/link";
-import { paths } from "#/constants/constant";
+} from '@ant-design/icons';
+import { useAppContext } from '#/hooks/appHooks';
+import '../../../assets/css/globals.scss';
+import OllamaFlowFlex from '../flex/Flex';
+import styles from './sidebar.module.scss';
+import OllamaFlowText from '../typograpghy/Text';
+import Link from 'next/link';
+import { paths } from '#/constants/constant';
 
 const { Sider } = Layout;
 
@@ -29,35 +29,43 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse }) => {
   // Create menu items with configurations as sub-items
   const menuItems = [
     {
-      key: "home",
+      key: 'home',
       icon: <HomeOutlined />,
       label: <Link href={paths.Dashboard}>Home</Link>,
     },
     {
-      key: "create-config",
+      key: 'create-config',
       icon: <PlusOutlined />,
       label: <Link href={paths.DashboardCreateConfig}>Create Config</Link>,
     },
     {
-      key: "frontends",
+      key: 'create-frontend',
+      icon: <PlusOutlined />,
+      label: <Link href={paths.DashboardCreateFrontend}>Create Frontend</Link>,
+    },
+    {
+      key: 'create-backend',
+      icon: <PlusOutlined />,
+      label: <Link href={paths.DashboardCreateBackend}>Create Backend</Link>,
+    },
+    {
+      key: 'frontends',
       icon: <FileTextOutlined />,
       label: <Link href={paths.DashboardFrontends}>Frontends</Link>,
     },
     {
-      key: "backends",
+      key: 'backends',
       icon: <CloudServerOutlined />,
       label: <Link href={paths.DashboardBackends}>Backends</Link>,
     },
     {
-      key: "configurations",
+      key: 'configurations',
       icon: <FileTextOutlined />,
-      label: "Configurations",
+      label: 'Configurations',
       children: [
         ...configurations.map((config) => ({
           key: `config-${config.id}`,
-          label: (
-            <Link href={`${paths.Dashboard}/${config.id}`}>{config.name}</Link>
-          ),
+          label: <Link href={`${paths.Dashboard}/${config.id}`}>{config.name}</Link>,
           icon: <FileTextOutlined />,
         })),
       ],
@@ -74,46 +82,27 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse }) => {
       collapsedWidth={60}
       className={styles.sidebarContainer}
     >
-      <OllamaFlowFlex
-        justify="center"
-        gap={8}
-        align="center"
-        className={styles.logoContainer}
-      >
+      <OllamaFlowFlex justify="center" gap={8} align="center" className={styles.logoContainer}>
         <OllamaFlowText weight={600} fontSize={20}>
           {collapsed ? (
-            <img
-              src="/images/ollama-flow-icon.png"
-              alt="OllamaFlow"
-              height={40}
-            />
+            <img src="/images/ollama-flow-icon.png" alt="OllamaFlow" height={40} />
           ) : (
             <OllamaFlowFlex align="center" gap={7} className="fade-in">
-              <img
-                src="/images/ollama-flow-icon.png"
-                alt="OllamaFlow"
-                height={40}
-              />
+              <img src="/images/ollama-flow-icon.png" alt="OllamaFlow" height={40} />
               OllamaFlow
             </OllamaFlowFlex>
           )}
         </OllamaFlowText>
       </OllamaFlowFlex>
-      <OllamaFlowFlex
-        justify="center"
-        className=" mt"
-        vertical
-        align="center"
-        gap={10}
-      >
+      <OllamaFlowFlex justify="center" className=" mt" vertical align="center" gap={10}>
         <Button
           type="text"
           icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
           onClick={() => onCollapse?.(!collapsed)}
-          title={collapsed ? "Expand Sidebar" : "Collapse Sidebar"}
+          title={collapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}
         />
       </OllamaFlowFlex>
-      <Menu mode="inline" defaultSelectedKeys={["home"]} items={menuItems} />
+      <Menu mode="inline" defaultSelectedKeys={['home']} items={menuItems} />
     </Sider>
   );
 };

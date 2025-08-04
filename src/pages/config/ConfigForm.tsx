@@ -453,14 +453,10 @@ const ConfigForm: React.FC<ConfigFormProps> = ({
             children: (
               <BackendCard
                 backend={backend}
-                index={index}
-                onRemove={() => removeBackend(index)}
                 onChange={(field, value) =>
                   handleBackendChange(index, field, value)
                 }
-                canRemove={backends.length > 1}
                 isPreview={isPreviewMode}
-                isValid={validateBackend(backend)}
               />
             ),
           }))}
