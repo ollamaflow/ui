@@ -41,7 +41,6 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
             </OllamaFlowTooltip>
           </OllamaFlowFlex>
           <OllamaFlowButton
-            type="primary"
             variant="link"
             onClick={logout}
             className="text-white"

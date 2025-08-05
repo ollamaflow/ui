@@ -6,7 +6,7 @@ import { Frontend, Backend } from './types';
 export type CreateFrontendPayload = Omit<Frontend, 'Active' | 'CreatedUtc' | 'LastUpdateUtc' | 'Identifier'>;
 
 // Type for creating a backend (excludes server-generated fields)
-export type CreateBackendPayload = Omit<Backend, 'Active' | 'CreatedUtc' | 'LastUpdateUtc' | 'Identifier'>;
+export type CreateBackendPayload = Omit<Backend, 'Active' | 'CreatedUtc' | 'LastUpdateUtc'>;
 
 // Type for editing a frontend (includes identifier for targeting)
 export type EditFrontendPayload = CreateFrontendPayload & {

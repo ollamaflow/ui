@@ -5,7 +5,6 @@ import {
   HomeOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  PlusOutlined,
   CloudServerOutlined,
 } from '@ant-design/icons';
 import { useAppContext } from '#/hooks/appHooks';
@@ -24,29 +23,12 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse }) => {
-  const { configurations } = useAppContext();
-
-  // Create menu items with configurations as sub-items
+  // Create menu items
   const menuItems = [
     {
       key: 'home',
       icon: <HomeOutlined />,
       label: <Link href={paths.Dashboard}>Home</Link>,
-    },
-    {
-      key: 'create-config',
-      icon: <PlusOutlined />,
-      label: <Link href={paths.DashboardCreateConfig}>Create Config</Link>,
-    },
-    {
-      key: 'create-frontend',
-      icon: <PlusOutlined />,
-      label: <Link href={paths.DashboardCreateFrontend}>Create Frontend</Link>,
-    },
-    {
-      key: 'create-backend',
-      icon: <PlusOutlined />,
-      label: <Link href={paths.DashboardCreateBackend}>Create Backend</Link>,
     },
     {
       key: 'frontends',
@@ -57,18 +39,6 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse }) => {
       key: 'backends',
       icon: <CloudServerOutlined />,
       label: <Link href={paths.DashboardBackends}>Backends</Link>,
-    },
-    {
-      key: 'configurations',
-      icon: <FileTextOutlined />,
-      label: 'Configurations',
-      children: [
-        ...configurations.map((config) => ({
-          key: `config-${config.id}`,
-          label: <Link href={`${paths.Dashboard}/${config.id}`}>{config.name}</Link>,
-          icon: <FileTextOutlined />,
-        })),
-      ],
     },
   ];
 

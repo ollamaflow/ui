@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import LoginPage from "#/pages/login/LoginPage";
+import LoginPage from "#/page/login/LoginPage";
 
 const page = () => {
   return <LoginPage />;

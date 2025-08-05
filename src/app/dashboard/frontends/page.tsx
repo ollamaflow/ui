@@ -1,6 +1,6 @@
 "use client";
 
-import FrontendsListingPage from "#/pages/frontends/FrontendsListingPage";
+import FrontendsListingPage from "#/page/frontends/FrontendsListingPage";
 
 export default function FrontendsPage() {
   return <FrontendsListingPage />;

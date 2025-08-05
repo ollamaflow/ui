@@ -8,7 +8,6 @@ export const keepUnusedDataFor = 900; //15mins
 export const paths = {
   Login: '/',
   Dashboard: '/dashboard',
-  DashboardCreateConfig: '/dashboard/create-config',
   DashboardCreateFrontend: '/dashboard/create-frontend',
   DashboardCreateBackend: '/dashboard/create-backend',
   DashboardFrontends: '/dashboard/frontends',

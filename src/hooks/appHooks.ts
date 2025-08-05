@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-import { ThemeEnum, Configuration } from '../types/types';
+import { ThemeEnum } from '../types/types';
 
 export const usePagination = () => {
   const [page, setPage] = useState(1);
@@ -18,10 +18,6 @@ export const usePagination = () => {
 export const AppContext = createContext({
   theme: ThemeEnum.LIGHT,
   setTheme: (theme: ThemeEnum) => {},
-  configurations: [] as Configuration[],
-  addConfiguration: (config: Configuration) => {},
-  removeConfiguration: (id: string) => {},
-  updateConfiguration: (id: string, config: Configuration) => {},
 });
 
 export const useAppContext = () => {

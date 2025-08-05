@@ -12,6 +12,7 @@ const nextConfig = {
   env: {
     PORT: "3000",
   },
+
   reactStrictMode: false,
 };
 
