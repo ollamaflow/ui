@@ -1,77 +1,107 @@
-# OllamaFlow UI
+<img src="https://avatars.githubusercontent.com/u/222556077?s=200&v=4" height="48">
 
-A modern web interface for creating and managing Ollama configuration files.
+# Ollama Web UI
+
+A web interface for interacting with Ollama configuration, built with Next.js and React.
 
 ## Features
 
-- **Sidebar Navigation**: Clean sidebar with navigation options
-- **Landing Screen**: User-friendly landing page with two main options
-- **Config Generation**: Create new configuration files with a comprehensive form
-- **Config Upload**: Upload or paste existing configuration files
-- **Modern UI**: Built with Ant Design and custom theming
+- **Backends**: Manage and configure Ollama backends
+- **Frontends**: Manage and configure Ollama frontends
 
-## Components
+## Requirements
 
-### LandingScreen
+- Node.js v18.20.4
+- npm
 
-The main landing page component that provides two options:
+## Quick Start
 
-1. **Generate New Config**: Opens a comprehensive form for creating new configurations
-2. **Edit Existing Config**: Opens a modal for uploading or pasting existing configurations
+### Development Setup
 
-### ConfigForm
+#### Install dependencies:
 
-A detailed form component for generating new Ollama configurations with fields for:
+```bash
+npm install
+```
 
-- Configuration name and model selection
-- Generation parameters (temperature, max tokens, etc.)
-- System and user prompts
-- Options (streaming, logging)
+#### Set the ollama instance URL
 
-### ConfigUploadModal
+Update the `ollamaServerUrl` in [`constants/apiConfig.ts`](constants/apiConfig.ts) to point to your ollama instance:
 
-A modal component that allows users to:
+```typescript
+export const ollamaServerUrl = "http://localhost:43411";
+```
 
-- Upload configuration files (JSON, YAML, TXT)
-- Paste configuration text directly
-- Parse and validate configurations
+#### Start the production server (for using ollama ui locally):
 
-### Sidebar
+```bash
+npm run build
+```
 
-A collapsible sidebar with navigation menu items for different sections of the application.
+```bash
+npm run start
+```
 
-## Getting Started
+OR
 
-1. Install dependencies:
+#### Start the development server (for development, can be used to test web ui locally as well):
 
-   ```bash
-   npm install
-   ```
+```bash
+npm run dev
+```
 
-2. Run the development server:
+The application will be available at `http://localhost:3000`.
 
-   ```bash
-   npm run dev
-   ```
+### Testing
 
-3. Open [http://localhost:3000](http://localhost:3000) in your browser.
+Run the test suite:
 
-## Usage
+```bash
+# Run all tests
+npm test
 
-1. **Generate New Configuration**:
+# Run tests with coverage
+npm run test:coverage
 
-   - Click "Generate New Config" on the landing page
-   - Fill out the comprehensive form
-   - Save or download your configuration
+# Watch mode for development
+npm run test:watch
+```
 
-2. **Edit Existing Configuration**:
-   - Click "Edit Existing Config" on the landing page
-   - Upload a file or paste your configuration
-   - The system will parse and validate your configuration
+## Deployment Process
 
-## Technology Stack
+#### Build the Application
 
-- **Next.js 15**: React framework
-- **Ant Design**: UI component library
-- **TypeScript**: Type safety
-- **Custom Theme**: Consistent design system
+Prepare the app for production:
+
+```bash
+npm run build
+```
+
+#### Start the Production Server
+
+Start the built application:
+
+```bash
+npm run start
+```
+
+The app will be available at http://localhost:3000.
+
+### Code Quality
+
+The project uses several tools to maintain code quality:
+
+- ESLint for code linting
+- Prettier for code formatting
+- Jest for testing
+
+## Development Guidelines
+
+1. **Code Style**
+
+   - Follow the Prettier configuration
+   - Use TypeScript for type safety
+   - Follow component-based architecture
+
+2. **Testing**
+   - Write unit tests for components
