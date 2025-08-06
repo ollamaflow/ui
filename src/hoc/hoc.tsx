@@ -10,33 +10,6 @@ import { useEffect, useState } from "react";
 
 export const withAuth = (WrappedComponent: React.ElementType) => {
   const WithAuth = (props: any) => {
-    const [hasValidAuth, setHasValidAuth] = useState<boolean | null>(null);
-    const logout = useLogout();
-    const adminAccessKey = useAppSelector(
-      (state: RootState) => state.ollamaFlow.adminAccessKey
-    );
-
-    useEffect(() => {
-      if (adminAccessKey) {
-        setHasValidAuth(true);
-      } else {
-        logout();
-      }
-      //eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-    return hasValidAuth === null ? (
-      <PageLoading className="h-100vh" />
-    ) : hasValidAuth ? (
-      <WrappedComponent {...props} />
-    ) : (
-      <LogoutFallBack />
-    );
-  };
-  return WithAuth;
-};
-
-export const withAdminAuth = (WrappedComponent: React.ElementType) => {
-  const WithAuth = (props: any) => {
     const adminAccessKey = useAppSelector(
       (state: RootState) => state.ollamaFlow.adminAccessKey
     );

@@ -40,3 +40,5 @@ export const mockFrontendData: Frontend = {
   CreatedUtc: "2021-01-01",
   LastUpdateUtc: "2021-01-01",
 };
+
+export const mockBackendListData = [mockBackendData];
