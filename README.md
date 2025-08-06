@@ -26,7 +26,7 @@ npm install
 
 #### Set the ollama instance URL
 
-Update the `ollamaServerUrl` in [`constants/apiConfig.ts`](constants/apiConfig.ts) to point to your ollama instance:
+Update the `ollamaServerUrl` in [`src/constants/apiConfig.ts`](src/constants/apiConfig.ts) to point to your ollama instance:
 
 ```typescript
 export const ollamaServerUrl = "http://localhost:43411";
