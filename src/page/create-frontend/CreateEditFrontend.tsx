@@ -10,7 +10,6 @@ import {
   Select,
   Switch,
 } from "antd";
-import OllamaFlowFlex from "#/components/base/flex/Flex";
 import {
   CreateFrontendPayload,
   useGetBackendQuery,
@@ -39,7 +38,7 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
     data: backends = [],
     isLoading: backendsLoading,
     isError: backendsError,
-  } = useGetBackendQuery(null);
+  } = useGetBackendQuery();
 
   // Default values for a new frontend
   const defaultValues: Partial<CreateFrontendPayload> = {
@@ -71,8 +70,8 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
       autoComplete="off"
     >
       {/* Basic Information */}
-      <Row gutter={[16, 16]}>
-        <Col span={12}>
+      <Row gutter={16}>
+        <Col xs={24} sm={24} md={24} lg={12} xl={12}>
           <Form.Item
             label="Identifier"
             name="Identifier"
@@ -91,7 +90,7 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
             <Input placeholder="e.g., frontend" disabled={isEditMode} />
           </Form.Item>
         </Col>
-        <Col span={12}>
+        <Col xs={24} sm={24} md={24} lg={12} xl={12}>
           <Form.Item
             label="Name"
             name="Name"
@@ -106,8 +105,8 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
       </Row>
 
       {/* Network Configuration */}
-      <Row gutter={[16, 16]}>
-        <Col span={12}>
+      <Row gutter={16}>
+        <Col xs={24} sm={24} md={24} lg={12} xl={12}>
           <Form.Item
             label="Hostname"
             name="Hostname"
@@ -116,7 +115,7 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
             <Input placeholder="localhost" />
           </Form.Item>
         </Col>
-        <Col span={12}>
+        <Col xs={24} sm={24} md={24} lg={12} xl={12}>
           <Form.Item
             label="Timeout (ms)"
             name="TimeoutMs"
@@ -135,8 +134,8 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
       </Row>
 
       {/* Load Balancing and Request Size */}
-      <Row gutter={[16, 16]}>
-        <Col span={12}>
+      <Row gutter={16}>
+        <Col xs={24} sm={24} md={24} lg={12} xl={12}>
           <Form.Item
             label="Load Balancing"
             name="LoadBalancing"
@@ -154,7 +153,7 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
             </Select>
           </Form.Item>
         </Col>
-        <Col span={12}>
+        <Col xs={24} sm={24} md={24} lg={12} xl={12}>
           <Form.Item
             label="Max Request Body Size"
             name="MaxRequestBodySize"
@@ -176,8 +175,8 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
       </Row>
 
       {/* Boolean Switches */}
-      <Row gutter={[16, 16]}>
-        <Col span={8}>
+      <Row gutter={16}>
+        <Col xs={24} sm={24} md={6} lg={6} xl={6}>
           <Form.Item
             label="Block HTTP/1.0"
             name="BlockHttp10"
@@ -186,7 +185,7 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
             <Switch />
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={6} lg={6} xl={6}>
           <Form.Item
             label="Log Full Request"
             name="LogRequestFull"
@@ -195,7 +194,7 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
             <Switch />
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={6} lg={6} xl={6}>
           <Form.Item
             label="Log Request Body"
             name="LogRequestBody"
@@ -204,10 +203,7 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
             <Switch />
           </Form.Item>
         </Col>
-      </Row>
-
-      <Row gutter={[16, 16]}>
-        <Col span={24}>
+        <Col xs={24} sm={24} md={6} lg={6} xl={6}>
           <Form.Item
             label="Log Response Body"
             name="LogResponseBody"
@@ -219,7 +215,7 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
       </Row>
 
       {/* Backend and Models Configuration */}
-      <Row gutter={[16, 16]}>
+      <Row gutter={16}>
         <Col span={24}>
           <Form.Item
             label="Backend Identifiers"
@@ -255,7 +251,7 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
         </Col>
       </Row>
 
-      <Row gutter={[16, 16]}>
+      <Row gutter={16}>
         <Col span={24}>
           <Form.Item
             label="Required Models"

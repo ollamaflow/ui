@@ -19,13 +19,6 @@ import { Backend } from "#/lib/store/slice/types";
 import { useRouter } from "next/navigation";
 import { paths } from "#/constants/constant";
 
-// Extend Window interface to include our custom handlers
-declare global {
-  interface Window {
-    deleteBackendHandler?: (backend: Backend) => void;
-  }
-}
-
 const BackendsListingPage: React.FC = () => {
   const router = useRouter();
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
@@ -37,7 +30,7 @@ const BackendsListingPage: React.FC = () => {
     isFetching,
     isError,
     refetch,
-  } = useGetBackendQuery(null);
+  } = useGetBackendQuery();
   const isBackendLoading = isLoading || isFetching;
 
   const [deleteBackend, { isLoading: isDeleteLoading }] =
@@ -53,14 +46,6 @@ const BackendsListingPage: React.FC = () => {
     setDeletingBackend(backend);
     setIsDeleteModalVisible(true);
   };
-
-  // Set up global handler for delete button clicks
-  useEffect(() => {
-    window.deleteBackendHandler = handleDeleteBackend;
-    return () => {
-      delete window.deleteBackendHandler;
-    };
-  }, [handleDeleteBackend]);
 
   // Handle delete confirmation
   const handleDeleteConfirm = async () => {
@@ -109,7 +94,9 @@ const BackendsListingPage: React.FC = () => {
       }
     >
       <OllamaFlowTable
-        columns={columns as TableColumnType<Partial<Backend>>[]}
+        columns={
+          columns(handleDeleteBackend) as TableColumnType<Partial<Backend>>[]
+        }
         dataSource={backends}
         loading={isBackendLoading}
         rowKey="Identifier"

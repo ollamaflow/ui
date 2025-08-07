@@ -3,63 +3,59 @@ import React from "react";
 import { useParams, useRouter } from "next/navigation";
 import { message } from "antd";
 import PageContainer from "#/components/base/pageContainer/PageContainer";
-import CreateEditFrontend from "#/page/create-frontend/CreateEditFrontend";
+import CreateEditBackend from "#/page/create-backend/CreateEditBackend";
 import {
-  useGetFrontendQuery,
-  useEditFrontendMutation,
-  EditFrontendPayload,
+  useGetBackendQuery,
+  useEditBackendMutation,
+  EditBackendPayload,
+  useGetBackendByIdQuery,
 } from "#/lib/store/slice/apiSlice";
 import OllamaFlowFlex from "#/components/base/flex/Flex";
 import OllamaFlowText from "#/components/base/typograpghy/Text";
 import OllamaFlowButton from "#/components/base/button/Button";
 import { ArrowLeftOutlined } from "@ant-design/icons";
-import { Frontend } from "#/lib/store/slice/types";
+import { paths } from "#/constants/constant";
 
-const EditFrontendPage: React.FC = () => {
+const EditBackendPage: React.FC = () => {
   const params = useParams();
   const router = useRouter();
-  const frontendId = params?.id as string;
+  const backendId = params?.id as string;
 
-  const [editFrontend, { isLoading: isEditLoading }] =
-    useEditFrontendMutation();
+  const [editBackend, { isLoading: isEditLoading }] = useEditBackendMutation();
 
-  // Fetch the specific frontend data
+  // Fetch the specific backend data
   const {
-    data: frontend,
-    isLoading: isFrontendLoading,
-    isError: isFrontendError,
-  } = useGetFrontendQuery(null);
-
-  const currentFrontend = frontend?.find(
-    (f: Frontend) => f.Identifier === frontendId
-  );
+    data: currentBackend,
+    isLoading: isBackendLoading,
+    isError: isBackendError,
+  } = useGetBackendByIdQuery(backendId);
 
   // Handle form submission for editing
   const handleEditSubmit = async (
-    values: Omit<EditFrontendPayload, "Identifier">
+    values: Omit<EditBackendPayload, "Identifier">
   ) => {
     try {
       // Add the identifier to the payload for edit requests
-      const editPayload: EditFrontendPayload = {
+      const editPayload: EditBackendPayload = {
         ...values,
-        Identifier: frontendId,
+        Identifier: backendId,
       };
 
-      await editFrontend(editPayload).unwrap();
-      message.success("Frontend updated successfully");
-      router.push("/dashboard/frontends");
+      await editBackend(editPayload).unwrap();
+      message.success("Backend updated successfully");
+      router.push(paths.DashboardBackends);
     } catch (error) {
-      console.error("Failed to edit frontend:", error);
-      message.error("Failed to update frontend");
+      console.error("Failed to edit backend:", error);
+      message.error("Failed to update backend");
     }
   };
 
   // Handle back navigation
   const handleBack = () => {
-    router.push("/dashboard/frontends");
+    router.push("/dashboard/backends");
   };
 
-  if (isFrontendLoading) {
+  if (isBackendLoading) {
     return (
       <PageContainer>
         <OllamaFlowFlex
@@ -67,13 +63,13 @@ const EditFrontendPage: React.FC = () => {
           align="center"
           style={{ height: "400px" }}
         >
-          <OllamaFlowText>Loading frontend data...</OllamaFlowText>
+          <OllamaFlowText>Loading backend data...</OllamaFlowText>
         </OllamaFlowFlex>
       </PageContainer>
     );
   }
 
-  if (isFrontendError || !currentFrontend) {
+  if (isBackendError || !currentBackend) {
     return (
       <PageContainer>
         <OllamaFlowFlex
@@ -82,9 +78,9 @@ const EditFrontendPage: React.FC = () => {
           align="center"
           style={{ height: "400px" }}
         >
-          <OllamaFlowText>Frontend not found</OllamaFlowText>
+          <OllamaFlowText>Backend not found</OllamaFlowText>
           <OllamaFlowButton onClick={handleBack}>
-            <ArrowLeftOutlined /> Back to Frontends
+            <ArrowLeftOutlined /> Back to Backends
           </OllamaFlowButton>
         </OllamaFlowFlex>
       </PageContainer>
@@ -101,13 +97,13 @@ const EditFrontendPage: React.FC = () => {
             onClick={handleBack}
             style={{ padding: 0 }}
           />
-          <OllamaFlowText>Edit Frontend: {currentFrontend.Name}</OllamaFlowText>
+          <OllamaFlowText>Edit Backend: {currentBackend.Name}</OllamaFlowText>
         </OllamaFlowFlex>
       }
     >
-      <CreateEditFrontend
+      <CreateEditBackend
         mode="edit"
-        initialValues={currentFrontend}
+        initialValues={currentBackend}
         onSubmit={handleEditSubmit}
         loading={isEditLoading}
       />
@@ -115,4 +111,4 @@ const EditFrontendPage: React.FC = () => {
   );
 };
 
-export default EditFrontendPage;
+export default EditBackendPage;

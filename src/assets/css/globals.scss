@@ -185,7 +185,7 @@
       th:first-child,
       th:last-child {
         padding-left: 60px;
-        border: none;
+        border: none !important;
         position: relative;
       }
       th:first-child::after,
@@ -196,7 +196,7 @@
         bottom: 0;
         width: 90%;
         right: 0;
-        border-bottom: 1px solid #d1d5db;
+        // border-bottom: 1px solid #d1d5db;
       }
       th:last-child::after {
         left: 0;
@@ -212,7 +212,7 @@
       td:first-child,
       td:last-child {
         padding-left: 60px;
-        border: none;
+        border: none !important;
         position: relative;
       }
       td:first-child::after,
