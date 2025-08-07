@@ -8,7 +8,7 @@ const customJestConfig = {
   coverageProvider: "v8",
   testEnvironment: "./jest.environment.js",
   moduleNameMapper: {
-    "^@/(.*)$": "<rootDir>/src/$1",
+    "^#/(.*)$": "<rootDir>/src/$1",
     "^antd/es/(.*)$": "<rootDir>/node_modules/antd/lib/$1",
     uuid: require.resolve("uuid"),
   },

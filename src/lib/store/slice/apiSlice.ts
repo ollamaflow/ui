@@ -1,12 +1,18 @@
-import { BaseQueryFn, EndpointBuilder } from '@reduxjs/toolkit/query';
-import apiSlice, { ApiBaseQueryArgs } from '../rtk/rtkApiInstance';
-import { Frontend, Backend } from './types';
+import { BaseQueryFn, EndpointBuilder } from "@reduxjs/toolkit/query";
+import apiSlice, { ApiBaseQueryArgs } from "../rtk/rtkApiInstance";
+import { Frontend, Backend } from "./types";
 
 // Type for creating a frontend (excludes server-generated fields)
-export type CreateFrontendPayload = Omit<Frontend, 'Active' | 'CreatedUtc' | 'LastUpdateUtc' | 'Identifier'>;
+export type CreateFrontendPayload = Omit<
+  Frontend,
+  "Active" | "CreatedUtc" | "LastUpdateUtc" | "Identifier"
+>;
 
 // Type for creating a backend (excludes server-generated fields)
-export type CreateBackendPayload = Omit<Backend, 'Active' | 'CreatedUtc' | 'LastUpdateUtc'>;
+export type CreateBackendPayload = Omit<
+  Backend,
+  "Active" | "CreatedUtc" | "LastUpdateUtc"
+>;
 
 // Type for editing a frontend (includes identifier for targeting)
 export type EditFrontendPayload = CreateFrontendPayload & {
@@ -19,8 +25,8 @@ export type EditBackendPayload = CreateBackendPayload & {
 };
 
 export enum SliceTags {
-  FRONTEND = 'FRONTEND',
-  BACKEND = 'BACKEND',
+  FRONTEND = "FRONTEND",
+  BACKEND = "BACKEND",
 }
 
 const enhancedApiSlice = apiSlice.enhanceEndpoints({
@@ -28,63 +34,89 @@ const enhancedApiSlice = apiSlice.enhanceEndpoints({
 });
 
 const apiPathSlice = enhancedApiSlice.injectEndpoints({
-  endpoints: (builder: EndpointBuilder<BaseQueryFn<ApiBaseQueryArgs, unknown, unknown>, SliceTags, 'api'>) => ({
+  endpoints: (
+    builder: EndpointBuilder<
+      BaseQueryFn<ApiBaseQueryArgs, unknown, unknown>,
+      SliceTags,
+      "api"
+    >
+  ) => ({
     validateConnectivity: builder.mutation<boolean, void>({
       query: () => ({
-        url: '/',
-        method: 'HEAD',
+        url: "/",
+        method: "HEAD",
       }),
-      transformResponse: (response: any) => (response === '' ? true : false),
+      transformResponse: (response: any) => (response === "" ? true : false),
     }),
     getFrontendTest: builder.mutation<boolean, void>({
       query: () => ({
-        url: 'v1.0/frontends',
+        url: "v1.0/frontends",
       }),
       transformResponse: (response: Frontend[]) => {
         console.log(response);
         return response.length > 0;
       },
     }),
-    getFrontend: builder.query({
+    getFrontend: builder.query<Frontend[], void>({
       query: (arg: any) => ({
-        url: 'v1.0/frontends',
+        url: "v1.0/frontends",
       }),
-      providesTags: [{ type: SliceTags.FRONTEND, id: 'LIST' }],
+      providesTags: [{ type: SliceTags.FRONTEND, id: "LIST" }],
       transformResponse: (response: any) => response,
     }),
-    getBackend: builder.query({
-      query: (arg: any) => ({
-        url: 'v1.0/backends',
+    getFrontendById: builder.query<Frontend, string>({
+      query: (identifier: string) => ({
+        url: `v1.0/frontends/${identifier}`,
       }),
-      providesTags: [{ type: SliceTags.BACKEND, id: 'LIST' }],
+      providesTags: [{ type: SliceTags.FRONTEND, id: "LIST" }],
+      transformResponse: (response: any) => response,
+    }),
+    getBackend: builder.query<Backend[], void>({
+      query: (arg: any) => ({
+        url: "v1.0/backends",
+      }),
+      providesTags: [{ type: SliceTags.BACKEND, id: "LIST" }],
+      transformResponse: (response: any) => response,
+    }),
+    getBackendById: builder.query<Backend, string>({
+      query: (identifier: string) => ({
+        url: `v1.0/backends/${identifier}`,
+      }),
+      providesTags: [{ type: SliceTags.BACKEND, id: "LIST" }],
       transformResponse: (response: any) => response,
     }),
     createFrontend: builder.mutation<Frontend, CreateFrontendPayload>({
       query: (frontendData) => ({
-        url: 'v1.0/frontends',
-        method: 'PUT',
+        url: "v1.0/frontends",
+        method: "PUT",
         data: frontendData,
       }),
-      invalidatesTags: [{ type: SliceTags.FRONTEND, id: 'LIST' }, SliceTags.FRONTEND],
+      invalidatesTags: [
+        { type: SliceTags.FRONTEND, id: "LIST" },
+        SliceTags.FRONTEND,
+      ],
       transformResponse: (response: any) => response,
     }),
     createBackend: builder.mutation<Backend, CreateBackendPayload>({
       query: (backendData) => ({
-        url: 'v1.0/backends',
-        method: 'PUT',
+        url: "v1.0/backends",
+        method: "PUT",
         data: backendData,
       }),
-      invalidatesTags: [{ type: SliceTags.BACKEND, id: 'LIST' }, SliceTags.BACKEND],
+      invalidatesTags: [
+        { type: SliceTags.BACKEND, id: "LIST" },
+        SliceTags.BACKEND,
+      ],
       transformResponse: (response: any) => response,
     }),
     editFrontend: builder.mutation<Frontend, EditFrontendPayload>({
       query: ({ Identifier, ...frontendData }) => ({
         url: `v1.0/frontends/${Identifier}`,
-        method: 'PUT',
+        method: "PUT",
         data: frontendData,
       }),
       invalidatesTags: (result, error, { Identifier }) => [
-        { type: SliceTags.FRONTEND, id: 'LIST' },
+        { type: SliceTags.FRONTEND, id: "LIST" },
         { type: SliceTags.FRONTEND, id: Identifier },
         SliceTags.FRONTEND,
       ],
@@ -93,10 +125,10 @@ const apiPathSlice = enhancedApiSlice.injectEndpoints({
     deleteFrontend: builder.mutation<void, string>({
       query: (identifier) => ({
         url: `v1.0/frontends/${identifier}`,
-        method: 'DELETE',
+        method: "DELETE",
       }),
       invalidatesTags: (result, error, identifier) => [
-        { type: SliceTags.FRONTEND, id: 'LIST' },
+        { type: SliceTags.FRONTEND, id: "LIST" },
         { type: SliceTags.FRONTEND, id: identifier },
         SliceTags.FRONTEND,
       ],
@@ -104,11 +136,11 @@ const apiPathSlice = enhancedApiSlice.injectEndpoints({
     editBackend: builder.mutation<Backend, EditBackendPayload>({
       query: ({ Identifier, ...backendData }) => ({
         url: `v1.0/backends/${Identifier}`,
-        method: 'PUT',
+        method: "PUT",
         data: backendData,
       }),
       invalidatesTags: (result, error, { Identifier }) => [
-        { type: SliceTags.BACKEND, id: 'LIST' },
+        { type: SliceTags.BACKEND, id: "LIST" },
         { type: SliceTags.BACKEND, id: Identifier },
         SliceTags.BACKEND,
       ],
@@ -117,10 +149,10 @@ const apiPathSlice = enhancedApiSlice.injectEndpoints({
     deleteBackend: builder.mutation<void, string>({
       query: (identifier) => ({
         url: `v1.0/backends/${identifier}`,
-        method: 'DELETE',
+        method: "DELETE",
       }),
       invalidatesTags: (result, error, identifier) => [
-        { type: SliceTags.BACKEND, id: 'LIST' },
+        { type: SliceTags.BACKEND, id: "LIST" },
         { type: SliceTags.BACKEND, id: identifier },
         SliceTags.BACKEND,
       ],
@@ -139,4 +171,6 @@ export const {
   useDeleteFrontendMutation,
   useEditBackendMutation,
   useDeleteBackendMutation,
+  useGetFrontendByIdQuery,
+  useGetBackendByIdQuery,
 } = apiPathSlice;

@@ -1,16 +1,16 @@
-import '@testing-library/jest-dom';
-import React from 'react';
-import { screen, waitFor } from '@testing-library/react';
+import "@testing-library/jest-dom";
+import React from "react";
+import { screen, waitFor } from "@testing-library/react";
 
-import { setupServer } from 'msw/node';
-import { commonHandlers } from '../handler';
-import BackendsListingPage from '#/page/backends/BackendsListingPage';
-import { renderWithRedux } from '../store/utils';
-import { createMockInitialState } from '../store/mockStore';
+import { setupServer } from "msw/node";
+import { commonHandlers } from "../handler";
+import BackendsListingPage from "#/page/backends/BackendsListingPage";
+import { renderWithRedux } from "../store/utils";
+import { createMockInitialState } from "../store/mockStore";
 
 const server = setupServer(...commonHandlers);
 
-describe('BackendsListingPage', () => {
+describe("BackendsListingPage", () => {
   beforeAll(() => server.listen());
   afterEach(() => {
     server.resetHandlers();
@@ -18,52 +18,55 @@ describe('BackendsListingPage', () => {
   });
   afterAll(() => server.close());
 
-  test('should render backends listing page', async () => {
-    const { container } = renderWithRedux(<BackendsListingPage />, createMockInitialState());
+  test("should render backends listing page", async () => {
+    const { container } = renderWithRedux(
+      <BackendsListingPage />,
+      createMockInitialState()
+    );
 
-    expect(screen.getByText('Backends')).toBeInTheDocument();
+    expect(screen.getByText("Backends")).toBeInTheDocument();
 
     await waitFor(() => {
-      expect(screen.getByText('Backend 1')).toBeInTheDocument();
+      expect(screen.getByText("Backend 1")).toBeInTheDocument();
     });
 
     expect(container).toMatchSnapshot();
   });
 
-  test('should show create backend button', async () => {
+  test("should show create backend button", async () => {
     renderWithRedux(<BackendsListingPage />, createMockInitialState());
 
     await waitFor(() => {
-      expect(screen.getByText('Create Backend')).toBeInTheDocument();
+      expect(screen.getByText("Create Backend")).toBeInTheDocument();
     });
   });
 
-  test('should show refresh button', async () => {
+  test("should show refresh button", async () => {
     renderWithRedux(<BackendsListingPage />, createMockInitialState());
 
     await waitFor(() => {
-      expect(screen.getByTitle('Refresh')).toBeInTheDocument();
+      expect(screen.getByTitle("Refresh")).toBeInTheDocument();
     });
   });
 
-  test('should display backend data in table', async () => {
+  test("should display backend data in table", async () => {
     renderWithRedux(<BackendsListingPage />, createMockInitialState());
 
     await waitFor(() => {
-      expect(screen.getByText('Backend 1')).toBeInTheDocument();
-      expect(screen.getByText('localhost')).toBeInTheDocument();
-      expect(screen.getByText('43411')).toBeInTheDocument();
+      expect(screen.getByText("Backend 1")).toBeInTheDocument();
+      expect(screen.getByText("localhost:43411")).toBeInTheDocument();
+      expect(screen.getByText("43411")).toBeInTheDocument();
     });
   });
 
-  test('should show loading state initially', () => {
+  test("should show loading state initially", () => {
     renderWithRedux(<BackendsListingPage />, createMockInitialState());
 
     // The page should show loading state while fetching data
-    expect(screen.getByText('Backends')).toBeInTheDocument();
+    expect(screen.getByText("Backends")).toBeInTheDocument();
   });
 
-  test('should handle error state', async () => {
+  test("should handle error state", async () => {
     // Create a component with error state
     const ErrorBackendsListingPage = () => {
       const MockErrorComponent = () => {
@@ -81,12 +84,15 @@ describe('BackendsListingPage', () => {
 
     await waitFor(() => {
       // Should show error fallback component
-      expect(screen.getByTestId('fallback')).toBeInTheDocument();
+      expect(screen.getByTestId("fallback")).toBeInTheDocument();
     });
   });
 
-  test('should match snapshot for backends page', () => {
-    const { container } = renderWithRedux(<BackendsListingPage />, createMockInitialState());
+  test("should match snapshot for backends page", () => {
+    const { container } = renderWithRedux(
+      <BackendsListingPage />,
+      createMockInitialState()
+    );
 
     expect(container).toMatchSnapshot();
   });

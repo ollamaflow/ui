@@ -3,7 +3,6 @@ import {
   Form,
   Input,
   Button,
-  Card,
   Space,
   Row,
   Col,
@@ -11,8 +10,6 @@ import {
   Select,
   Switch,
 } from "antd";
-import OllamaFlowFlex from "#/components/base/flex/Flex";
-import OllamaFlowText from "#/components/base/typograpghy/Text";
 import { CreateBackendPayload } from "#/lib/store/slice/apiSlice";
 
 const { Option } = Select;
@@ -64,8 +61,8 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
       autoComplete="off"
     >
       {/* Basic Information */}
-      <Row gutter={[16, 16]}>
-        <Col span={12}>
+      <Row gutter={16}>
+        <Col xs={24} sm={24} md={24} lg={12} xl={12}>
           <Form.Item
             label="Identifier"
             name="Identifier"
@@ -84,7 +81,7 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
             <Input placeholder="e.g., backend" disabled={isEditMode} />
           </Form.Item>
         </Col>
-        <Col span={12}>
+        <Col xs={24} sm={24} md={24} lg={12} xl={12}>
           <Form.Item
             label="Name"
             name="Name"
@@ -99,8 +96,8 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
       </Row>
 
       {/* Network Configuration */}
-      <Row gutter={[16, 16]}>
-        <Col span={12}>
+      <Row gutter={16}>
+        <Col xs={24} sm={24} md={24} lg={12} xl={12}>
           <Form.Item
             label="Hostname"
             name="Hostname"
@@ -109,7 +106,7 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
             <Input placeholder="localhost" />
           </Form.Item>
         </Col>
-        <Col span={12}>
+        <Col xs={24} sm={24} md={24} lg={12} xl={12}>
           <Form.Item
             label="Port"
             name="Port"
@@ -126,13 +123,8 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
       </Row>
 
       {/* SSL and Advanced Options */}
-      <Row gutter={[16, 16]}>
-        <Col span={8}>
-          <Form.Item label="SSL" name="Ssl" valuePropName="checked">
-            <Switch />
-          </Form.Item>
-        </Col>
-        <Col span={8}>
+      <Row gutter={16}>
+        <Col xs={24} sm={24} md={24} lg={12} xl={12}>
           <Form.Item
             label="Max Parallel Requests"
             name="MaxParallelRequests"
@@ -151,7 +143,7 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
             />
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={24} lg={12} xl={12}>
           <Form.Item
             label="Rate Limit Threshold"
             name="RateLimitRequestsThreshold"
@@ -173,8 +165,8 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
       </Row>
 
       {/* Health Check Configuration */}
-      <Row gutter={[16, 16]}>
-        <Col span={12}>
+      <Row gutter={16}>
+        <Col xs={24} sm={24} md={24} lg={12} xl={12}>
           <Form.Item
             label="Health Check URL"
             name="HealthCheckUrl"
@@ -188,7 +180,7 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
             <Input placeholder="/" />
           </Form.Item>
         </Col>
-        <Col span={12}>
+        <Col xs={24} sm={24} md={24} lg={12} xl={12}>
           <Form.Item
             label="Health Check Method"
             name={["HealthCheckMethod", "Method"]}
@@ -213,8 +205,8 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
       </Row>
 
       {/* Thresholds */}
-      <Row gutter={[16, 16]}>
-        <Col span={12}>
+      <Row gutter={16}>
+        <Col xs={24} sm={24} md={24} lg={12} xl={12}>
           <Form.Item
             label="Unhealthy Threshold"
             name="UnhealthyThreshold"
@@ -233,7 +225,7 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
             />
           </Form.Item>
         </Col>
-        <Col span={12}>
+        <Col xs={24} sm={24} md={24} lg={12} xl={12}>
           <Form.Item
             label="Healthy Threshold"
             name="HealthyThreshold"
@@ -255,8 +247,13 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
       </Row>
 
       {/* Logging Options */}
-      <Row gutter={[16, 16]}>
-        <Col span={12}>
+      <Row gutter={16}>
+        <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+          <Form.Item label="SSL" name="Ssl" valuePropName="checked">
+            <Switch />
+          </Form.Item>
+        </Col>
+        <Col xs={24} sm={24} md={8} lg={8} xl={8}>
           <Form.Item
             label="Log Request Body"
             name="LogRequestBody"
@@ -265,7 +262,7 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
             <Switch />
           </Form.Item>
         </Col>
-        <Col span={12}>
+        <Col xs={24} sm={24} md={8} lg={8} xl={8}>
           <Form.Item
             label="Log Response Body"
             name="LogResponseBody"

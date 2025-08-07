@@ -19,13 +19,6 @@ import { Frontend } from "#/lib/store/slice/types";
 import { useRouter } from "next/navigation";
 import { paths } from "#/constants/constant";
 
-// Extend Window interface to include our custom handlers
-declare global {
-  interface Window {
-    deleteFrontendHandler?: (frontend: Frontend) => void;
-  }
-}
-
 const FrontendsListingPage: React.FC = () => {
   const router = useRouter();
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
@@ -39,7 +32,7 @@ const FrontendsListingPage: React.FC = () => {
     isFetching,
     isError,
     refetch,
-  } = useGetFrontendQuery(null);
+  } = useGetFrontendQuery();
   const isFrontendLoading = isLoading || isFetching;
 
   const [deleteFrontend, { isLoading: isDeleteLoading }] =
@@ -55,14 +48,6 @@ const FrontendsListingPage: React.FC = () => {
     setDeletingFrontend(frontend);
     setIsDeleteModalVisible(true);
   };
-
-  // Set up global handler for delete button clicks
-  useEffect(() => {
-    window.deleteFrontendHandler = handleDeleteFrontend;
-    return () => {
-      delete window.deleteFrontendHandler;
-    };
-  }, [handleDeleteFrontend]);
 
   // Handle delete confirmation
   const handleDeleteConfirm = async () => {
@@ -111,7 +96,9 @@ const FrontendsListingPage: React.FC = () => {
       }
     >
       <OllamaFlowTable
-        columns={columns as TableColumnType<Partial<Frontend>>[]}
+        columns={
+          columns(handleDeleteFrontend) as TableColumnType<Partial<Frontend>>[]
+        }
         dataSource={frontends}
         loading={isFrontendLoading}
         rowKey="Identifier"

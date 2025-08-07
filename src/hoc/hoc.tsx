@@ -1,7 +1,6 @@
 import PageLoading from "#/components/base/loading/PageLoading";
 import LogoutFallBack from "#/components/logout-fallback/LogoutFallBack";
 import { paths } from "#/constants/constant";
-import { useLogout } from "#/hooks/authHooks";
 
 import { useAppSelector } from "#/lib/store/hooks";
 import { RootState } from "#/lib/store/store";
@@ -14,7 +13,6 @@ export const withAuth = (WrappedComponent: React.ElementType) => {
       (state: RootState) => state.ollamaFlow.adminAccessKey
     );
     const [hasValidAuth, setHasValidAuth] = useState<boolean | null>(null);
-    const logout = useLogout();
 
     useEffect(() => {
       if (adminAccessKey) {

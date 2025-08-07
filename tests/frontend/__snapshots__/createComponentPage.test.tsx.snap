@@ -29,10 +29,10 @@ exports[`CreateComponentPage should render frontend component page 1`] = `
       >
         <div
           class="ant-row css-dev-only-do-not-override-1vjf2v5"
-          style="margin-left: -8px; margin-right: -8px; row-gap: 16px;"
+          style="margin-left: -8px; margin-right: -8px;"
         >
           <div
-            class="ant-col ant-col-12 css-dev-only-do-not-override-1vjf2v5"
+            class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-12 ant-col-xl-12 css-dev-only-do-not-override-1vjf2v5"
             style="padding-left: 8px; padding-right: 8px;"
           >
             <div
@@ -76,7 +76,7 @@ exports[`CreateComponentPage should render frontend component page 1`] = `
             </div>
           </div>
           <div
-            class="ant-col ant-col-12 css-dev-only-do-not-override-1vjf2v5"
+            class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-12 ant-col-xl-12 css-dev-only-do-not-override-1vjf2v5"
             style="padding-left: 8px; padding-right: 8px;"
           >
             <div
@@ -122,10 +122,10 @@ exports[`CreateComponentPage should render frontend component page 1`] = `
         </div>
         <div
           class="ant-row css-dev-only-do-not-override-1vjf2v5"
-          style="margin-left: -8px; margin-right: -8px; row-gap: 16px;"
+          style="margin-left: -8px; margin-right: -8px;"
         >
           <div
-            class="ant-col ant-col-12 css-dev-only-do-not-override-1vjf2v5"
+            class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-12 ant-col-xl-12 css-dev-only-do-not-override-1vjf2v5"
             style="padding-left: 8px; padding-right: 8px;"
           >
             <div
@@ -169,7 +169,7 @@ exports[`CreateComponentPage should render frontend component page 1`] = `
             </div>
           </div>
           <div
-            class="ant-col ant-col-12 css-dev-only-do-not-override-1vjf2v5"
+            class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-12 ant-col-xl-12 css-dev-only-do-not-override-1vjf2v5"
             style="padding-left: 8px; padding-right: 8px;"
           >
             <div
@@ -287,10 +287,10 @@ exports[`CreateComponentPage should render frontend component page 1`] = `
         </div>
         <div
           class="ant-row css-dev-only-do-not-override-1vjf2v5"
-          style="margin-left: -8px; margin-right: -8px; row-gap: 16px;"
+          style="margin-left: -8px; margin-right: -8px;"
         >
           <div
-            class="ant-col ant-col-12 css-dev-only-do-not-override-1vjf2v5"
+            class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-12 ant-col-xl-12 css-dev-only-do-not-override-1vjf2v5"
             style="padding-left: 8px; padding-right: 8px;"
           >
             <div
@@ -392,7 +392,7 @@ exports[`CreateComponentPage should render frontend component page 1`] = `
             </div>
           </div>
           <div
-            class="ant-col ant-col-12 css-dev-only-do-not-override-1vjf2v5"
+            class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-12 ant-col-xl-12 css-dev-only-do-not-override-1vjf2v5"
             style="padding-left: 8px; padding-right: 8px;"
           >
             <div
@@ -510,10 +510,10 @@ exports[`CreateComponentPage should render frontend component page 1`] = `
         </div>
         <div
           class="ant-row css-dev-only-do-not-override-1vjf2v5"
-          style="margin-left: -8px; margin-right: -8px; row-gap: 16px;"
+          style="margin-left: -8px; margin-right: -8px;"
         >
           <div
-            class="ant-col ant-col-8 css-dev-only-do-not-override-1vjf2v5"
+            class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-6 ant-col-lg-6 ant-col-xl-6 css-dev-only-do-not-override-1vjf2v5"
             style="padding-left: 8px; padding-right: 8px;"
           >
             <div
@@ -570,7 +570,7 @@ exports[`CreateComponentPage should render frontend component page 1`] = `
             </div>
           </div>
           <div
-            class="ant-col ant-col-8 css-dev-only-do-not-override-1vjf2v5"
+            class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-6 ant-col-lg-6 ant-col-xl-6 css-dev-only-do-not-override-1vjf2v5"
             style="padding-left: 8px; padding-right: 8px;"
           >
             <div
@@ -627,7 +627,7 @@ exports[`CreateComponentPage should render frontend component page 1`] = `
             </div>
           </div>
           <div
-            class="ant-col ant-col-8 css-dev-only-do-not-override-1vjf2v5"
+            class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-6 ant-col-lg-6 ant-col-xl-6 css-dev-only-do-not-override-1vjf2v5"
             style="padding-left: 8px; padding-right: 8px;"
           >
             <div
@@ -683,13 +683,8 @@ exports[`CreateComponentPage should render frontend component page 1`] = `
               </div>
             </div>
           </div>
-        </div>
-        <div
-          class="ant-row css-dev-only-do-not-override-1vjf2v5"
-          style="margin-left: -8px; margin-right: -8px; row-gap: 16px;"
-        >
           <div
-            class="ant-col ant-col-24 css-dev-only-do-not-override-1vjf2v5"
+            class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-6 ant-col-lg-6 ant-col-xl-6 css-dev-only-do-not-override-1vjf2v5"
             style="padding-left: 8px; padding-right: 8px;"
           >
             <div
@@ -748,7 +743,7 @@ exports[`CreateComponentPage should render frontend component page 1`] = `
         </div>
         <div
           class="ant-row css-dev-only-do-not-override-1vjf2v5"
-          style="margin-left: -8px; margin-right: -8px; row-gap: 16px;"
+          style="margin-left: -8px; margin-right: -8px;"
         >
           <div
             class="ant-col ant-col-24 css-dev-only-do-not-override-1vjf2v5"
@@ -872,7 +867,7 @@ exports[`CreateComponentPage should render frontend component page 1`] = `
         </div>
         <div
           class="ant-row css-dev-only-do-not-override-1vjf2v5"
-          style="margin-left: -8px; margin-right: -8px; row-gap: 16px;"
+          style="margin-left: -8px; margin-right: -8px;"
         >
           <div
             class="ant-col ant-col-24 css-dev-only-do-not-override-1vjf2v5"

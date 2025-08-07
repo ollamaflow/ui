@@ -3,7 +3,7 @@ import { theme, ThemeConfig } from "antd";
 export const LightGraphTheme = {
   primary: "#0d8064", //95DB7B
   primaryLight: "#10a37f",
-  primaryExtraLight: "#8CABFF",
+  primaryExtraLight: "#13d4a4",
   primaryRed: "#B2B0E8",
   secondaryBlue: "#b1e5ff",
   secondaryYellow: "#ffe362",

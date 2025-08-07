@@ -42,7 +42,7 @@ jest.mock("rc-util/lib/getScrollBarSize", () => ({
 }));
 
 // eslint-disable-next-line react/display-name
-jest.mock("@/components/base/select/Select", () => (props) => {
+jest.mock("#/components/base/select/Select", () => (props) => {
   return (
     <select
       data-testid={props["data-testid"]}
