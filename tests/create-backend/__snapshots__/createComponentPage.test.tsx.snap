@@ -13,11 +13,20 @@ exports[`CreateComponentPage should render backend component page 1`] = `
         data-testid="heading"
         style="font-weight: 600; font-size: 16px;"
       >
-        <span
-          class="ant-typography css-dev-only-do-not-override-1vjf2v5"
+        <div
+          class="ant-flex css-dev-only-do-not-override-1vjf2v5 ant-flex-align-stretch ant-flex-vertical"
         >
-          Create Backend
-        </span>
+          <span
+            class="ant-typography css-dev-only-do-not-override-1vjf2v5"
+          >
+            Create Backend
+          </span>
+          <span
+            class="ant-typography text-secondary mt-0 css-dev-only-do-not-override-1vjf2v5"
+          >
+            The backend physical virtual Ollama servers that are workers for your frontend virtual Ollama servers.
+          </span>
+        </div>
       </span>
     </div>
     <div
@@ -541,50 +550,6 @@ exports[`CreateComponentPage should render backend component page 1`] = `
                 >
                   <label
                     class="ant-form-item-required"
-                    for="HealthCheckUrl"
-                    title="Health Check URL"
-                  >
-                    Health Check URL
-                  </label>
-                </div>
-                <div
-                  class="ant-col ant-form-item-control css-dev-only-do-not-override-1vjf2v5"
-                >
-                  <div
-                    class="ant-form-item-control-input"
-                  >
-                    <div
-                      class="ant-form-item-control-input-content"
-                    >
-                      <input
-                        aria-required="true"
-                        class="ant-input css-dev-only-do-not-override-1vjf2v5 ant-input-outlined"
-                        id="HealthCheckUrl"
-                        placeholder="/"
-                        type="text"
-                        value="/"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-12 ant-col-xl-12 css-dev-only-do-not-override-1vjf2v5"
-            style="padding-left: 8px; padding-right: 8px;"
-          >
-            <div
-              class="ant-form-item css-dev-only-do-not-override-1vjf2v5"
-            >
-              <div
-                class="ant-row ant-form-item-row css-dev-only-do-not-override-1vjf2v5"
-              >
-                <div
-                  class="ant-col ant-form-item-label css-dev-only-do-not-override-1vjf2v5"
-                >
-                  <label
-                    class="ant-form-item-required"
                     for="HealthCheckMethod_Method"
                     title="Health Check Method"
                   >
@@ -632,9 +597,10 @@ exports[`CreateComponentPage should render backend component page 1`] = `
                               />
                             </span>
                             <span
-                              class="ant-select-selection-placeholder"
+                              class="ant-select-selection-item"
+                              title="HEAD"
                             >
-                              Select health check method
+                              HEAD
                             </span>
                           </span>
                         </div>
@@ -665,6 +631,50 @@ exports[`CreateComponentPage should render backend component page 1`] = `
                           </span>
                         </span>
                       </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-12 ant-col-xl-12 css-dev-only-do-not-override-1vjf2v5"
+            style="padding-left: 8px; padding-right: 8px;"
+          >
+            <div
+              class="ant-form-item css-dev-only-do-not-override-1vjf2v5"
+            >
+              <div
+                class="ant-row ant-form-item-row css-dev-only-do-not-override-1vjf2v5"
+              >
+                <div
+                  class="ant-col ant-form-item-label css-dev-only-do-not-override-1vjf2v5"
+                >
+                  <label
+                    class="ant-form-item-required"
+                    for="HealthCheckUrl"
+                    title="Health Check URL"
+                  >
+                    Health Check URL
+                  </label>
+                </div>
+                <div
+                  class="ant-col ant-form-item-control css-dev-only-do-not-override-1vjf2v5"
+                >
+                  <div
+                    class="ant-form-item-control-input"
+                  >
+                    <div
+                      class="ant-form-item-control-input-content"
+                    >
+                      <input
+                        aria-required="true"
+                        class="ant-input css-dev-only-do-not-override-1vjf2v5 ant-input-outlined"
+                        id="HealthCheckUrl"
+                        placeholder="/"
+                        type="text"
+                        value="/"
+                      />
                     </div>
                   </div>
                 </div>

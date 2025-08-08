@@ -35,7 +35,7 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
     Hostname: "localhost",
     Port: 11435,
     Ssl: false,
-    HealthCheckMethod: "HEAD",
+    HealthCheckMethod: { Method: "HEAD" },
     HealthCheckUrl: "/",
     MaxParallelRequests: 4,
     RateLimitRequestsThreshold: 10,
@@ -168,20 +168,6 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
       <Row gutter={16}>
         <Col xs={24} sm={24} md={24} lg={12} xl={12}>
           <Form.Item
-            label="Health Check URL"
-            name="HealthCheckUrl"
-            rules={[
-              {
-                required: true,
-                message: "Please enter health check URL",
-              },
-            ]}
-          >
-            <Input placeholder="/" />
-          </Form.Item>
-        </Col>
-        <Col xs={24} sm={24} md={24} lg={12} xl={12}>
-          <Form.Item
             label="Health Check Method"
             name={["HealthCheckMethod", "Method"]}
             rules={[
@@ -200,6 +186,20 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
               <Option value="PATCH">PATCH</Option>
               <Option value="OPTIONS">OPTIONS</Option>
             </Select>
+          </Form.Item>
+        </Col>
+        <Col xs={24} sm={24} md={24} lg={12} xl={12}>
+          <Form.Item
+            label="Health Check URL"
+            name="HealthCheckUrl"
+            rules={[
+              {
+                required: true,
+                message: "Please enter health check URL",
+              },
+            ]}
+          >
+            <Input placeholder="/" />
           </Form.Item>
         </Col>
       </Row>

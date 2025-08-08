@@ -58,7 +58,7 @@
 }
 
 .mr-0 {
-  margin-right: 0;
+  margin-right: 0 !important;
 }
 .ml-0 {
   margin-left: 0;
@@ -159,6 +159,10 @@
 }
 .text-center {
   text-align: center;
+}
+.text-secondary {
+  color: var(--ant-color-text-secondary) !important;
+  font-weight: 400;
 }
 .w-100 {
   width: 100%;

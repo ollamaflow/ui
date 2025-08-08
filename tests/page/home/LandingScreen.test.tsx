@@ -2,6 +2,7 @@ import "@testing-library/jest-dom";
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import LandingScreen from "#/page/home/LandingScreen";
+import { paths } from "#/constants/constant";
 
 // Mock Next.js Link component
 jest.mock("next/link", () => {
@@ -145,7 +146,7 @@ describe("LandingScreen", () => {
 
     expect(
       screen.getByText(
-        "Create a new frontend configuration to handle incoming requests and route them to your backends"
+        "Create a virtual Ollama server exposed to your network, mapped to your backends and with models that should be automatically deployed across your fleet."
       )
     ).toBeInTheDocument();
   });
@@ -162,7 +163,7 @@ describe("LandingScreen", () => {
 
     expect(
       screen.getByText(
-        "Create a new backend configuration to define your Ollama server endpoints and models"
+        "Define the backend physical virtual Ollama servers that are workers for your frontend virtual Ollama servers."
       )
     ).toBeInTheDocument();
   });
@@ -190,8 +191,8 @@ describe("LandingScreen", () => {
     );
     const backendLink = backendButton?.closest("a");
 
-    expect(frontendLink).toHaveAttribute("href", "/dashboard/create-frontend");
-    expect(backendLink).toHaveAttribute("href", "/dashboard/create-backend");
+    expect(frontendLink).toHaveAttribute("href", paths.DashboardCreateFrontend);
+    expect(backendLink).toHaveAttribute("href", paths.DashboardCreateBackend);
   });
 
   test("should render buttons with correct properties", () => {
@@ -204,26 +205,6 @@ describe("LandingScreen", () => {
       expect(button).toHaveAttribute("data-type", "primary");
       expect(button).toHaveAttribute("data-size", "large");
     });
-  });
-
-  test("should call onNavigate when frontend card is clicked", () => {
-    const mockOnNavigate = jest.fn();
-    render(<LandingScreen onNavigate={mockOnNavigate} />);
-
-    const cards = screen.getAllByTestId("card");
-    fireEvent.click(cards[0]); // Frontend card
-
-    expect(mockOnNavigate).toHaveBeenCalledWith("create-frontend");
-  });
-
-  test("should call onNavigate when backend card is clicked", () => {
-    const mockOnNavigate = jest.fn();
-    render(<LandingScreen onNavigate={mockOnNavigate} />);
-
-    const cards = screen.getAllByTestId("card");
-    fireEvent.click(cards[1]); // Backend card
-
-    expect(mockOnNavigate).toHaveBeenCalledWith("create-backend");
   });
 
   test("should not call onNavigate when not provided", () => {
@@ -296,27 +277,6 @@ describe("LandingScreen", () => {
 
     expect(frontendCard).toBeInTheDocument();
     expect(backendCard).toBeInTheDocument();
-  });
-
-  test("should handle multiple clicks on cards", () => {
-    const mockOnNavigate = jest.fn();
-    render(<LandingScreen onNavigate={mockOnNavigate} />);
-
-    const cards = screen.getAllByTestId("card");
-
-    // Click frontend card multiple times
-    fireEvent.click(cards[0]);
-    fireEvent.click(cards[0]);
-
-    expect(mockOnNavigate).toHaveBeenCalledTimes(2);
-    expect(mockOnNavigate).toHaveBeenCalledWith("create-frontend");
-
-    // Click backend card multiple times
-    fireEvent.click(cards[1]);
-    fireEvent.click(cards[1]);
-
-    expect(mockOnNavigate).toHaveBeenCalledTimes(4);
-    expect(mockOnNavigate).toHaveBeenCalledWith("create-backend");
   });
 
   test("should render with responsive column classes", () => {

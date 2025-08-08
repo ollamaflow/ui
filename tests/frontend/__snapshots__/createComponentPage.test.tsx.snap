@@ -13,11 +13,20 @@ exports[`CreateComponentPage should render frontend component page 1`] = `
         data-testid="heading"
         style="font-weight: 600; font-size: 16px;"
       >
-        <span
-          class="ant-typography css-dev-only-do-not-override-1vjf2v5"
+        <div
+          class="ant-flex css-dev-only-do-not-override-1vjf2v5 ant-flex-align-stretch ant-flex-vertical"
         >
-          Create Frontend
-        </span>
+          <span
+            class="ant-typography css-dev-only-do-not-override-1vjf2v5"
+          >
+            Create Frontend
+          </span>
+          <span
+            class="ant-typography text-secondary mt-0 css-dev-only-do-not-override-1vjf2v5"
+          >
+            A virtual Ollama server exposed to your network, mapped to your backends and with models that should be automatically deployed across your fleet.
+          </span>
+        </div>
       </span>
     </div>
     <div

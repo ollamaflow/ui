@@ -31,6 +31,7 @@ const FrontendsListingPage: React.FC = () => {
     isLoading,
     isFetching,
     isError,
+    error,
     refetch,
   } = useGetFrontendQuery();
   const isFrontendLoading = isLoading || isFetching;
@@ -71,9 +72,8 @@ const FrontendsListingPage: React.FC = () => {
     setIsDeleteModalVisible(false);
     setDeletingFrontend(null);
   };
-
   if (isError) {
-    return <FallBack retry={refetch} />;
+    return <FallBack retry={refetch} error={error} />;
   }
 
   return (

@@ -39,28 +39,27 @@ export const columns: (
     ),
   },
   {
-    title: "Port",
-    dataIndex: "Port",
-    key: "Port",
-    width: 100,
-  },
-  {
     title: "SSL",
     dataIndex: "Ssl",
     key: "Ssl",
     width: 80,
     align: "center",
     render: (ssl: boolean) => (
-      <Tag color={ssl ? "success" : "default"}>{ssl ? "Yes" : "No"}</Tag>
+      <Tag color={ssl ? "success" : "error"}>{ssl ? "Yes" : "No"}</Tag>
     ),
   },
   {
-    title: "Health Check",
-    dataIndex: "HealthCheckMethod",
-    key: "HealthCheckMethod",
+    title: "Health Check URL",
+    dataIndex: "HealthCheckUrl",
+    key: "HealthCheckUrl",
     width: 120,
-    render: (method: { Method: string }, record: Backend) => (
-      <span>{record.HealthCheckUrl}</span>
+    render: (healthCheckUrl: string, record: Backend) => (
+      <span>
+        <Tag color="blue" className="mr-0">
+          {record.HealthCheckMethod.Method}
+        </Tag>{" "}
+        {healthCheckUrl}
+      </span>
     ),
   },
   {

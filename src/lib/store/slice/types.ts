@@ -24,7 +24,7 @@ export interface Backend {
   Ssl: boolean;
   UnhealthyThreshold: number;
   HealthyThreshold: number;
-  HealthCheckMethod: string;
+  HealthCheckMethod: { Method: string };
   HealthCheckUrl: string;
   MaxParallelRequests: number;
   RateLimitRequestsThreshold: number;

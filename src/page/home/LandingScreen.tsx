@@ -1,25 +1,28 @@
-import React from 'react';
-import { Row, Col } from 'antd';
-import { PlusOutlined, CloudServerOutlined, FileTextOutlined } from '@ant-design/icons';
-import OllamaFlowCard from '../../components/base/card/Card';
-import OllamaFlowButton from '../../components/base/button/Button';
-import OllamaFlowTitle from '../../components/base/typograpghy/Title';
-import OllamaFlowText from '../../components/base/typograpghy/Text';
-import OllamaFlowFlex from '#/components/base/flex/Flex';
-import styles from './home.module.scss';
-import Link from 'next/link';
+import React from "react";
+import { Row, Col } from "antd";
+import {
+  PlusOutlined,
+  CloudServerOutlined,
+  FileTextOutlined,
+} from "@ant-design/icons";
+import OllamaFlowCard from "../../components/base/card/Card";
+import OllamaFlowButton from "../../components/base/button/Button";
+import OllamaFlowTitle from "../../components/base/typograpghy/Title";
+import OllamaFlowText from "../../components/base/typograpghy/Text";
+import OllamaFlowFlex from "#/components/base/flex/Flex";
+import styles from "./home.module.scss";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { paths } from "#/constants/constant";
 
-interface LandingScreenProps {
-  onNavigate?: (view: string) => void;
-}
-
-const LandingScreen: React.FC<LandingScreenProps> = ({ onNavigate }) => {
+const LandingScreen: React.FC = () => {
+  const router = useRouter();
   const handleCreateFrontend = () => {
-    onNavigate?.('create-frontend');
+    router.push(paths.DashboardCreateFrontend);
   };
 
   const handleCreateBackend = () => {
-    onNavigate?.('create-backend');
+    router.push(paths.DashboardCreateBackend);
   };
 
   return (
@@ -28,20 +31,25 @@ const LandingScreen: React.FC<LandingScreenProps> = ({ onNavigate }) => {
         <OllamaFlowFlex vertical align="center" className="mt-xl">
           <OllamaFlowTitle level={1}>Welcome to OllamaFlow</OllamaFlowTitle>
           <OllamaFlowText>
-            Create and manage your Ollama frontends and backends with our intuitive interface
+            Create and manage your Ollama frontends and backends with our
+            intuitive interface
           </OllamaFlowText>
         </OllamaFlowFlex>
 
         {/* Main Options */}
         <Row gutter={[40, 40]} justify="center" className="mt-xl">
           <Col xs={24} sm={20} md={10} lg={8}>
-            <OllamaFlowCard onClick={handleCreateFrontend} className={styles.card} hoverable>
+            <OllamaFlowCard
+              onClick={handleCreateFrontend}
+              className={styles.card}
+              hoverable
+            >
               <OllamaFlowFlex vertical align="center" className="h-100">
                 <div>
                   <FileTextOutlined
                     style={{
-                      fontSize: '40px',
-                      color: 'var(--ant-color-primary)',
+                      fontSize: "32px",
+                      color: "var(--ant-color-primary)",
                     }}
                   />
                 </div>
@@ -49,10 +57,16 @@ const LandingScreen: React.FC<LandingScreenProps> = ({ onNavigate }) => {
                   Create Frontend
                 </OllamaFlowTitle>
                 <OllamaFlowText className="text-center">
-                  Create a new frontend configuration to handle incoming requests and route them to your backends
+                  Create a virtual Ollama server exposed to your network, mapped
+                  to your backends and with models that should be automatically
+                  deployed across your fleet.
                 </OllamaFlowText>
-                <Link href="/dashboard/create-frontend" className="mt-auto">
-                  <OllamaFlowButton type="primary" size="large" icon={<PlusOutlined />}>
+                <Link href={paths.DashboardCreateFrontend} className="mt-auto">
+                  <OllamaFlowButton
+                    type="primary"
+                    size="large"
+                    icon={<PlusOutlined />}
+                  >
                     Create Frontend
                   </OllamaFlowButton>
                 </Link>
@@ -61,13 +75,17 @@ const LandingScreen: React.FC<LandingScreenProps> = ({ onNavigate }) => {
           </Col>
 
           <Col xs={24} sm={20} md={10} lg={8}>
-            <OllamaFlowCard hoverable onClick={handleCreateBackend} className={styles.card}>
+            <OllamaFlowCard
+              hoverable
+              onClick={handleCreateBackend}
+              className={styles.card}
+            >
               <OllamaFlowFlex vertical align="center" className="h-100">
                 <div>
                   <CloudServerOutlined
                     style={{
-                      fontSize: '40px',
-                      color: 'var(--ant-color-primary)',
+                      fontSize: "40px",
+                      color: "var(--ant-color-primary)",
                     }}
                   />
                 </div>
@@ -75,10 +93,15 @@ const LandingScreen: React.FC<LandingScreenProps> = ({ onNavigate }) => {
                   Create Backend
                 </OllamaFlowTitle>
                 <OllamaFlowText className="text-center">
-                  Create a new backend configuration to define your Ollama server endpoints and models
+                  Define the backend physical virtual Ollama servers that are
+                  workers for your frontend virtual Ollama servers.
                 </OllamaFlowText>
-                <Link href="/dashboard/create-backend" className="mt-auto">
-                  <OllamaFlowButton type="primary" size="large" icon={<PlusOutlined />}>
+                <Link href={paths.DashboardCreateBackend} className="mt-auto">
+                  <OllamaFlowButton
+                    type="primary"
+                    size="large"
+                    icon={<PlusOutlined />}
+                  >
                     Create Backend
                   </OllamaFlowButton>
                 </Link>

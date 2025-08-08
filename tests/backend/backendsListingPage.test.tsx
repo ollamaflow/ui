@@ -55,7 +55,6 @@ describe("BackendsListingPage", () => {
     await waitFor(() => {
       expect(screen.getByText("Backend 1")).toBeInTheDocument();
       expect(screen.getByText("localhost:43411")).toBeInTheDocument();
-      expect(screen.getByText("43411")).toBeInTheDocument();
     });
   });
 

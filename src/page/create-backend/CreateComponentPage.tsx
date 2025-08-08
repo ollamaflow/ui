@@ -8,6 +8,7 @@ import {
   useCreateBackendMutation,
   CreateBackendPayload,
 } from "#/lib/store/slice/apiSlice";
+import OllamaFlowFlex from "#/components/base/flex/Flex";
 
 const CreateComponentPage: React.FC = () => {
   const router = useRouter();
@@ -37,7 +38,17 @@ const CreateComponentPage: React.FC = () => {
   };
 
   return (
-    <PageContainer pageTitle={<OllamaFlowText>Create Backend</OllamaFlowText>}>
+    <PageContainer
+      pageTitle={
+        <OllamaFlowFlex vertical>
+          <OllamaFlowText>Create Backend</OllamaFlowText>
+          <OllamaFlowText className="text-secondary mt-0">
+            The backend physical virtual Ollama servers that are workers for
+            your frontend virtual Ollama servers.
+          </OllamaFlowText>
+        </OllamaFlowFlex>
+      }
+    >
       <CreateEditBackend
         mode="create"
         onSubmit={handleSubmit}

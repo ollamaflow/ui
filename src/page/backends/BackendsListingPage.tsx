@@ -29,6 +29,7 @@ const BackendsListingPage: React.FC = () => {
     isLoading,
     isFetching,
     isError,
+    error,
     refetch,
   } = useGetBackendQuery();
   const isBackendLoading = isLoading || isFetching;
@@ -71,7 +72,7 @@ const BackendsListingPage: React.FC = () => {
   };
 
   if (isError) {
-    return <FallBack retry={refetch} />;
+    return <FallBack retry={refetch} error={error} />;
   }
 
   return (

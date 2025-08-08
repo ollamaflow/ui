@@ -25,16 +25,22 @@ interface FallBackProps {
   retry?: () => void;
   textProps?: TextProps;
   className?: string;
+  error?: any;
 }
 
 const FallBack = ({
   icon,
-  children = "Something went wrong.",
+  children: childrenProp = "Something went wrong.",
   type = FallBackEnums.ERROR,
   retry,
   textProps,
   className,
+  error,
 }: FallBackProps) => {
+  const children =
+    error?.code === "ERR_NETWORK"
+      ? "Unable to communicate with specified OllamaFlow instance.  Please ensure your instance is online."
+      : childrenProp;
   const defaultIcon =
     type === FallBackEnums.ERROR ? (
       <CloseCircleOutlined
@@ -50,7 +56,12 @@ const FallBack = ({
       />
     );
   return (
-    <Flex justify="center" align="center" vertical className={className}>
+    <Flex
+      justify="center"
+      align="center"
+      vertical
+      className={classNames(styles.fallback, className)}
+    >
       <Text {...textProps}>{children}</Text>
       {icon ? icon : defaultIcon}
       {retry && (

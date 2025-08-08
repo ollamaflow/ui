@@ -11,7 +11,7 @@ export const mockBackendData: Backend = {
   Ssl: false,
   UnhealthyThreshold: 3,
   HealthyThreshold: 3,
-  HealthCheckMethod: "GET",
+  HealthCheckMethod: { Method: "GET" },
   HealthCheckUrl: "/health",
   MaxParallelRequests: 10,
   RateLimitRequestsThreshold: 100,
