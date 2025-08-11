@@ -65,7 +65,6 @@ export const columns: (
     dataIndex: "Active",
     key: "Active",
     width: 100,
-    align: "center",
     render: (active: boolean) => (
       <Tag color={active ? "success" : "error"}>
         {active ? "Active" : "Inactive"}
@@ -89,7 +88,6 @@ export const columns: (
     title: "Actions",
     key: "actions",
     width: 120,
-    align: "center",
     render: (record: Frontend) => (
       <OllamaFlowFlex align="center" justify="space-around">
         <Link href={`${paths.EditFrontend}/${record.Identifier}`}>

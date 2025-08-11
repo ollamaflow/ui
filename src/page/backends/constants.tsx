@@ -43,7 +43,6 @@ export const columns: (
     dataIndex: "Ssl",
     key: "Ssl",
     width: 80,
-    align: "center",
     render: (ssl: boolean) => (
       <Tag color={ssl ? "success" : "error"}>{ssl ? "Yes" : "No"}</Tag>
     ),
@@ -67,7 +66,6 @@ export const columns: (
     dataIndex: "Active",
     key: "Active",
     width: 100,
-    align: "center",
     render: (active: boolean) => (
       <Tag color={active ? "success" : "error"}>
         {active ? "Active" : "Inactive"}
@@ -91,7 +89,6 @@ export const columns: (
     title: "Actions",
     key: "actions",
     width: 120,
-    align: "center",
     render: (record: Backend) => (
       <OllamaFlowFlex align="center" justify="space-around">
         <Link href={`${paths.EditBackend}/${record.Identifier}`}>
