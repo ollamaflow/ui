@@ -1,6 +1,6 @@
 <img src="https://avatars.githubusercontent.com/u/222556077?s=200&v=4" height="48">
 
-# Ollama Web UI
+# OllamaFlow Web UI
 
 A web interface for interacting with Ollama configuration, built with Next.js and React.
 
