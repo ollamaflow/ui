@@ -16,11 +16,7 @@ export const columns: (
     dataIndex: "Identifier",
     key: "Identifier",
     width: 150,
-    render: (text: string) => (
-      <Tooltip title={text}>
-        <span style={{ fontFamily: "monospace" }}>{text}</span>
-      </Tooltip>
-    ),
+    render: (text: string) => <Tooltip title={text}>{text}</Tooltip>,
   },
   {
     title: "Name",
