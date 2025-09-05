@@ -10,20 +10,23 @@ import { handleLogout } from "./rootReducer";
 export const errorHandler = (er: any) => {
   const error = er?.payload || {};
   const endpointName = er?.meta?.arg?.endpointName;
-  const serverErrorMessage = error?.data?.message || error?.data?.detail;
-
+  const serverErrorMessage = error?.Message ||  error?.data?.message || error?.data?.detail;
+  console.log(error, "chk endpointName");
   if (isNumber(error?.status) || isNumber(error?.StatusCode) || error?.code) {
     console.log(error);
     switch (error.status || error.StatusCode || error.code) {
       case 401:
       case 403:
-        if (endpointName !== "login") {
+        if (endpointName !== "getFrontendTest") {
           message.error("Invalid access key, login again. ");
           setTimeout(() => {
             handleLogout();
           }, 2000);
-          break;
         }
+        message.error(
+          serverErrorMessage ? serverErrorMessage : "Something went wrong."
+        );
+        break;
       case "ERR_NETWORK":
         message.error("Network Error");
         break;

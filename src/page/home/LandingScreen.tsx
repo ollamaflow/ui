@@ -14,6 +14,7 @@ import styles from "./home.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { paths } from "#/constants/constant";
+import PageContainer from "#/components/base/pageContainer/PageContainer";
 
 const LandingScreen: React.FC = () => {
   const router = useRouter();
@@ -26,7 +27,7 @@ const LandingScreen: React.FC = () => {
   };
 
   return (
-    <>
+    <PageContainer>
       <div>
         <OllamaFlowFlex vertical align="center" className="mt-xl">
           <OllamaFlowTitle level={1}>Welcome to OllamaFlow</OllamaFlowTitle>
@@ -110,7 +111,7 @@ const LandingScreen: React.FC = () => {
           </Col>
         </Row>
       </div>
-    </>
+    </PageContainer>
   );
 };
 

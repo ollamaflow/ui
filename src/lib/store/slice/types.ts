@@ -34,4 +34,30 @@ export interface Backend {
   Active: boolean;
   CreatedUtc: string;
   LastUpdateUtc: string;
+  ActiveRequests: number;
+}
+
+export interface BackendHealth {
+  Identifier: string;
+  Name: string;
+  Hostname: string;
+  Port: number;
+  Ssl: boolean;
+  UnhealthyThreshold: number;
+  HealthyThreshold: number;
+  HealthCheckMethod: { Method: string };
+  HealthCheckUrl: string;
+  MaxParallelRequests: number;
+  RateLimitRequestsThreshold: number;
+  LogRequestFull: boolean;
+  LogRequestBody: boolean;
+  LogResponseBody: boolean;
+  Active: boolean;
+  CreatedUtc: string;
+  LastUpdateUtc: string;
+  UnhealthySinceUtc: string;
+  Downtime: string;
+  ActiveRequests: number;
+  Uptime: string;
+  HealthySinceUtc: string;
 }

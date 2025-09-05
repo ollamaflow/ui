@@ -9,6 +9,7 @@ import {
   CreateBackendPayload,
 } from "#/lib/store/slice/apiSlice";
 import OllamaFlowFlex from "#/components/base/flex/Flex";
+import { paths } from "#/constants/constant";
 
 const CreateComponentPage: React.FC = () => {
   const router = useRouter();
@@ -39,6 +40,7 @@ const CreateComponentPage: React.FC = () => {
 
   return (
     <PageContainer
+      navBackUrl={paths.DashboardBackends}
       pageTitle={
         <OllamaFlowFlex vertical>
           <OllamaFlowText>Create Backend</OllamaFlowText>

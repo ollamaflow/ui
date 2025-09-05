@@ -28,6 +28,7 @@ export const primaryTheme: ThemeConfig = {
     colorBorder: LightGraphTheme.borderGray,
     colorTextDisabled: LightGraphTheme.textDisabled,
     colorBgContainerDisabled: LightGraphTheme.colorBgContainerDisabled,
+    colorBorderSecondary:'#cccccc'
   },
   components: {
     Tabs: {

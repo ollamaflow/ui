@@ -2,6 +2,7 @@ import { ollamaServerUrl } from "#/constants/apiConfig";
 import {
   mockBackendData,
   mockFrontendData,
+  mockBackendHealthData,
   mockBackendIdentifier,
   mockFrontendIdentifier,
 } from "./mockData";
@@ -14,6 +15,9 @@ export const commonHandlers = [
   }),
   http.get(`${ollamaServerUrl}/v1.0/backends/${mockBackendIdentifier}`, () => {
     return HttpResponse.json(mockBackendData);
+  }),
+  http.get(`${ollamaServerUrl}/v1.0/backends/health`, () => {
+    return HttpResponse.json([mockBackendHealthData]);
   }),
   http.put(`${ollamaServerUrl}/v1.0/backends`, () => {
     return HttpResponse.json(mockBackendData);

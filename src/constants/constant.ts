@@ -15,3 +15,5 @@ export const paths = {
   DashboardFrontends: "/dashboard/frontends",
   DashboardBackends: "/dashboard/backends",
 };
+
+export const NOT_AVAILABLE = "N/A";

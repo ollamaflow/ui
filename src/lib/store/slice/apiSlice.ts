@@ -1,6 +1,6 @@
 import { BaseQueryFn, EndpointBuilder } from "@reduxjs/toolkit/query";
 import apiSlice, { ApiBaseQueryArgs } from "../rtk/rtkApiInstance";
-import { Frontend, Backend } from "./types";
+import { Frontend, Backend, BackendHealth } from "./types";
 
 // Type for creating a frontend (excludes server-generated fields)
 export type CreateFrontendPayload = Omit<
@@ -74,6 +74,13 @@ const apiPathSlice = enhancedApiSlice.injectEndpoints({
     getBackend: builder.query<Backend[], void>({
       query: (arg: any) => ({
         url: "v1.0/backends",
+      }),
+      providesTags: [{ type: SliceTags.BACKEND, id: "LIST" }],
+      transformResponse: (response: any) => response,
+    }),
+    getBackendHealth: builder.query<BackendHealth[], void>({
+      query: (arg: any) => ({
+        url: "v1.0/backends/health",
       }),
       providesTags: [{ type: SliceTags.BACKEND, id: "LIST" }],
       transformResponse: (response: any) => response,
@@ -173,4 +180,5 @@ export const {
   useDeleteBackendMutation,
   useGetFrontendByIdQuery,
   useGetBackendByIdQuery,
+  useGetBackendHealthQuery,
 } = apiPathSlice;

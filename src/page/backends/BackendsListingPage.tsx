@@ -7,32 +7,45 @@ import PageContainer from "#/components/base/pageContainer/PageContainer";
 import OllamaFlowTable from "#/components/base/table/Table";
 import FallBack from "#/components/fallback/FallBack";
 import {
-  useGetBackendQuery,
+  useGetBackendHealthQuery,
   useDeleteBackendMutation,
+  useGetBackendQuery,
 } from "#/lib/store/slice/apiSlice";
-import { columns } from "./constants";
+import { columns, healthColumns } from "./constants";
 import OllamaFlowFlex from "#/components/base/flex/Flex";
 import OllamaFlowText from "#/components/base/typograpghy/Text";
 import OllamaFlowButton from "#/components/base/button/Button";
 import { TableColumnType, Modal, message } from "antd";
-import { Backend } from "#/lib/store/slice/types";
+import { Backend, BackendHealth } from "#/lib/store/slice/types";
 import { useRouter } from "next/navigation";
 import { paths } from "#/constants/constant";
+import styles from "./be-listing.module.scss";
+import OllamaFlowTitle from "#/components/base/typograpghy/Title";
+import OllamaFlowDivider from "#/components/base/divider/Divider";
 
 const BackendsListingPage: React.FC = () => {
   const router = useRouter();
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
-  const [deletingBackend, setDeletingBackend] = useState<Backend | null>(null);
+  const [deletingBackend, setDeletingBackend] = useState<
+    BackendHealth | Backend | null
+  >(null);
 
   const {
-    data: backends = [],
+    data: backendsHealth = [],
     isLoading,
     isFetching,
     isError,
     error,
     refetch,
+  } = useGetBackendHealthQuery();
+  const {
+    data: backends,
+    isLoading: isL1,
+    isError: isE1,
+    isFetching: isF1,
   } = useGetBackendQuery();
-  const isBackendLoading = isLoading || isFetching;
+  const isBackendLoading = isL1 || isF1;
+  const isBackendHealthLoading = isLoading || isFetching;
 
   const [deleteBackend, { isLoading: isDeleteLoading }] =
     useDeleteBackendMutation();
@@ -43,7 +56,7 @@ const BackendsListingPage: React.FC = () => {
   };
 
   // Handle delete backend
-  const handleDeleteBackend = (backend: Backend) => {
+  const handleDeleteBackend = (backend: BackendHealth | Backend) => {
     setDeletingBackend(backend);
     setIsDeleteModalVisible(true);
   };
@@ -95,11 +108,45 @@ const BackendsListingPage: React.FC = () => {
       }
     >
       <OllamaFlowTable
+        className={styles.tableContainer}
         columns={
           columns(handleDeleteBackend) as TableColumnType<Partial<Backend>>[]
         }
+        onRow={(record: Partial<Backend>) => {
+          return {
+            className: !record.Active ? "in-active" : undefined,
+          };
+        }}
         dataSource={backends}
         loading={isBackendLoading}
+        rowKey="Identifier"
+        scroll={{ x: 1600 }}
+        pagination={{
+          showSizeChanger: true,
+          showQuickJumper: true,
+          showTotal: (total, range) =>
+            `${range[0]}-${range[1]} of ${total} backends`,
+        }}
+        size="middle"
+      />
+      <OllamaFlowTitle className="ml-xs" level={5} weight={500}>
+        Health
+      </OllamaFlowTitle>
+      <OllamaFlowDivider className="mt-xs mb-xs" />
+      <OllamaFlowTable
+        className={styles.tableContainer}
+        columns={
+          healthColumns(handleDeleteBackend) as TableColumnType<
+            Partial<BackendHealth>
+          >[]
+        }
+        onRow={(record: Partial<BackendHealth>) => {
+          return {
+            className: !record.Active ? "in-active" : undefined,
+          };
+        }}
+        dataSource={backendsHealth}
+        loading={isBackendHealthLoading}
         rowKey="Identifier"
         scroll={{ x: 1600 }}
         pagination={{

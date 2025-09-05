@@ -80,3 +80,12 @@ export const generateSelectOptionsWithFormatter = (
     );
   });
 };
+
+export function formatDate(date: string) {
+  if (!date) return "Invalid Date";
+  try {
+    return new Date(date).toLocaleString();
+  } catch {
+    return "Invalid Date";
+  }
+}

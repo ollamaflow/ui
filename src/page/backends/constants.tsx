@@ -1,11 +1,12 @@
 import { ColumnsType } from "antd/es/table";
-import { Backend } from "#/lib/store/slice/types";
+import { Backend, BackendHealth } from "#/lib/store/slice/types";
 import { Tag, Space } from "antd";
 import { Tooltip } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import OllamaFlowFlex from "#/components/base/flex/Flex";
 import Link from "next/link";
-import { paths } from "../../constants/constant";
+import { NOT_AVAILABLE, paths } from "../../constants/constant";
+import { formatDate } from "#/utils/utils";
 
 export const columns: (
   deleteBackendHandler: (backend: Backend) => void
@@ -108,4 +109,97 @@ export const columns: (
       </OllamaFlowFlex>
     ),
   },
+];
+export const healthColumns: (
+  deleteBackendHandler: (backend: BackendHealth) => void
+) => ColumnsType<BackendHealth> = (deleteBackendHandler) => [
+  {
+    title: "Identifier",
+    dataIndex: "Identifier",
+    key: "Identifier",
+    width: 150,
+    render: (text: string) => (
+      <Tooltip title={text}>
+        <span style={{ fontFamily: "monospace" }}>{text}</span>
+      </Tooltip>
+    ),
+  },
+  {
+    title: "Name",
+    dataIndex: "Name",
+    key: "Name",
+    width: 200,
+  },
+  {
+    title: "Healthy Since",
+    dataIndex: "HealthySinceUtc",
+    key: "HealthySinceUtc",
+    width: 150,
+    render: (date: string) => {
+      if (!date) return <Tag color="default">{NOT_AVAILABLE}</Tag>;
+      return formatDate(date);
+    },
+  },
+  {
+    title: "Unhealthy Since",
+    dataIndex: "UnhealthySinceUtc",
+    key: "UnhealthySinceUtc",
+    width: 150,
+    render: (date: string) => {
+      if (!date) return <Tag color="default">{NOT_AVAILABLE}</Tag>;
+      return formatDate(date);
+    },
+  },
+  {
+    title: "Uptime",
+    dataIndex: "Uptime",
+    key: "Uptime",
+    width: 120,
+    render: (uptime: string) => {
+      if (!uptime) return <Tag color="default">N/A</Tag>;
+      return <span style={{ fontFamily: "monospace" }}>{uptime}</span>;
+    },
+  },
+  {
+    title: "Downtime",
+    dataIndex: "Downtime",
+    key: "Downtime",
+    width: 120,
+    render: (downtime: string) => {
+      if (!downtime) return <Tag color="default">N/A</Tag>;
+      return <span style={{ fontFamily: "monospace" }}>{downtime}</span>;
+    },
+  },
+  {
+    title: "Active Requests",
+    dataIndex: "ActiveRequests",
+    key: "ActiveRequests",
+    width: 120,
+    render: (count: number) => (
+      <Tag color={count > 0 ? "processing" : "default"}>{count || 0}</Tag>
+    ),
+  },
+  // {
+  //   title: "Actions",
+  //   key: "actions",
+  //   width: 120,
+  //   render: (record: BackendHealth) => (
+  //     <OllamaFlowFlex align="center" justify="space-around">
+  //       <Link href={`${paths.EditBackend}/${record.Identifier}`}>
+  //         <EditOutlined
+  //           style={{ cursor: "pointer", color: "#1890ff" }}
+  //           title="Edit Backend"
+  //         />{" "}
+  //       </Link>
+  //       <DeleteOutlined
+  //         style={{ cursor: "pointer", color: "#ff4d4f" }}
+  //         title="Delete Backend"
+  //         onClick={() => {
+  //           // This will be handled by the parent component
+  //           deleteBackendHandler(record);
+  //         }}
+  //       />
+  //     </OllamaFlowFlex>
+  //   ),
+  // },
 ];
