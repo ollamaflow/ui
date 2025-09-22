@@ -17,6 +17,8 @@ describe('Types', () => {
         LogRequestFull: true,
         LogRequestBody: true,
         LogResponseBody: true,
+        UseStickySessions: false,
+        StickySessionExpirationMs: 1800000,
         Active: true,
         CreatedUtc: '2021-01-01T00:00:00Z',
         LastUpdateUtc: '2021-01-01T00:00:00Z',
@@ -34,6 +36,8 @@ describe('Types', () => {
       expect(frontend.LogRequestFull).toBe(true);
       expect(frontend.LogRequestBody).toBe(true);
       expect(frontend.LogResponseBody).toBe(true);
+      expect(frontend.UseStickySessions).toBe(false);
+      expect(frontend.StickySessionExpirationMs).toBe(1800000);
       expect(frontend.Active).toBe(true);
       expect(frontend.CreatedUtc).toBe('2021-01-01T00:00:00Z');
       expect(frontend.LastUpdateUtc).toBe('2021-01-01T00:00:00Z');

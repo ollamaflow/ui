@@ -4,6 +4,18 @@
 
 A web interface for interacting with Ollama configuration, built with Next.js and React.
 
+## Documentation 
+
+Full API documentation is available at [OllamaFlow API Reference](https://ollamaflow.readme.io/reference/api-reference).
+
+- Explore available endpoints
+- See example requests and responses
+- Learn about authentication and usage
+
+For more details, visit: https://ollamaflow.readme.io/
+
+
+
 ## Features
 
 - **Backends**: Manage and configure Ollama backends

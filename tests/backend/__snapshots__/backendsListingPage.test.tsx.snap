@@ -986,7 +986,6 @@ exports[`BackendsListingPage should render backends listing page 1`] = `
                         >
                           <span
                             aria-describedby="test-id"
-                            style="font-family: monospace;"
                           >
                             backend-1
                           </span>
@@ -1462,7 +1461,6 @@ exports[`BackendsListingPage should render backends listing page 1`] = `
                         >
                           <span
                             aria-describedby="test-id"
-                            style="font-family: monospace;"
                           >
                             backend-1
                           </span>

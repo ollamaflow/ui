@@ -57,6 +57,31 @@ export const columns: (
     ),
   },
   {
+    title: "Sticky Sessions",
+    dataIndex: "UseStickySessions",
+    key: "UseStickySessions",
+    width: 120,
+    render: (useStickySessions: boolean) => (
+      <Tag color={useStickySessions ? "blue" : "default"}>
+        {useStickySessions ? "Enabled" : "Disabled"}
+      </Tag>
+    ),
+  },
+  {
+    title: "Sticky Session Expiration (ms)",
+    dataIndex: "StickySessionExpirationMs",
+    key: "StickySessionExpirationMs",
+    width: 180,
+    render: (expirationMs: number) => {
+      const minutes = Math.round(expirationMs / 1000 / 60);
+      return (
+        <span>
+          {expirationMs.toLocaleString()}ms ({minutes} min)
+        </span>
+      );
+    },
+  },
+  {
     title: "Status",
     dataIndex: "Active",
     key: "Active",

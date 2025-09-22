@@ -37,6 +37,8 @@ export const mockFrontendData: Frontend = {
   LogRequestFull: true,
   LogRequestBody: true,
   LogResponseBody: true,
+  UseStickySessions: false,
+  StickySessionExpirationMs: 1800000,
   Active: true,
   CreatedUtc: "2021-01-01",
   LastUpdateUtc: "2021-01-01",

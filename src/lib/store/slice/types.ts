@@ -11,6 +11,8 @@ export interface Frontend {
   LogRequestFull: boolean;
   LogRequestBody: boolean;
   LogResponseBody: boolean;
+  UseStickySessions: boolean;
+  StickySessionExpirationMs: number;
   Active: boolean;
   CreatedUtc: string;
   LastUpdateUtc: string;

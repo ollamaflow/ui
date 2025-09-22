@@ -29,6 +29,12 @@
 .mt-lg {
   margin-top: var(--ant-margin-lg);
 }
+.mt-md {
+  margin-top: var(--ant-margin-md) !important;
+}
+.mt-sm {
+  margin-top: var(--ant-margin-sm) !important;
+}
 .mt-0{
   margin-top: 0 !important;
 }

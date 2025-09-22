@@ -29,4 +29,19 @@ describe("CreateComponentPage", () => {
 
     expect(container).toMatchSnapshot();
   });
+
+  test("should render sticky session fields", async () => {
+    renderWithRedux(
+      <CreateComponentPage />,
+      createMockInitialState()
+    );
+
+    await waitFor(() => {
+      expect(screen.getAllByText("Create Frontend")[0]).toBeInTheDocument();
+    });
+
+    // Check for sticky session fields
+    expect(screen.getByText("Use Sticky Sessions")).toBeInTheDocument();
+    expect(screen.getByText("Sticky Session Expiration (ms)")).toBeInTheDocument();
+  });
 });

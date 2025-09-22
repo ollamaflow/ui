@@ -28,4 +28,22 @@ describe("FrontendsListingPage", () => {
     });
     expect(container).toMatchSnapshot();
   });
+
+  test("should render sticky session columns", async () => {
+    renderWithRedux(
+      <FrontendsListingPage />,
+      createMockInitialState()
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText("Frontend 1")).toBeInTheDocument();
+    });
+
+    // Check for sticky session columns
+    expect(screen.getByText("Sticky Sessions")).toBeInTheDocument();
+    expect(screen.getByText("Sticky Session Expiration (ms)")).toBeInTheDocument();
+    
+    // Check for sticky session data display
+    expect(screen.getByText("Disabled")).toBeInTheDocument(); // UseStickySessions: false
+  });
 });

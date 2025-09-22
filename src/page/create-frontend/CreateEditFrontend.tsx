@@ -9,6 +9,7 @@ import {
   InputNumber,
   Select,
   Switch,
+  Alert,
 } from "antd";
 import {
   CreateFrontendPayload,
@@ -52,6 +53,8 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
     MaxRequestBodySize: 536870912,
     Backends: [],
     RequiredModels: ["all-minilm"],
+    UseStickySessions: false,
+    StickySessionExpirationMs: 1800000,
   };
 
   const handleSubmit = (values: CreateFrontendPayload) => {
@@ -214,6 +217,40 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
         </Col>
       </Row>
 
+      {/* Sticky Session Configuration */}
+      <Row gutter={16}>
+        <Col xs={12} sm={24} md={6} lg={6} xl={6}>
+          <Form.Item
+            label="Use Sticky Sessions"
+            name="UseStickySessions"
+            valuePropName="checked"
+            tooltip="Setting to true will cause all requests from a given source to be pinned to the selected Ollama backend"
+          >
+            <Switch />
+          </Form.Item>
+        </Col>
+        <Col xs={24} sm={24} md={18} lg={18} xl={18}>
+          <Form.Item
+            label="Sticky Session Expiration (ms)"
+            name="StickySessionExpirationMs"
+            rules={[
+              {
+                required: true,
+                message: "Please enter sticky session expiration time",
+              },
+            ]}
+            tooltip="How long to keep a source pinned to a selected Ollama backend without any activity (default: 30 minutes)"
+          >
+            <InputNumber
+              placeholder="1800000"
+              style={{ width: "100%" }}
+              min={60000}
+              max={3600000}
+            />
+          </Form.Item>
+        </Col>
+      </Row>
+
       {/* Backend and Models Configuration */}
       <Row gutter={16}>
         <Col span={24}>
@@ -277,6 +314,18 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
           </Form.Item>
         </Col>
       </Row>
+      <Alert
+        type="warning"
+        className="mb mt-sm"
+        message={
+          <>
+            Note: Enabling<strong> Log Full Request</strong>{" "} or
+            <strong> Log Request Body</strong> or{" "}
+            <strong>Log Response Body</strong> will implicitly disable response
+            streaming
+          </>
+        }
+      />
 
       {/* Submit Buttons */}
       <Form.Item>

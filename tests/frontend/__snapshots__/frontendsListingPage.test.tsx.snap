@@ -130,6 +130,12 @@ exports[`FrontendsListingPage should render frontends listing page 1`] = `
                         style="width: 150px;"
                       />
                       <col
+                        style="width: 120px;"
+                      />
+                      <col
+                        style="width: 180px;"
+                      />
+                      <col
                         style="width: 100px;"
                       />
                       <col
@@ -193,6 +199,24 @@ exports[`FrontendsListingPage should render frontends listing page 1`] = `
                           scope="col"
                         >
                           Required Models
+                          <span
+                            class="react-resizable-handle"
+                          />
+                        </th>
+                        <th
+                          class="ant-table-cell react-resizable"
+                          scope="col"
+                        >
+                          Sticky Sessions
+                          <span
+                            class="react-resizable-handle"
+                          />
+                        </th>
+                        <th
+                          class="ant-table-cell react-resizable"
+                          scope="col"
+                        >
+                          Sticky Session Expiration (ms)
                           <span
                             class="react-resizable-handle"
                           />
@@ -315,6 +339,24 @@ exports[`FrontendsListingPage should render frontends listing page 1`] = `
                              
                           </div>
                         </td>
+                        <td
+                          style="padding: 0px; border: 0px; height: 0px;"
+                        >
+                          <div
+                            style="height: 0px; overflow: hidden;"
+                          >
+                             
+                          </div>
+                        </td>
+                        <td
+                          style="padding: 0px; border: 0px; height: 0px;"
+                        >
+                          <div
+                            style="height: 0px; overflow: hidden;"
+                          >
+                             
+                          </div>
+                        </td>
                       </tr>
                       <tr
                         class="ant-table-row ant-table-row-level-0"
@@ -325,7 +367,6 @@ exports[`FrontendsListingPage should render frontends listing page 1`] = `
                         >
                           <span
                             aria-describedby="test-id"
-                            style="font-family: monospace;"
                           >
                             frontend-1
                           </span>
@@ -369,6 +410,25 @@ exports[`FrontendsListingPage should render frontends listing page 1`] = `
                           >
                             2
                              models
+                          </span>
+                        </td>
+                        <td
+                          class="ant-table-cell"
+                        >
+                          <span
+                            class="ant-tag ant-tag-default css-dev-only-do-not-override-1vjf2v5"
+                          >
+                            Disabled
+                          </span>
+                        </td>
+                        <td
+                          class="ant-table-cell"
+                        >
+                          <span>
+                            18,00,000
+                            ms (
+                            30
+                             min)
                           </span>
                         </td>
                         <td
