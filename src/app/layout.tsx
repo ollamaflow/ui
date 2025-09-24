@@ -10,7 +10,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Ollama flow UI",
+  title: "OllamaFlow",
   description: "Ollama flow UI",
 };
 
