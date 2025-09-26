@@ -13,6 +13,7 @@ export interface Frontend {
   LogResponseBody: boolean;
   UseStickySessions: boolean;
   StickySessionExpirationMs: number;
+  AllowRetries: boolean;
   Active: boolean;
   CreatedUtc: string;
   LastUpdateUtc: string;

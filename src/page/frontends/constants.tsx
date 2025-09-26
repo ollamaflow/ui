@@ -68,6 +68,17 @@ export const columns: (
     ),
   },
   {
+    title: "Allow Retries",
+    dataIndex: "AllowRetries",
+    key: "AllowRetries",
+    width: 120,
+    render: (allowRetries: boolean) => (
+      <Tag color={allowRetries ? "blue" : "default"}>
+        {allowRetries ? "Enabled" : "Disabled"}
+      </Tag>
+    ),
+  },
+  {
     title: "Sticky Session Expiration (ms)",
     dataIndex: "StickySessionExpirationMs",
     key: "StickySessionExpirationMs",

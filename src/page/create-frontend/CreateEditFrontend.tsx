@@ -47,6 +47,7 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
     TimeoutMs: 60000,
     LoadBalancing: "RoundRobin",
     BlockHttp10: true,
+    AllowRetries: false,
     LogRequestFull: false,
     LogRequestBody: false,
     LogResponseBody: false,
@@ -190,6 +191,16 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
         </Col>
         <Col xs={24} sm={24} md={6} lg={6} xl={6}>
           <Form.Item
+            label="Allow Retries"
+            name="AllowRetries"
+            valuePropName="checked"
+            tooltip="Allow the frontend to retry failed upstream requests"
+          >
+            <Switch />
+          </Form.Item>
+        </Col>
+        <Col xs={24} sm={24} md={6} lg={6} xl={6}>
+          <Form.Item
             label="Log Full Request"
             name="LogRequestFull"
             valuePropName="checked"
@@ -319,7 +330,7 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
         className="mb mt-sm"
         message={
           <>
-            Note: Enabling<strong> Log Full Request</strong>{" "} or
+            Note: Enabling<strong> Log Full Request</strong> or
             <strong> Log Request Body</strong> or{" "}
             <strong>Log Response Body</strong> will implicitly disable response
             streaming
