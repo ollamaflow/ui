@@ -1,9 +1,9 @@
 import { theme, ThemeConfig } from "antd";
 
 export const LightGraphTheme = {
-  primary: "#0d8064", //95DB7B
-  primaryLight: "#10a37f",
-  primaryExtraLight: "#13d4a4",
+  primary: "#014785", //95DB7B
+  primaryLight: "#476b9f",
+  primaryExtraLight: "#7189b7",
   primaryRed: "#B2B0E8",
   secondaryBlue: "#b1e5ff",
   secondaryYellow: "#ffe362",
@@ -28,7 +28,7 @@ export const primaryTheme: ThemeConfig = {
     colorBorder: LightGraphTheme.borderGray,
     colorTextDisabled: LightGraphTheme.textDisabled,
     colorBgContainerDisabled: LightGraphTheme.colorBgContainerDisabled,
-    colorBorderSecondary:'#cccccc'
+    colorBorderSecondary: "#cccccc",
   },
   components: {
     Tabs: {

@@ -96,7 +96,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse }) => {
         justify="center"
         className=" mt"
         vertical
-        align="center"
+        align={collapsed ? "center" : "flex-end"}
         gap={10}
       >
         <Button

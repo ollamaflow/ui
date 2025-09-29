@@ -1,10 +1,14 @@
-<img src="https://avatars.githubusercontent.com/u/222556077?s=200&v=4" height="48">
+<img src="https://raw.githubusercontent.com/ollamaflow/apiexplorer/main/assets/logo.png" height="48">
 
 # OllamaFlow Web UI
 
 A web interface for interacting with Ollama configuration, built with Next.js and React.
 
-## Documentation 
+### OllamaFlow Github
+
+https://github.com/ollamaflow/ollamaflow
+
+## Documentation
 
 Full API documentation is available at [OllamaFlow API Reference](https://ollamaflow.readme.io/reference/api-reference).
 
@@ -13,8 +17,6 @@ Full API documentation is available at [OllamaFlow API Reference](https://ollama
 - Learn about authentication and usage
 
 For more details, visit: https://ollamaflow.readme.io/
-
-
 
 ## Features
 

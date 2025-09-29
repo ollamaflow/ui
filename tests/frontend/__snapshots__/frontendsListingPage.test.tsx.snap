@@ -133,6 +133,9 @@ exports[`FrontendsListingPage should render frontends listing page 1`] = `
                         style="width: 120px;"
                       />
                       <col
+                        style="width: 120px;"
+                      />
+                      <col
                         style="width: 180px;"
                       />
                       <col
@@ -216,6 +219,15 @@ exports[`FrontendsListingPage should render frontends listing page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
+                          Allow Retries
+                          <span
+                            class="react-resizable-handle"
+                          />
+                        </th>
+                        <th
+                          class="ant-table-cell react-resizable"
+                          scope="col"
+                        >
                           Sticky Session Expiration (ms)
                           <span
                             class="react-resizable-handle"
@@ -258,6 +270,15 @@ exports[`FrontendsListingPage should render frontends listing page 1`] = `
                         class="ant-table-measure-row"
                         style="height: 0px; font-size: 0px;"
                       >
+                        <td
+                          style="padding: 0px; border: 0px; height: 0px;"
+                        >
+                          <div
+                            style="height: 0px; overflow: hidden;"
+                          >
+                             
+                          </div>
+                        </td>
                         <td
                           style="padding: 0px; border: 0px; height: 0px;"
                         >
@@ -410,6 +431,15 @@ exports[`FrontendsListingPage should render frontends listing page 1`] = `
                           >
                             2
                              models
+                          </span>
+                        </td>
+                        <td
+                          class="ant-table-cell"
+                        >
+                          <span
+                            class="ant-tag ant-tag-default css-dev-only-do-not-override-1vjf2v5"
+                          >
+                            Disabled
                           </span>
                         </td>
                         <td

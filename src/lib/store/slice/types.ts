@@ -25,6 +25,7 @@ export interface Backend {
   Hostname: string;
   Port: number;
   Ssl: boolean;
+  ApiFormat: string;
   UnhealthyThreshold: number;
   HealthyThreshold: number;
   HealthCheckMethod: { Method: string };
@@ -46,6 +47,7 @@ export interface BackendHealth {
   Hostname: string;
   Port: number;
   Ssl: boolean;
+  ApiFormat: string;
   UnhealthyThreshold: number;
   HealthyThreshold: number;
   HealthCheckMethod: { Method: string };

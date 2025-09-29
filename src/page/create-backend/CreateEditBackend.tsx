@@ -36,6 +36,7 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
     Hostname: "localhost",
     Port: 11435,
     Ssl: false,
+    ApiFormat: "Ollama",
     HealthCheckMethod: { Method: "HEAD" },
     HealthCheckUrl: "/",
     MaxParallelRequests: 4,
@@ -119,6 +120,27 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
               min={1}
               max={65535}
             />
+          </Form.Item>
+        </Col>
+      </Row>
+
+      {/* API Configuration */}
+      <Row gutter={16}>
+        <Col xs={24} sm={24} md={24} lg={12} xl={12}>
+          <Form.Item
+            label="API Format"
+            name="ApiFormat"
+            rules={[
+              {
+                required: true,
+                message: "Please select an API format",
+              },
+            ]}
+          >
+            <Select placeholder="Select API format">
+              <Option value="Ollama">Ollama</Option>
+              <Option value="OpenAI">OpenAI</Option>
+            </Select>
           </Form.Item>
         </Col>
       </Row>
@@ -273,7 +295,18 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
           </Form.Item>
         </Col>
       </Row>
-   
+      <Alert
+        type="warning"
+        className="mb mt-sm"
+        message={
+          <>
+            Note: Enabling
+            <strong> Log Request Body</strong> or{" "}
+            <strong>Log Response Body</strong> will implicitly disable response
+            streaming
+          </>
+        }
+      />
       {/* Submit Buttons */}
       <Form.Item>
         <Space>

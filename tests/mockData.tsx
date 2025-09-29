@@ -6,6 +6,7 @@ export const mockFrontendIdentifier = "frontend-1";
 export const mockBackendData: Backend = {
   Identifier: mockBackendIdentifier,
   Name: "Backend 1",
+  ApiFormat: "Ollama",
   Hostname: "localhost",
   Port: 43411,
   Ssl: false,
@@ -29,6 +30,7 @@ export const mockFrontendData: Frontend = {
   Name: "Frontend 1",
   Hostname: "localhost",
   TimeoutMs: 1000,
+  AllowRetries: false,
   LoadBalancing: "round_robin",
   BlockHttp10: false,
   MaxRequestBodySize: 1000000,
@@ -47,6 +49,7 @@ export const mockFrontendData: Frontend = {
 export const mockBackendHealthData: BackendHealth = {
   Identifier: mockBackendIdentifier,
   Name: "Backend 123",
+  ApiFormat: "Ollama",
   Hostname: "localhost",
   Port: 43411,
   Ssl: false,

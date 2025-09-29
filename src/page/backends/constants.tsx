@@ -45,6 +45,17 @@ export const columns: (
     ),
   },
   {
+    title: "API Format",
+    dataIndex: "ApiFormat",
+    key: "ApiFormat",
+    width: 100,
+    render: (apiFormat: string) => (
+      <Tag color={apiFormat === "Ollama" ? "blue" : "green"}>
+        {apiFormat || "Ollama"}
+      </Tag>
+    ),
+  },
+  {
     title: "Health Check URL",
     dataIndex: "HealthCheckUrl",
     key: "HealthCheckUrl",

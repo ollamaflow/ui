@@ -152,6 +152,9 @@ exports[`BackendsListingPage should match snapshot for backends page 1`] = `
                         style="width: 80px;"
                       />
                       <col
+                        style="width: 100px;"
+                      />
+                      <col
                         style="width: 120px;"
                       />
                       <col
@@ -200,6 +203,15 @@ exports[`BackendsListingPage should match snapshot for backends page 1`] = `
                           scope="col"
                         >
                           SSL
+                          <span
+                            class="react-resizable-handle"
+                          />
+                        </th>
+                        <th
+                          class="ant-table-cell react-resizable"
+                          scope="col"
+                        >
+                          API Format
                           <span
                             class="react-resizable-handle"
                           />
@@ -322,13 +334,22 @@ exports[`BackendsListingPage should match snapshot for backends page 1`] = `
                              
                           </div>
                         </td>
+                        <td
+                          style="padding: 0px; border: 0px; height: 0px;"
+                        >
+                          <div
+                            style="height: 0px; overflow: hidden;"
+                          >
+                             
+                          </div>
+                        </td>
                       </tr>
                       <tr
                         class="ant-table-placeholder"
                       >
                         <td
                           class="ant-table-cell"
-                          colspan="8"
+                          colspan="9"
                         >
                           <div
                             class="css-dev-only-do-not-override-1vjf2v5 ant-empty ant-empty-normal"
@@ -806,6 +827,9 @@ exports[`BackendsListingPage should render backends listing page 1`] = `
                         style="width: 80px;"
                       />
                       <col
+                        style="width: 100px;"
+                      />
+                      <col
                         style="width: 120px;"
                       />
                       <col
@@ -854,6 +878,15 @@ exports[`BackendsListingPage should render backends listing page 1`] = `
                           scope="col"
                         >
                           SSL
+                          <span
+                            class="react-resizable-handle"
+                          />
+                        </th>
+                        <th
+                          class="ant-table-cell react-resizable"
+                          scope="col"
+                        >
+                          API Format
                           <span
                             class="react-resizable-handle"
                           />
@@ -976,6 +1009,15 @@ exports[`BackendsListingPage should render backends listing page 1`] = `
                              
                           </div>
                         </td>
+                        <td
+                          style="padding: 0px; border: 0px; height: 0px;"
+                        >
+                          <div
+                            style="height: 0px; overflow: hidden;"
+                          >
+                             
+                          </div>
+                        </td>
                       </tr>
                       <tr
                         class="ant-table-row ant-table-row-level-0"
@@ -1011,6 +1053,15 @@ exports[`BackendsListingPage should render backends listing page 1`] = `
                             class="ant-tag ant-tag-error css-dev-only-do-not-override-1vjf2v5"
                           >
                             No
+                          </span>
+                        </td>
+                        <td
+                          class="ant-table-cell"
+                        >
+                          <span
+                            class="ant-tag ant-tag-blue css-dev-only-do-not-override-1vjf2v5"
+                          >
+                            Ollama
                           </span>
                         </td>
                         <td

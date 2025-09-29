@@ -30,10 +30,7 @@ describe("FrontendsListingPage", () => {
   });
 
   test("should render sticky session columns", async () => {
-    renderWithRedux(
-      <FrontendsListingPage />,
-      createMockInitialState()
-    );
+    renderWithRedux(<FrontendsListingPage />, createMockInitialState());
 
     await waitFor(() => {
       expect(screen.getByText("Frontend 1")).toBeInTheDocument();
@@ -41,9 +38,11 @@ describe("FrontendsListingPage", () => {
 
     // Check for sticky session columns
     expect(screen.getByText("Sticky Sessions")).toBeInTheDocument();
-    expect(screen.getByText("Sticky Session Expiration (ms)")).toBeInTheDocument();
-    
+    expect(
+      screen.getByText("Sticky Session Expiration (ms)")
+    ).toBeInTheDocument();
+
     // Check for sticky session data display
-    expect(screen.getByText("Disabled")).toBeInTheDocument(); // UseStickySessions: false
+    expect(screen.getAllByText("Disabled")[0]).toBeInTheDocument(); // UseStickySessions: false
   });
 });
