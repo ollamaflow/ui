@@ -14,6 +14,10 @@ export interface Frontend {
   UseStickySessions: boolean;
   StickySessionExpirationMs: number;
   AllowRetries: boolean;
+  PinnedEmbeddingsProperties: Record<string, any>;
+  PinnedCompletionsProperties: Record<string, any>;
+  AllowEmbeddings: boolean;
+  AllowCompletions: boolean;
   Active: boolean;
   CreatedUtc: string;
   LastUpdateUtc: string;
@@ -35,6 +39,10 @@ export interface Backend {
   LogRequestFull: boolean;
   LogRequestBody: boolean;
   LogResponseBody: boolean;
+  PinnedEmbeddingsProperties: Record<string, any>;
+  PinnedCompletionsProperties: Record<string, any>;
+  AllowEmbeddings: boolean;
+  AllowCompletions: boolean;
   Active: boolean;
   CreatedUtc: string;
   LastUpdateUtc: string;
@@ -57,6 +65,10 @@ export interface BackendHealth {
   LogRequestFull: boolean;
   LogRequestBody: boolean;
   LogResponseBody: boolean;
+  PinnedEmbeddingsProperties: Record<string, any>;
+  PinnedCompletionsProperties: Record<string, any>;
+  AllowEmbeddings: boolean;
+  AllowCompletions: boolean;
   Active: boolean;
   CreatedUtc: string;
   LastUpdateUtc: string;

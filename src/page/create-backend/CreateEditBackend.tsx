@@ -11,7 +11,18 @@ import {
   Switch,
   Alert,
 } from "antd";
+import dynamic from "next/dynamic";
 import { CreateBackendPayload } from "#/lib/store/slice/apiSlice";
+import PageLoading from "#/components/base/loading/PageLoading";
+
+// Dynamically import JsonEditor to avoid SSR issues
+const JsonEditor = dynamic(
+  () => import("jsoneditor-react").then((mod) => mod.JsonEditor),
+  {
+    ssr: false,
+    loading: () => <PageLoading message="Loading JSON Editor..." />,
+  }
+) as any;
 
 const { Option } = Select;
 
@@ -29,6 +40,16 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
   loading = false,
 }) => {
   const [form] = Form.useForm();
+  const [logRequestBody, setLogRequestBody] = React.useState(false);
+  const [logResponseBody, setLogResponseBody] = React.useState(false);
+
+  // Sync state with initial values
+  React.useEffect(() => {
+    if (initialValues) {
+      setLogRequestBody(initialValues.LogRequestBody || false);
+      setLogResponseBody(initialValues.LogResponseBody || false);
+    }
+  }, [initialValues]);
 
   // Default values for a new backend
   const defaultValues: Partial<CreateBackendPayload> = {
@@ -45,6 +66,10 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
     HealthyThreshold: 2,
     LogRequestBody: false,
     LogResponseBody: false,
+    PinnedEmbeddingsProperties: {},
+    PinnedCompletionsProperties: {},
+    AllowEmbeddings: true,
+    AllowCompletions: true,
   };
 
   const handleSubmit = (values: CreateBackendPayload) => {
@@ -282,7 +307,7 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
             name="LogRequestBody"
             valuePropName="checked"
           >
-            <Switch />
+            <Switch onChange={(checked) => setLogRequestBody(checked)} />
           </Form.Item>
         </Col>
         <Col xs={24} sm={24} md={8} lg={8} xl={8}>
@@ -291,22 +316,90 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
             name="LogResponseBody"
             valuePropName="checked"
           >
+            <Switch onChange={(checked) => setLogResponseBody(checked)} />
+          </Form.Item>
+        </Col>
+      </Row>
+      {/* Request Type Permissions */}
+      <Row gutter={16}>
+        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+          <Form.Item
+            label="Allow Embeddings"
+            name="AllowEmbeddings"
+            valuePropName="checked"
+            tooltip="Allow this backend to handle embeddings requests"
+          >
+            <Switch />
+          </Form.Item>
+        </Col>
+        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+          <Form.Item
+            label="Allow Completions"
+            name="AllowCompletions"
+            valuePropName="checked"
+            tooltip="Allow this backend to handle completions requests"
+          >
             <Switch />
           </Form.Item>
         </Col>
       </Row>
-      <Alert
-        type="warning"
-        className="mb mt-sm"
-        message={
-          <>
-            Note: Enabling
-            <strong> Log Request Body</strong> or{" "}
-            <strong>Log Response Body</strong> will implicitly disable response
-            streaming
-          </>
-        }
-      />
+
+      {/* Pinned Properties Configuration */}
+      <Row gutter={16}>
+        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+          <Form.Item
+            label="Pinned Embeddings Properties"
+            name="PinnedEmbeddingsProperties"
+            tooltip="JSON properties that will always be copied into incoming embeddings requests"
+          >
+            <JsonEditor
+              value={form.getFieldValue("PinnedEmbeddingsProperties") || {}}
+              onChange={(value: Record<string, any>) => {
+                form.setFieldValue("PinnedEmbeddingsProperties", value);
+              }}
+              mode="code"
+              mainMenuBar={true}
+              navigationBar={true}
+              statusBar={true}
+              style={{ height: "200px" }}
+            />
+          </Form.Item>
+        </Col>
+        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+          <Form.Item
+            label="Pinned Completions Properties"
+            name="PinnedCompletionsProperties"
+            tooltip="JSON properties that will always be copied into incoming completions requests"
+          >
+            <JsonEditor
+              value={form.getFieldValue("PinnedCompletionsProperties") || {}}
+              onChange={(value: Record<string, any>) => {
+                form.setFieldValue("PinnedCompletionsProperties", value);
+              }}
+              mode="code"
+              mainMenuBar={true}
+              navigationBar={true}
+              statusBar={true}
+              style={{ height: "200px" }}
+            />
+          </Form.Item>
+        </Col>
+      </Row>
+      {(logRequestBody || logResponseBody) && (
+        <Alert
+          type="warning"
+          className="mb mt-sm"
+          message={
+            <>
+              Note: Enabling
+              <strong> Log Request Body</strong> or{" "}
+              <strong>Log Response Body</strong> will implicitly disable
+              response streaming
+            </>
+          }
+        />
+      )}
+
       {/* Submit Buttons */}
       <Form.Item>
         <Space>
