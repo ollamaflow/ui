@@ -8,7 +8,6 @@ import {
   CloudServerOutlined,
   ApiOutlined,
 } from "@ant-design/icons";
-import { useAppContext } from "#/hooks/appHooks";
 import "../../../assets/css/globals.scss";
 import OllamaFlowFlex from "../flex/Flex";
 import styles from "./sidebar.module.scss";
