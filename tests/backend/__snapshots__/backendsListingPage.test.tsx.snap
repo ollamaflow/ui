@@ -155,9 +155,6 @@ exports[`BackendsListingPage should match snapshot for backends page 1`] = `
                         style="width: 100px;"
                       />
                       <col
-                        style="width: 120px;"
-                      />
-                      <col
                         style="width: 100px;"
                       />
                       <col
@@ -175,7 +172,11 @@ exports[`BackendsListingPage should match snapshot for backends page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Identifier
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Identifier
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -184,7 +185,11 @@ exports[`BackendsListingPage should match snapshot for backends page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Name
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Name
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -193,7 +198,11 @@ exports[`BackendsListingPage should match snapshot for backends page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Hostname:Port
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Hostname:Port
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -202,7 +211,11 @@ exports[`BackendsListingPage should match snapshot for backends page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          SSL
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            SSL
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -211,7 +224,11 @@ exports[`BackendsListingPage should match snapshot for backends page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          API Format
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            API Format
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -220,7 +237,11 @@ exports[`BackendsListingPage should match snapshot for backends page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Health Check URL
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Status
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -229,16 +250,11 @@ exports[`BackendsListingPage should match snapshot for backends page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Status
                           <span
-                            class="react-resizable-handle"
-                          />
-                        </th>
-                        <th
-                          class="ant-table-cell react-resizable"
-                          scope="col"
-                        >
-                          Created
+                            aria-describedby="test-id"
+                          >
+                            Created
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -334,22 +350,13 @@ exports[`BackendsListingPage should match snapshot for backends page 1`] = `
                              
                           </div>
                         </td>
-                        <td
-                          style="padding: 0px; border: 0px; height: 0px;"
-                        >
-                          <div
-                            style="height: 0px; overflow: hidden;"
-                          >
-                             
-                          </div>
-                        </td>
                       </tr>
                       <tr
                         class="ant-table-placeholder"
                       >
                         <td
                           class="ant-table-cell"
-                          colspan="9"
+                          colspan="8"
                         >
                           <div
                             class="css-dev-only-do-not-override-1vjf2v5 ant-empty ant-empty-normal"
@@ -500,7 +507,11 @@ exports[`BackendsListingPage should match snapshot for backends page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Identifier
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Identifier
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -509,7 +520,11 @@ exports[`BackendsListingPage should match snapshot for backends page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Name
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Name
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -518,7 +533,11 @@ exports[`BackendsListingPage should match snapshot for backends page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Healthy Since
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Healthy Since
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -527,7 +546,11 @@ exports[`BackendsListingPage should match snapshot for backends page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Unhealthy Since
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Unhealthy Since
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -536,7 +559,11 @@ exports[`BackendsListingPage should match snapshot for backends page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Uptime
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Uptime
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -545,7 +572,11 @@ exports[`BackendsListingPage should match snapshot for backends page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Downtime
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Downtime
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -554,7 +585,11 @@ exports[`BackendsListingPage should match snapshot for backends page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Active Requests
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Active Requests
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -830,9 +865,6 @@ exports[`BackendsListingPage should render backends listing page 1`] = `
                         style="width: 100px;"
                       />
                       <col
-                        style="width: 120px;"
-                      />
-                      <col
                         style="width: 100px;"
                       />
                       <col
@@ -850,7 +882,11 @@ exports[`BackendsListingPage should render backends listing page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Identifier
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Identifier
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -859,7 +895,11 @@ exports[`BackendsListingPage should render backends listing page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Name
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Name
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -868,7 +908,11 @@ exports[`BackendsListingPage should render backends listing page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Hostname:Port
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Hostname:Port
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -877,7 +921,11 @@ exports[`BackendsListingPage should render backends listing page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          SSL
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            SSL
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -886,7 +934,11 @@ exports[`BackendsListingPage should render backends listing page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          API Format
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            API Format
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -895,7 +947,11 @@ exports[`BackendsListingPage should render backends listing page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Health Check URL
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Status
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -904,16 +960,11 @@ exports[`BackendsListingPage should render backends listing page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Status
                           <span
-                            class="react-resizable-handle"
-                          />
-                        </th>
-                        <th
-                          class="ant-table-cell react-resizable"
-                          scope="col"
-                        >
-                          Created
+                            aria-describedby="test-id"
+                          >
+                            Created
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -937,15 +988,6 @@ exports[`BackendsListingPage should render backends listing page 1`] = `
                         class="ant-table-measure-row"
                         style="height: 0px; font-size: 0px;"
                       >
-                        <td
-                          style="padding: 0px; border: 0px; height: 0px;"
-                        >
-                          <div
-                            style="height: 0px; overflow: hidden;"
-                          >
-                             
-                          </div>
-                        </td>
                         <td
                           style="padding: 0px; border: 0px; height: 0px;"
                         >
@@ -1062,19 +1104,6 @@ exports[`BackendsListingPage should render backends listing page 1`] = `
                             class="ant-tag ant-tag-blue css-dev-only-do-not-override-1vjf2v5"
                           >
                             Ollama
-                          </span>
-                        </td>
-                        <td
-                          class="ant-table-cell"
-                        >
-                          <span>
-                            <span
-                              class="ant-tag ant-tag-blue mr-0 css-dev-only-do-not-override-1vjf2v5"
-                            >
-                              GET
-                            </span>
-                             
-                            /health
                           </span>
                         </td>
                         <td
@@ -1370,7 +1399,11 @@ exports[`BackendsListingPage should render backends listing page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Identifier
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Identifier
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -1379,7 +1412,11 @@ exports[`BackendsListingPage should render backends listing page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Name
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Name
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -1388,7 +1425,11 @@ exports[`BackendsListingPage should render backends listing page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Healthy Since
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Healthy Since
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -1397,7 +1438,11 @@ exports[`BackendsListingPage should render backends listing page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Unhealthy Since
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Unhealthy Since
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -1406,7 +1451,11 @@ exports[`BackendsListingPage should render backends listing page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Uptime
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Uptime
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -1415,7 +1464,11 @@ exports[`BackendsListingPage should render backends listing page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Downtime
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Downtime
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -1424,7 +1477,11 @@ exports[`BackendsListingPage should render backends listing page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Active Requests
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Active Requests
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
