@@ -58,7 +58,6 @@ const AdminLoginPage = () => {
         setAuthToken(values.accessKey);
         try {
           const isValid = await getFrontendTest().unwrap();
-          console.log(isValid);
           if (isValid) {
             localStorage.setItem(
               localStorageKeys.adminAccessKey,

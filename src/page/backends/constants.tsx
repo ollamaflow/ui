@@ -1,7 +1,7 @@
 import { ColumnsType } from "antd/es/table";
 import { Backend, BackendHealth } from "#/lib/store/slice/types";
 import { Tag, Space } from "antd";
-import { Tooltip } from "antd";
+import OllamaFlowTooltip from "#/components/base/tooltip/Tooltip";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import OllamaFlowFlex from "#/components/base/flex/Flex";
 import Link from "next/link";
@@ -12,20 +12,34 @@ export const columns: (
   deleteBackendHandler: (backend: Backend) => void
 ) => ColumnsType<Backend> = (deleteBackendHandler) => [
   {
-    title: "Identifier",
+    title: (
+      <OllamaFlowTooltip title="A unique identifier for the backend">
+        Identifier
+      </OllamaFlowTooltip>
+    ),
     dataIndex: "Identifier",
     key: "Identifier",
     width: 150,
-    render: (text: string) => <Tooltip title={text}>{text}</Tooltip>,
+    render: (text: string) => (
+      <OllamaFlowTooltip title={text}>{text}</OllamaFlowTooltip>
+    ),
   },
   {
-    title: "Name",
+    title: (
+      <OllamaFlowTooltip title="The name of the backend">
+        Name
+      </OllamaFlowTooltip>
+    ),
     dataIndex: "Name",
     key: "Name",
     width: 200,
   },
   {
-    title: "Hostname:Port",
+    title: (
+      <OllamaFlowTooltip title="The hostname and port to which requests will be proxied">
+        Hostname:Port
+      </OllamaFlowTooltip>
+    ),
     dataIndex: "Hostname",
     key: "Hostname",
     width: 150,
@@ -36,7 +50,11 @@ export const columns: (
     ),
   },
   {
-    title: "SSL",
+    title: (
+      <OllamaFlowTooltip title="Indicates whether SSL is enabled or disabled">
+        SSL
+      </OllamaFlowTooltip>
+    ),
     dataIndex: "Ssl",
     key: "Ssl",
     width: 80,
@@ -45,7 +63,11 @@ export const columns: (
     ),
   },
   {
-    title: "API Format",
+    title: (
+      <OllamaFlowTooltip title="The expected format of API requests expected by this backend">
+        API Format
+      </OllamaFlowTooltip>
+    ),
     dataIndex: "ApiFormat",
     key: "ApiFormat",
     width: 100,
@@ -56,21 +78,11 @@ export const columns: (
     ),
   },
   {
-    title: "Health Check URL",
-    dataIndex: "HealthCheckUrl",
-    key: "HealthCheckUrl",
-    width: 120,
-    render: (healthCheckUrl: string, record: Backend) => (
-      <span>
-        <Tag color="blue" className="mr-0">
-          {record.HealthCheckMethod.Method}
-        </Tag>{" "}
-        {healthCheckUrl}
-      </span>
+    title: (
+      <OllamaFlowTooltip title="Indicates whether or not the backend is active or administratively disabled">
+        Status
+      </OllamaFlowTooltip>
     ),
-  },
-  {
-    title: "Status",
     dataIndex: "Active",
     key: "Active",
     width: 100,
@@ -81,7 +93,11 @@ export const columns: (
     ),
   },
   {
-    title: "Created",
+    title: (
+      <OllamaFlowTooltip title="Timestamp from which the backend was created">
+        Created
+      </OllamaFlowTooltip>
+    ),
     dataIndex: "CreatedUtc",
     key: "CreatedUtc",
     width: 150,
@@ -121,20 +137,34 @@ export const healthColumns: (
   deleteBackendHandler: (backend: BackendHealth) => void
 ) => ColumnsType<BackendHealth> = (deleteBackendHandler) => [
   {
-    title: "Identifier",
+    title: (
+      <OllamaFlowTooltip title="A unique identifier for the backend">
+        Identifier
+      </OllamaFlowTooltip>
+    ),
     dataIndex: "Identifier",
     key: "Identifier",
     width: 150,
-    render: (text: string) => <Tooltip title={text}>{text}</Tooltip>,
+    render: (text: string) => (
+      <OllamaFlowTooltip title={text}>{text}</OllamaFlowTooltip>
+    ),
   },
   {
-    title: "Name",
+    title: (
+      <OllamaFlowTooltip title="The name of the backend">
+        Name
+      </OllamaFlowTooltip>
+    ),
     dataIndex: "Name",
     key: "Name",
     width: 200,
   },
   {
-    title: "Healthy Since",
+    title: (
+      <OllamaFlowTooltip title="The timestamp at which the backend became healthy">
+        Healthy Since
+      </OllamaFlowTooltip>
+    ),
     dataIndex: "HealthySinceUtc",
     key: "HealthySinceUtc",
     width: 150,
@@ -144,7 +174,11 @@ export const healthColumns: (
     },
   },
   {
-    title: "Unhealthy Since",
+    title: (
+      <OllamaFlowTooltip title="The timestamp at which the backend became unhealthy">
+        Unhealthy Since
+      </OllamaFlowTooltip>
+    ),
     dataIndex: "UnhealthySinceUtc",
     key: "UnhealthySinceUtc",
     width: 150,
@@ -154,7 +188,11 @@ export const healthColumns: (
     },
   },
   {
-    title: "Uptime",
+    title: (
+      <OllamaFlowTooltip title="The amount of time the backend has been healthy, of the form hours:minutes:seconds.subseconds">
+        Uptime
+      </OllamaFlowTooltip>
+    ),
     dataIndex: "Uptime",
     key: "Uptime",
     width: 120,
@@ -164,7 +202,11 @@ export const healthColumns: (
     },
   },
   {
-    title: "Downtime",
+    title: (
+      <OllamaFlowTooltip title="The amount of time the backend has been unhealthy, of the form hours:minutes:seconds.subseconds">
+        Downtime
+      </OllamaFlowTooltip>
+    ),
     dataIndex: "Downtime",
     key: "Downtime",
     width: 120,
@@ -174,7 +216,11 @@ export const healthColumns: (
     },
   },
   {
-    title: "Active Requests",
+    title: (
+      <OllamaFlowTooltip title="The number of requests currently being actively served by this backend">
+        Active Requests
+      </OllamaFlowTooltip>
+    ),
     dataIndex: "ActiveRequests",
     key: "ActiveRequests",
     width: 120,

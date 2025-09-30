@@ -150,6 +150,7 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
           <Form.Item
             label="Timeout (ms)"
             name="TimeoutMs"
+            tooltip="The number of milliseconds that must pass before a proxied request is considered timed out"
             rules={[
               { required: true, message: "Please enter a timeout value" },
             ]}
@@ -188,6 +189,7 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
           <Form.Item
             label="Max Request Body Size"
             name="MaxRequestBodySize"
+            tooltip="The maximum request body size allowed before a request will be denied"
             rules={[
               {
                 required: true,
@@ -209,15 +211,6 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
       <Row gutter={16}>
         <Col xs={24} sm={24} md={6} lg={6} xl={6}>
           <Form.Item
-            label="Block HTTP/1.0"
-            name="BlockHttp10"
-            valuePropName="checked"
-          >
-            <Switch />
-          </Form.Item>
-        </Col>
-        <Col xs={24} sm={24} md={6} lg={6} xl={6}>
-          <Form.Item
             label="Allow Retries"
             name="AllowRetries"
             valuePropName="checked"
@@ -231,6 +224,7 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
             label="Log Full Request"
             name="LogRequestFull"
             valuePropName="checked"
+            tooltip="Indicates whether or not the full request should be logged to syslog; useful for debugging purposes, but implicitly disables response streaming"
           >
             <Switch onChange={(checked) => setLogRequestFull(checked)} />
           </Form.Item>
@@ -240,6 +234,7 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
             label="Log Request Body"
             name="LogRequestBody"
             valuePropName="checked"
+            tooltip="Indicates whether or not the request body should be logged to syslog; useful for debugging purposes, but implicitly disables response streaming"
           >
             <Switch onChange={(checked) => setLogRequestBody(checked)} />
           </Form.Item>
@@ -249,6 +244,7 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
             label="Log Response Body"
             name="LogResponseBody"
             valuePropName="checked"
+            tooltip="Indicates whether or not the response body should be logged to syslog; useful for debugging purposes, but implicitly disables response streaming"
           >
             <Switch onChange={(checked) => setLogResponseBody(checked)} />
           </Form.Item>
@@ -295,6 +291,7 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
           <Form.Item
             label="Backend Identifiers"
             name="Backends"
+            tooltip="The backends to which requests will be proxied when a request is received by this frontend"
             rules={[
               {
                 required: true,
@@ -331,6 +328,7 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
           <Form.Item
             label="Required Models"
             name="RequiredModels"
+            tooltip="For Ollama backends only, specifies the models that OllamaFlow will ensure are pulled for use"
             rules={[
               {
                 required: true,
@@ -360,7 +358,7 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
             label="Allow Embeddings"
             name="AllowEmbeddings"
             valuePropName="checked"
-            tooltip="Allow this frontend to handle embeddings requests"
+            tooltip="Indicates whether or not embeddings requests are allowed to pass and be processed"
           >
             <Switch />
           </Form.Item>
@@ -370,7 +368,7 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
             label="Allow Completions"
             name="AllowCompletions"
             valuePropName="checked"
-            tooltip="Allow this frontend to handle completions requests"
+            tooltip="Indicates whether or not completions requests are allowed to pass and be processed"
           >
             <Switch />
           </Form.Item>
@@ -383,7 +381,7 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
           <Form.Item
             label="Pinned Embeddings Properties"
             name="PinnedEmbeddingsProperties"
-            tooltip="JSON properties that will always be copied into incoming embeddings requests"
+            tooltip="A JSON dictionary containing key-value pairs that will be merged into any received embeddings request"
           >
             <JsonEditor
               value={form.getFieldValue("PinnedEmbeddingsProperties") || {}}
@@ -402,7 +400,7 @@ const CreateEditFrontend: React.FC<CreateEditFrontendProps> = ({
           <Form.Item
             label="Pinned Completions Properties"
             name="PinnedCompletionsProperties"
-            tooltip="JSON properties that will always be copied into incoming completions requests"
+            tooltip="A JSON dictionary containing key-value pairs that will be merged into any received completions request"
           >
             <JsonEditor
               value={form.getFieldValue("PinnedCompletionsProperties") || {}}

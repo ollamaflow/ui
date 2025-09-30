@@ -195,6 +195,7 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
           <Form.Item
             label="Rate Limit Threshold"
             name="RateLimitRequestsThreshold"
+            tooltip="The maximum number of concurrent requests that can be serviced by this backend before API throttling occurs"
             rules={[
               {
                 required: true,
@@ -218,6 +219,7 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
           <Form.Item
             label="Health Check Method"
             name={["HealthCheckMethod", "Method"]}
+            tooltip="The HTTP method to use when validating that this backend is online and operational"
             rules={[
               {
                 required: true,
@@ -240,6 +242,7 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
           <Form.Item
             label="Health Check URL"
             name="HealthCheckUrl"
+            tooltip="The URL to use when validating that this backend is online and operational"
             rules={[
               {
                 required: true,
@@ -258,6 +261,7 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
           <Form.Item
             label="Unhealthy Threshold"
             name="UnhealthyThreshold"
+            tooltip="The maximum number of allowed failed healthchecks before the backend is taken out of rotation"
             rules={[
               {
                 required: true,
@@ -277,6 +281,7 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
           <Form.Item
             label="Healthy Threshold"
             name="HealthyThreshold"
+            tooltip="The minimum number of successful healthchecks before the backend is added to rotation"
             rules={[
               {
                 required: true,
@@ -327,7 +332,7 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
             label="Allow Embeddings"
             name="AllowEmbeddings"
             valuePropName="checked"
-            tooltip="Allow this backend to handle embeddings requests"
+            tooltip="Indicates whether or not embeddings requests are allowed to pass and be processed"
           >
             <Switch />
           </Form.Item>
@@ -337,7 +342,7 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
             label="Allow Completions"
             name="AllowCompletions"
             valuePropName="checked"
-            tooltip="Allow this backend to handle completions requests"
+            tooltip="Indicates whether or not completions requests are allowed to pass and be processed"
           >
             <Switch />
           </Form.Item>
@@ -350,7 +355,7 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
           <Form.Item
             label="Pinned Embeddings Properties"
             name="PinnedEmbeddingsProperties"
-            tooltip="JSON properties that will always be copied into incoming embeddings requests"
+            tooltip="A JSON dictionary containing key-value pairs that will be merged into any received embeddings request"
           >
             <JsonEditor
               value={form.getFieldValue("PinnedEmbeddingsProperties") || {}}
@@ -369,7 +374,7 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
           <Form.Item
             label="Pinned Completions Properties"
             name="PinnedCompletionsProperties"
-            tooltip="JSON properties that will always be copied into incoming completions requests"
+            tooltip="A JSON dictionary containing key-value pairs that will be merged into any received completions request"
           >
             <JsonEditor
               value={form.getFieldValue("PinnedCompletionsProperties") || {}}
