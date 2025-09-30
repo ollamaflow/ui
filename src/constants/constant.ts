@@ -14,6 +14,7 @@ export const paths = {
   EditBackend: "/dashboard/backends/edit", //:id
   DashboardFrontends: "/dashboard/frontends",
   DashboardBackends: "/dashboard/backends",
+  DashboardApiExplorer: "/dashboard/api-explorer",
 };
 
 export const NOT_AVAILABLE = "N/A";

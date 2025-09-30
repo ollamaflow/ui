@@ -6,6 +6,7 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   CloudServerOutlined,
+  ApiOutlined,
 } from "@ant-design/icons";
 import { useAppContext } from "#/hooks/appHooks";
 import "../../../assets/css/globals.scss";
@@ -34,6 +35,8 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse }) => {
       return "frontends";
     } else if (pathname.startsWith(paths.DashboardBackends)) {
       return "backends";
+    } else if (pathname.startsWith(paths.DashboardApiExplorer)) {
+      return "api-explorer";
     }
     return "home"; // default fallback
   };
@@ -54,6 +57,11 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse }) => {
       key: "backends",
       icon: <CloudServerOutlined />,
       label: <Link href={paths.DashboardBackends}>Backends</Link>,
+    },
+    {
+      key: "api-explorer",
+      icon: <ApiOutlined />,
+      label: <Link href={paths.DashboardApiExplorer}>Api Explorer</Link>,
     },
   ];
 
