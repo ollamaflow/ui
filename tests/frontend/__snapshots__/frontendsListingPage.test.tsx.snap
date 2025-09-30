@@ -156,7 +156,11 @@ exports[`FrontendsListingPage should render frontends listing page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Identifier
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Identifier
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -165,7 +169,11 @@ exports[`FrontendsListingPage should render frontends listing page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Name
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Name
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -174,7 +182,11 @@ exports[`FrontendsListingPage should render frontends listing page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Hostname
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Hostname
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -183,7 +195,11 @@ exports[`FrontendsListingPage should render frontends listing page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Load Balancing
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Load Balancing
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -192,7 +208,11 @@ exports[`FrontendsListingPage should render frontends listing page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Backends
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Backends
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -201,7 +221,11 @@ exports[`FrontendsListingPage should render frontends listing page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Required Models
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Required Models
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -210,7 +234,11 @@ exports[`FrontendsListingPage should render frontends listing page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Sticky Sessions
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Sticky Sessions
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -219,7 +247,11 @@ exports[`FrontendsListingPage should render frontends listing page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Allow Retries
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Allow Retries
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -228,7 +260,11 @@ exports[`FrontendsListingPage should render frontends listing page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Sticky Session Expiration (ms)
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Sticky Session Expiration (ms)
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -237,7 +273,11 @@ exports[`FrontendsListingPage should render frontends listing page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Status
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Status
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
@@ -246,7 +286,11 @@ exports[`FrontendsListingPage should render frontends listing page 1`] = `
                           class="ant-table-cell react-resizable"
                           scope="col"
                         >
-                          Created
+                          <span
+                            aria-describedby="test-id"
+                          >
+                            Created
+                          </span>
                           <span
                             class="react-resizable-handle"
                           />
