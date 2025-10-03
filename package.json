@@ -25,7 +25,7 @@
     "lodash": "^4.17.21",
     "next": "^14.2.14",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react-dom": "^18.2.0", 
     "react-redux": "^9.2.0",
     "react-resizable": "^3.0.5",
     "react-toggle-dark-mode": "^1.1.1",
@@ -58,5 +58,12 @@
   },
   "msw": {
     "workerDirectory": "public"
+  },
+  
+  "overrides": {
+    "jsoneditor-react": {
+      "react": "$react",
+      "react-dom": "$react-dom"
+    }
   }
 }
