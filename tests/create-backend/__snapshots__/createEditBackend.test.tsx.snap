@@ -647,7 +647,7 @@ exports[`CreateEditBackend should render create backend page 1`] = `
             >
               <label
                 class="ant-form-item-required"
-                for="HealthCheckMethod_Method"
+                for="HealthCheckMethod"
                 title="Health Check Method"
               >
                 Health Check Method
@@ -701,14 +701,14 @@ exports[`CreateEditBackend should render create backend page 1`] = `
                         >
                           <input
                             aria-autocomplete="list"
-                            aria-controls="HealthCheckMethod_Method_list"
+                            aria-controls="HealthCheckMethod_list"
                             aria-expanded="false"
                             aria-haspopup="listbox"
-                            aria-owns="HealthCheckMethod_Method_list"
+                            aria-owns="HealthCheckMethod_list"
                             aria-required="true"
                             autocomplete="off"
                             class="ant-select-selection-search-input"
-                            id="HealthCheckMethod_Method"
+                            id="HealthCheckMethod"
                             readonly=""
                             role="combobox"
                             style="opacity: 0;"
@@ -2353,7 +2353,7 @@ exports[`CreateEditBackend should render create backend page with initial values
             >
               <label
                 class="ant-form-item-required"
-                for="HealthCheckMethod_Method"
+                for="HealthCheckMethod"
                 title="Health Check Method"
               >
                 Health Check Method
@@ -2407,14 +2407,14 @@ exports[`CreateEditBackend should render create backend page with initial values
                         >
                           <input
                             aria-autocomplete="list"
-                            aria-controls="HealthCheckMethod_Method_list"
+                            aria-controls="HealthCheckMethod_list"
                             aria-expanded="false"
                             aria-haspopup="listbox"
-                            aria-owns="HealthCheckMethod_Method_list"
+                            aria-owns="HealthCheckMethod_list"
                             aria-required="true"
                             autocomplete="off"
                             class="ant-select-selection-search-input"
-                            id="HealthCheckMethod_Method"
+                            id="HealthCheckMethod"
                             readonly=""
                             role="combobox"
                             style="opacity: 0;"
@@ -2424,9 +2424,10 @@ exports[`CreateEditBackend should render create backend page with initial values
                           />
                         </span>
                         <span
-                          class="ant-select-selection-placeholder"
+                          class="ant-select-selection-item"
+                          title="GET"
                         >
-                          Select health check method
+                          GET
                         </span>
                       </span>
                     </div>
@@ -4083,7 +4084,7 @@ exports[`CreateEditBackend should render edit backend page 1`] = `
             >
               <label
                 class="ant-form-item-required"
-                for="HealthCheckMethod_Method"
+                for="HealthCheckMethod"
                 title="Health Check Method"
               >
                 Health Check Method
@@ -4137,14 +4138,14 @@ exports[`CreateEditBackend should render edit backend page 1`] = `
                         >
                           <input
                             aria-autocomplete="list"
-                            aria-controls="HealthCheckMethod_Method_list"
+                            aria-controls="HealthCheckMethod_list"
                             aria-expanded="false"
                             aria-haspopup="listbox"
-                            aria-owns="HealthCheckMethod_Method_list"
+                            aria-owns="HealthCheckMethod_list"
                             aria-required="true"
                             autocomplete="off"
                             class="ant-select-selection-search-input"
-                            id="HealthCheckMethod_Method"
+                            id="HealthCheckMethod"
                             readonly=""
                             role="combobox"
                             style="opacity: 0;"
@@ -5790,7 +5791,7 @@ exports[`CreateEditBackend should render edit backend page with initial values 1
             >
               <label
                 class="ant-form-item-required"
-                for="HealthCheckMethod_Method"
+                for="HealthCheckMethod"
                 title="Health Check Method"
               >
                 Health Check Method
@@ -5844,14 +5845,14 @@ exports[`CreateEditBackend should render edit backend page with initial values 1
                         >
                           <input
                             aria-autocomplete="list"
-                            aria-controls="HealthCheckMethod_Method_list"
+                            aria-controls="HealthCheckMethod_list"
                             aria-expanded="false"
                             aria-haspopup="listbox"
-                            aria-owns="HealthCheckMethod_Method_list"
+                            aria-owns="HealthCheckMethod_list"
                             aria-required="true"
                             autocomplete="off"
                             class="ant-select-selection-search-input"
-                            id="HealthCheckMethod_Method"
+                            id="HealthCheckMethod"
                             readonly=""
                             role="combobox"
                             style="opacity: 0;"
@@ -5861,9 +5862,10 @@ exports[`CreateEditBackend should render edit backend page with initial values 1
                           />
                         </span>
                         <span
-                          class="ant-select-selection-placeholder"
+                          class="ant-select-selection-item"
+                          title="GET"
                         >
-                          Select health check method
+                          GET
                         </span>
                       </span>
                     </div>

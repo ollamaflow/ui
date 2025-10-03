@@ -37,7 +37,6 @@ const AdminLoginPage = () => {
     changeAxiosBaseUrl(url);
     try {
       const isValid = await validateConnectivity().unwrap();
-      console.log(isValid);
       setIsServerValid(!!isValid);
     } catch (error) {
       setIsServerValid(false);

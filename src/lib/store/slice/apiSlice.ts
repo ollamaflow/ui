@@ -44,9 +44,12 @@ const apiPathSlice = enhancedApiSlice.injectEndpoints({
     validateConnectivity: builder.mutation<boolean, void>({
       query: () => ({
         url: "/",
-        method: "HEAD",
+        method: "GET",
       }),
-      transformResponse: (response: any) => (response === "" ? true : false),
+      transformResponse: (response: any) => {
+        console.log(response);
+        return response ? true : false;
+      },
     }),
     getFrontendTest: builder.mutation<boolean, void>({
       query: () => ({

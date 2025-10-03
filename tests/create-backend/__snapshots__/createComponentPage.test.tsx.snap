@@ -706,7 +706,7 @@ exports[`CreateComponentPage should render backend component page 1`] = `
                 >
                   <label
                     class="ant-form-item-required"
-                    for="HealthCheckMethod_Method"
+                    for="HealthCheckMethod"
                     title="Health Check Method"
                   >
                     Health Check Method
@@ -760,14 +760,14 @@ exports[`CreateComponentPage should render backend component page 1`] = `
                             >
                               <input
                                 aria-autocomplete="list"
-                                aria-controls="HealthCheckMethod_Method_list"
+                                aria-controls="HealthCheckMethod_list"
                                 aria-expanded="false"
                                 aria-haspopup="listbox"
-                                aria-owns="HealthCheckMethod_Method_list"
+                                aria-owns="HealthCheckMethod_list"
                                 aria-required="true"
                                 autocomplete="off"
                                 class="ant-select-selection-search-input"
-                                id="HealthCheckMethod_Method"
+                                id="HealthCheckMethod"
                                 readonly=""
                                 role="combobox"
                                 style="opacity: 0;"

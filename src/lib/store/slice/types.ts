@@ -32,7 +32,7 @@ export interface Backend {
   ApiFormat: string;
   UnhealthyThreshold: number;
   HealthyThreshold: number;
-  HealthCheckMethod: { Method: string };
+  HealthCheckMethod: string;
   HealthCheckUrl: string;
   MaxParallelRequests: number;
   RateLimitRequestsThreshold: number;
@@ -58,7 +58,7 @@ export interface BackendHealth {
   ApiFormat: string;
   UnhealthyThreshold: number;
   HealthyThreshold: number;
-  HealthCheckMethod: { Method: string };
+  HealthCheckMethod: string;
   HealthCheckUrl: string;
   MaxParallelRequests: number;
   RateLimitRequestsThreshold: number;

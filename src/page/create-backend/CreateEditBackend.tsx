@@ -58,7 +58,7 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
     Port: 11435,
     Ssl: false,
     ApiFormat: "Ollama",
-    HealthCheckMethod: { Method: "HEAD" },
+    HealthCheckMethod: "HEAD",
     HealthCheckUrl: "/",
     MaxParallelRequests: 4,
     RateLimitRequestsThreshold: 10,
@@ -218,7 +218,7 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
         <Col xs={24} sm={24} md={24} lg={12} xl={12}>
           <Form.Item
             label="Health Check Method"
-            name={["HealthCheckMethod", "Method"]}
+            name={"HealthCheckMethod"}
             tooltip="The HTTP method to use when validating that this backend is online and operational"
             rules={[
               {
@@ -230,11 +230,6 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
             <Select placeholder="Select health check method">
               <Option value="HEAD">HEAD</Option>
               <Option value="GET">GET</Option>
-              <Option value="POST">POST</Option>
-              <Option value="PUT">PUT</Option>
-              <Option value="DELETE">DELETE</Option>
-              <Option value="PATCH">PATCH</Option>
-              <Option value="OPTIONS">OPTIONS</Option>
             </Select>
           </Form.Item>
         </Col>
