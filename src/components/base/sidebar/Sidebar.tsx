@@ -60,7 +60,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse }) => {
     {
       key: "api-explorer",
       icon: <ApiOutlined />,
-      label: <Link href={paths.DashboardApiExplorer}>Api Explorer</Link>,
+      label: <Link href={paths.DashboardApiExplorer}>API Explorer</Link>,
     },
   ];
 
