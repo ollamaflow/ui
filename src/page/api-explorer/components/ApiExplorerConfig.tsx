@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import OllamaFlowCard from '#/components/base/card/Card';
-import OllamaFlowFormItem from '#/components/base/form/FormItem';
-import OllamaFlowInput from '#/components/base/input/Input';
-import OllamaFlowSelect, { OptionProps } from '#/components/base/select/Select';
-import { Checkbox } from 'antd';
-import styles from './apiExplorerConfig.module.scss';
+import React, { useState, useEffect } from "react";
+import OllamaFlowCard from "#/components/base/card/Card";
+import OllamaFlowFormItem from "#/components/base/form/FormItem";
+import OllamaFlowInput from "#/components/base/input/Input";
+import OllamaFlowSelect, { OptionProps } from "#/components/base/select/Select";
+import { Checkbox } from "antd";
+import styles from "./apiExplorerConfig.module.scss";
 
 interface ApiExplorerConfigProps {
   onUrlChange: (url: string) => void;
@@ -23,76 +23,78 @@ export default function ApiExplorerConfig({
   onModelChange,
   onStreamToggle,
 }: ApiExplorerConfigProps) {
-  const [baseUrl, setBaseUrl] = useState('http://localhost:43411/api/chat');
+  const [baseUrl, setBaseUrl] = useState("http://localhost:43411/api/chat");
   const [streamEnabled, setStreamEnabled] = useState(true);
-  const [apiType, setApiType] = useState('ollama');
-  const [requestType, setRequestType] = useState('chat');
-  const [modelName, setModelName] = useState('llama2');
+  const [apiType, setApiType] = useState("ollama");
+  const [requestType, setRequestType] = useState("chat");
+  const [modelName, setModelName] = useState("llama2");
 
   const requestTypeOptions = {
     ollama: [
-      { value: 'chat', text: 'Generate chat completion' },
-      { value: 'generate', text: 'Generate completion' },
-      { value: 'pull', text: 'Pull model' },
-      { value: 'list', text: 'List models' },
-      { value: 'delete', text: 'Delete model' },
-      { value: 'ps', text: 'List running models' },
-      { value: 'embeddings', text: 'Generate embeddings (single)' },
-      { value: 'embed', text: 'Generate embeddings (batch)' },
+      { value: "chat", label: "Generate chat completion" },
+      { value: "generate", label: "Generate completion" },
+      { value: "pull", label: "Pull model" },
+      { value: "list", label: "List models" },
+      { value: "delete", label: "Delete model" },
+      { value: "ps", label: "List running models" },
+      { value: "embeddings", label: "Generate embeddings (single)" },
+      { value: "embed", label: "Generate embeddings (batch)" },
     ],
     openai: [
-      { value: 'chat', text: 'Generate chat completion' },
-      { value: 'completions', text: 'Generate completion' },
-      { value: 'embeddings', text: 'Generate embeddings (single)' },
-      { value: 'embeddings_batch', text: 'Generate embeddings (batch)' },
+      { value: "chat", label: "Generate chat completion" },
+      { value: "completions", label: "Generate completion" },
+      { value: "embeddings", label: "Generate embeddings (single)" },
+      { value: "embeddings_batch", label: "Generate embeddings (batch)" },
     ],
   };
 
   const getEndpointForType = (apiType: string, requestType: string) => {
-    if (apiType === 'openai') {
+    if (apiType === "openai") {
       switch (requestType) {
-        case 'chat':
-          return '/v1/chat/completions';
-        case 'completions':
-          return '/v1/completions';
-        case 'embeddings':
-        case 'embeddings_batch':
-          return '/v1/embeddings';
+        case "chat":
+          return "/v1/chat/completions";
+        case "completions":
+          return "/v1/completions";
+        case "embeddings":
+        case "embeddings_batch":
+          return "/v1/embeddings";
         default:
-          return '/v1/chat/completions';
+          return "/v1/chat/completions";
       }
     } else {
       // ollama
       switch (requestType) {
-        case 'chat':
-          return '/api/chat';
-        case 'generate':
-          return '/api/generate';
-        case 'pull':
-          return '/api/pull';
-        case 'list':
-          return '/api/tags';
-        case 'delete':
-          return '/api/delete';
-        case 'ps':
-          return '/api/ps';
-        case 'embeddings':
-          return '/api/embeddings';
-        case 'embed':
-          return '/api/embed';
+        case "chat":
+          return "/api/chat";
+        case "generate":
+          return "/api/generate";
+        case "pull":
+          return "/api/pull";
+        case "list":
+          return "/api/tags";
+        case "delete":
+          return "/api/delete";
+        case "ps":
+          return "/api/ps";
+        case "embeddings":
+          return "/api/embeddings";
+        case "embed":
+          return "/api/embed";
         default:
-          return '/api/chat';
+          return "/api/chat";
       }
     }
   };
 
   useEffect(() => {
-    setRequestType('chat'); // Reset to default when API type changes
+    setRequestType("chat"); // Reset to default when API type changes
   }, [apiType]);
 
   useEffect(() => {
     const currentBaseUrl = baseUrl;
-    const baseUrlWithoutEndpoint = currentBaseUrl.replace(/\/api\/.*$|\/v1\/.*$/, '').replace(/\/$/, '');
+    const baseUrlWithoutEndpoint = currentBaseUrl
+      .replace(/\/api\/.*$|\/v1\/.*$/, "")
+      .replace(/\/$/, "");
     const endpoint = getEndpointForType(apiType, requestType);
     const newUrl = baseUrlWithoutEndpoint + endpoint;
 
@@ -122,8 +124,8 @@ export default function ApiExplorerConfig({
   }, [streamEnabled, onStreamToggle]);
 
   const apiTypeOptions: OptionProps[] = [
-    { value: 'ollama', label: 'Ollama' },
-    { value: 'openai', label: 'OpenAI' },
+    { value: "ollama", label: "Ollama" },
+    { value: "openai", label: "OpenAI" },
   ];
 
   const streamingCheckbox = (
@@ -150,12 +152,18 @@ export default function ApiExplorerConfig({
               }}
             />
           </OllamaFlowFormItem>
-          <OllamaFlowFormItem label="Streaming" className={styles.configCheckbox}>
+          <OllamaFlowFormItem
+            label="Streaming"
+            className={styles.configCheckbox}
+          >
             {streamingCheckbox}
           </OllamaFlowFormItem>
         </div>
         <div className={styles.configGrid}>
-          <OllamaFlowFormItem label="Request Format" className={styles.configItem}>
+          <OllamaFlowFormItem
+            label="Request Format"
+            className={styles.configItem}
+          >
             <OllamaFlowSelect
               options={apiTypeOptions}
               value={apiType}
@@ -164,7 +172,10 @@ export default function ApiExplorerConfig({
               }}
             />
           </OllamaFlowFormItem>
-          <OllamaFlowFormItem label="Request Type" className={styles.configItem}>
+          <OllamaFlowFormItem
+            label="Request Type"
+            className={styles.configItem}
+          >
             <OllamaFlowSelect
               options={(requestTypeOptions as any)[apiType]}
               value={requestType}

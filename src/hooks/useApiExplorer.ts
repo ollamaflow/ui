@@ -1,10 +1,10 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback } from "react";
 
 interface StatusInfo {
   status: number;
   statusText: string;
   requestTime: number;
-  type: 'success' | 'error' | 'cancelled';
+  type: "success" | "error" | "cancelled";
 }
 
 interface UseApiExplorerReturn {
@@ -20,7 +20,12 @@ interface UseApiExplorerReturn {
   responseStatus: StatusInfo | null;
   isSending: boolean;
   abortController: AbortController | null;
-  updateRequestBody: (apiType: string, requestType: string, modelName: string, streamEnabled: boolean) => void;
+  updateRequestBody: (
+    apiType: string,
+    requestType: string,
+    modelName: string,
+    streamEnabled: boolean
+  ) => void;
   updateRequestBodyFromSettings: () => void;
   setRequestBodyManual: (body: string) => void;
   updateBaseUrl: (url: string) => void;
@@ -32,8 +37,8 @@ interface UseApiExplorerReturn {
 const requestBodies = {
   ollama: {
     chat: {
-      model: 'llama2',
-      messages: [{ role: 'user', content: 'Hello, how are you?' }],
+      model: "llama2",
+      messages: [{ role: "user", content: "Hello, how are you?" }],
       stream: true,
       format: null,
       options: {
@@ -64,11 +69,11 @@ const requestBodies = {
         use_mlock: false,
         num_thread: null,
       },
-      keep_alive: '5m',
+      keep_alive: "5m",
     },
     generate: {
-      model: 'llama2',
-      prompt: 'Hello, how are you?',
+      model: "llama2",
+      prompt: "Hello, how are you?",
       stream: true,
       format: null,
       options: {
@@ -99,29 +104,32 @@ const requestBodies = {
         use_mlock: false,
         num_thread: null,
       },
-      keep_alive: '5m',
+      keep_alive: "5m",
     },
     pull: {
-      name: 'llama2',
+      name: "llama2",
     },
     list: {},
     delete: {
-      name: 'llama2',
+      name: "llama2",
     },
     ps: {},
     embeddings: {
-      model: 'llama2',
-      input: 'The sky is blue because of Rayleigh scattering',
+      model: "llama2",
+      input: "The sky is blue because of Rayleigh scattering",
     },
     embed: {
-      model: 'llama2',
-      input: ['The sky is blue because of Rayleigh scattering', 'Grass is green because of chlorophyll'],
+      model: "llama2",
+      input: [
+        "The sky is blue because of Rayleigh scattering",
+        "Grass is green because of chlorophyll",
+      ],
     },
   },
   openai: {
     chat: {
-      model: 'gpt-3.5-turbo',
-      messages: [{ role: 'user', content: 'Hello, how are you?' }],
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: "Hello, how are you?" }],
       max_tokens: null,
       temperature: 0.7,
       top_p: 1.0,
@@ -138,8 +146,8 @@ const requestBodies = {
       response_format: null,
     },
     completions: {
-      model: 'gpt-3.5-turbo-instruct',
-      prompt: 'Hello, how are you?',
+      model: "gpt-3.5-turbo-instruct",
+      prompt: "Hello, how are you?",
       max_tokens: 100,
       temperature: 0.7,
       top_p: 1.0,
@@ -153,57 +161,79 @@ const requestBodies = {
       seed: null,
     },
     embeddings: {
-      model: 'text-embedding-ada-002',
-      input: 'The sky is blue because of Rayleigh scattering',
+      model: "text-embedding-ada-002",
+      input: "The sky is blue because of Rayleigh scattering",
       user: null,
     },
     embeddings_batch: {
-      model: 'text-embedding-ada-002',
-      input: ['The sky is blue because of Rayleigh scattering', 'Grass is green because of chlorophyll'],
+      model: "text-embedding-ada-002",
+      input: [
+        "The sky is blue because of Rayleigh scattering",
+        "Grass is green because of chlorophyll",
+      ],
       user: null,
     },
   },
 };
 
 export function useApiExplorer(): UseApiExplorerReturn {
-  const [baseUrl, setBaseUrl] = useState('http://localhost:43411/api/chat');
-  const [apiType, setApiType] = useState('ollama');
-  const [requestType, setRequestType] = useState('chat');
-  const [modelName, setModelName] = useState('llama2');
-  const [streamEnabled, setStreamEnabled] = useState(true);
-  const [requestBody, setRequestBody] = useState('');
-  const [baseUrlState, setBaseUrlState] = useState('http://localhost:43411/api/chat');
-  const [apiTypeState, setApiTypeState] = useState('ollama');
-  const [requestTypeState, setRequestTypeState] = useState('chat');
-  const [modelNameState, setModelNameState] = useState('llama2');
+  const [baseUrl, setBaseUrl] = useState("http://localhost:43411/api/chat");
+  const [requestBody, setRequestBody] = useState("");
+  const [baseUrlState, setBaseUrlState] = useState(
+    "http://localhost:43411/api/chat"
+  );
+  const [apiTypeState, setApiTypeState] = useState("ollama");
+  const [requestTypeState, setRequestTypeState] = useState("chat");
+  const [modelNameState, setModelNameState] = useState("llama2");
   const [streamEnabledState, setStreamEnabledState] = useState(true);
-  const [responseBody, setResponseBody] = useState('');
-  const [responsePreview, setResponsePreview] = useState('');
-  const [responseHeaders, setResponseHeaders] = useState('');
+  const [responseBody, setResponseBody] = useState("");
+  const [responsePreview, setResponsePreview] = useState("");
+  const [responseHeaders, setResponseHeaders] = useState("");
   const [responseStatus, setResponseStatus] = useState<StatusInfo | null>(null);
   const [isSending, setIsSending] = useState(false);
-  const [abortController, setAbortController] = useState<AbortController | null>(null);
+  const [abortController, setAbortController] =
+    useState<AbortController | null>(null);
 
   const updateRequestBody = useCallback(
-    (apiType: string, requestType: string, modelName: string, streamEnabled: boolean) => {
+    (
+      apiType: string,
+      requestType: string,
+      modelName: string,
+      streamEnabled: boolean
+    ) => {
       setApiTypeState(apiType);
       setRequestTypeState(requestType);
       setModelNameState(modelName);
       setStreamEnabledState(streamEnabled);
 
-      const body = getRequestBodyForSettings(apiType, requestType, modelName, streamEnabled);
+      const body = getRequestBodyForSettings(
+        apiType,
+        requestType,
+        modelName,
+        streamEnabled
+      );
       setRequestBody(body);
     },
     []
   );
 
   const updateRequestBodyFromSettings = useCallback(() => {
-    const body = getRequestBodyForSettings(apiTypeState, requestTypeState, modelNameState, streamEnabledState);
+    const body = getRequestBodyForSettings(
+      apiTypeState,
+      requestTypeState,
+      modelNameState,
+      streamEnabledState
+    );
     setRequestBody(body);
   }, [apiTypeState, requestTypeState, modelNameState, streamEnabledState]);
 
   const getRequestBodyForSettings = useCallback(
-    (apiType: string, requestType: string, modelName: string, streamEnabled: boolean) => {
+    (
+      apiType: string,
+      requestType: string,
+      modelName: string,
+      streamEnabled: boolean
+    ) => {
       let body = { ...(requestBodies as any)[apiType][requestType] };
 
       // Update model in body based on request type
@@ -233,9 +263,9 @@ export function useApiExplorer(): UseApiExplorerReturn {
   }, []);
 
   const clearResponse = useCallback(() => {
-    setResponseBody('');
-    setResponsePreview('');
-    setResponseHeaders('');
+    setResponseBody("");
+    setResponsePreview("");
+    setResponseHeaders("");
     setResponseStatus(null);
   }, []);
 
@@ -243,14 +273,14 @@ export function useApiExplorer(): UseApiExplorerReturn {
     try {
       // This is a simplified markdown renderer
       const html = content
-        .replace(/^### (.*$)/gim, '<h3>$1</h3>')
-        .replace(/^## (.*$)/gim, '<h2>$1</h2>')
-        .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-        .replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>')
-        .replace(/\*(.*?)\*/gim, '<em>$1</em>')
-        .replace(/```([\s\S]*?)```/gim, '<pre><code>$1</code></pre>')
-        .replace(/`([^`]*)`/gim, '<code>$1</code>')
-        .replace(/\n/gim, '<br>');
+        .replace(/^### (.*$)/gim, "<h3>$1</h3>")
+        .replace(/^## (.*$)/gim, "<h2>$1</h2>")
+        .replace(/^# (.*$)/gim, "<h1>$1</h1>")
+        .replace(/\*\*(.*?)\*\*/gim, "<strong>$1</strong>")
+        .replace(/\*(.*?)\*/gim, "<em>$1</em>")
+        .replace(/```([\s\S]*?)```/gim, "<pre><code>$1</code></pre>")
+        .replace(/`([^`]*)`/gim, "<code>$1</code>")
+        .replace(/\n/gim, "<br>");
 
       return html;
     } catch (error) {
@@ -270,31 +300,38 @@ export function useApiExplorer(): UseApiExplorerReturn {
     let headerText = JSON.stringify(headerObj, null, 2);
 
     if (headerCount === 0) {
-      headerText = '(No headers available)';
+      headerText = "(No headers available)";
     }
 
     setResponseHeaders(headerText);
   }, []);
 
-  const displayStatus = useCallback((status: number, statusText: string, requestTime: number) => {
-    const type = status >= 200 && status < 300 ? 'success' : 'error';
-    setResponseStatus({
-      status,
-      statusText,
-      requestTime,
-      type,
-    });
-  }, []);
+  const displayStatus = useCallback(
+    (status: number, statusText: string, requestTime: number) => {
+      const type = status >= 200 && status < 300 ? "success" : "error";
+      setResponseStatus({
+        status,
+        statusText,
+        requestTime,
+        type,
+      });
+    },
+    []
+  );
 
   const extractAndDisplayPreview = useCallback(
-    (line: string, currentPreview: string, setCurrentPreview: (preview: string) => void) => {
+    (
+      line: string,
+      currentPreview: string,
+      setCurrentPreview: (preview: string) => void
+    ) => {
       try {
         let jsonData: any;
 
         // Handle Server-Sent Events format (OpenAI style)
-        if (line.startsWith('data: ')) {
+        if (line.startsWith("data: ")) {
           const jsonStr = line.substring(6).trim();
-          if (jsonStr === '[DONE]') {
+          if (jsonStr === "[DONE]") {
             return currentPreview;
           }
           jsonData = JSON.parse(jsonStr);
@@ -306,17 +343,17 @@ export function useApiExplorer(): UseApiExplorerReturn {
         // Check for errors
         if (jsonData.error) {
           const errorMsg = `Error: ${
-            typeof jsonData.error === 'string'
+            typeof jsonData.error === "string"
               ? jsonData.error
               : jsonData.error.message || JSON.stringify(jsonData.error)
           }`;
-          const newPreview = currentPreview + errorMsg + '\n';
+          const newPreview = currentPreview + errorMsg + "\n";
           setCurrentPreview(newPreview);
           return newPreview;
         }
 
         // Extract content from different response formats
-        let content = '';
+        let content = "";
 
         // OpenAI streaming format
         if (jsonData.choices && jsonData.choices[0]?.delta?.content) {
@@ -338,13 +375,16 @@ export function useApiExplorer(): UseApiExplorerReturn {
         else if (jsonData.status) {
           content = `[${jsonData.status}]`;
           if (jsonData.completed && jsonData.total) {
-            const percent = ((jsonData.completed / jsonData.total) * 100).toFixed(1);
+            const percent = (
+              (jsonData.completed / jsonData.total) *
+              100
+            ).toFixed(1);
             content += ` ${percent}%`;
           }
           if (jsonData.digest) {
             content += ` ${jsonData.digest}`;
           }
-          content += '\n';
+          content += "\n";
         }
 
         // Update preview if we have content
@@ -354,7 +394,7 @@ export function useApiExplorer(): UseApiExplorerReturn {
           return newPreview;
         }
       } catch (error) {
-        console.debug('Failed to parse streaming response line:', line, error);
+        console.debug("Failed to parse streaming response line:", line, error);
       }
 
       return currentPreview;
@@ -368,14 +408,14 @@ export function useApiExplorer(): UseApiExplorerReturn {
       if (!reader) return;
 
       const decoder = new TextDecoder();
-      let buffer = '';
+      let buffer = "";
       let isStreamActive = true;
-      let currentPreview = '';
+      let currentPreview = "";
 
       displayHeaders(response.headers);
-      setResponseBody('');
-      setResponsePreview('');
-      currentPreview = '';
+      setResponseBody("");
+      setResponsePreview("");
+      currentPreview = "";
 
       try {
         while (isStreamActive) {
@@ -383,27 +423,39 @@ export function useApiExplorer(): UseApiExplorerReturn {
 
           if (done) {
             const endTime = Date.now();
-            displayStatus(response.status, response.statusText, endTime - startTime);
+            displayStatus(
+              response.status,
+              response.statusText,
+              endTime - startTime
+            );
             isStreamActive = false;
             break;
           }
 
           buffer += decoder.decode(value, { stream: true });
-          const lines = buffer.split('\n');
-          buffer = lines.pop() || ''; // Keep the last incomplete line in buffer
+          const lines = buffer.split("\n");
+          buffer = lines.pop() || ""; // Keep the last incomplete line in buffer
 
           for (const line of lines) {
             if (line.trim()) {
-              setResponseBody((prev) => prev + line + '\n');
-              currentPreview = extractAndDisplayPreview(line, currentPreview, setResponsePreview);
+              setResponseBody((prev) => prev + line + "\n");
+              currentPreview = extractAndDisplayPreview(
+                line,
+                currentPreview,
+                setResponsePreview
+              );
             }
           }
         }
 
         // Process any remaining data in buffer
         if (buffer.trim()) {
-          setResponseBody((prev) => prev + buffer + '\n');
-          currentPreview = extractAndDisplayPreview(buffer, currentPreview, setResponsePreview);
+          setResponseBody((prev) => prev + buffer + "\n");
+          currentPreview = extractAndDisplayPreview(
+            buffer,
+            currentPreview,
+            setResponsePreview
+          );
         }
       } catch (error: any) {
         const errorMsg = `\n\nError: ${error.message}`;
@@ -424,10 +476,12 @@ export function useApiExplorer(): UseApiExplorerReturn {
         const data = await response.json();
         setResponseBody(JSON.stringify(data, null, 2));
 
-        let content = '';
+        let content = "";
         if (data.error) {
           content = `Error: ${
-            typeof data.error === 'string' ? data.error : data.error.message || JSON.stringify(data.error)
+            typeof data.error === "string"
+              ? data.error
+              : data.error.message || JSON.stringify(data.error)
           }`;
         } else if (data.choices && data.choices[0]?.message?.content) {
           content = data.choices[0].message.content;
@@ -448,7 +502,7 @@ export function useApiExplorer(): UseApiExplorerReturn {
           const errorData = JSON.parse(text);
           if (errorData.error) {
             const errorContent = `Error: ${
-              typeof errorData.error === 'string'
+              typeof errorData.error === "string"
                 ? errorData.error
                 : errorData.error.message || JSON.stringify(errorData.error)
             }`;
@@ -457,7 +511,11 @@ export function useApiExplorer(): UseApiExplorerReturn {
             setResponsePreview(renderMarkdownToPreview(text));
           }
         } catch {
-          setResponsePreview(renderMarkdownToPreview(text || `Error parsing response: ${error.message}`));
+          setResponsePreview(
+            renderMarkdownToPreview(
+              text || `Error parsing response: ${error.message}`
+            )
+          );
         }
       }
     },
@@ -466,7 +524,7 @@ export function useApiExplorer(): UseApiExplorerReturn {
 
   const sendRequest = useCallback(async () => {
     clearResponse();
-
+    console.log("requestBody", requestBody);
     let requestBodyParsed: any;
     try {
       requestBodyParsed = JSON.parse(requestBody);
@@ -475,16 +533,16 @@ export function useApiExplorer(): UseApiExplorerReturn {
       setResponsePreview(`Invalid JSON in request body: ${error.message}`);
       setResponseStatus({
         status: 400,
-        statusText: 'Bad Request',
+        statusText: "Bad Request",
         requestTime: 0,
-        type: 'error',
+        type: "error",
       });
       return;
     }
 
     // Only set stream if it exists in the request body
     if (requestBodyParsed.stream !== undefined) {
-      requestBodyParsed.stream = streamEnabled;
+      requestBodyParsed.stream = streamEnabledState;
       setRequestBody(JSON.stringify(requestBodyParsed, null, 2));
     }
 
@@ -493,17 +551,17 @@ export function useApiExplorer(): UseApiExplorerReturn {
     setIsSending(true);
 
     const startTime = Date.now();
-
+    const method = baseUrl.endsWith("/api/tags") ? "GET" : "POST";
     try {
       const response = await fetch(baseUrl, {
-        method: 'POST',
+        method: method,
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(requestBodyParsed),
+        body: method === "GET" ? undefined : JSON.stringify(requestBodyParsed),
         signal: controller.signal,
       });
-
+      console.log("response", requestBodyParsed);
       if (requestBodyParsed.stream) {
         await handleStreamingResponse(response, startTime);
       } else {
@@ -511,30 +569,37 @@ export function useApiExplorer(): UseApiExplorerReturn {
       }
     } catch (error: any) {
       const endTime = Date.now();
-      if (error.name === 'AbortError') {
-        setResponseBody('Request cancelled by user');
-        setResponsePreview('Request cancelled by user');
+      if (error.name === "AbortError") {
+        setResponseBody("Request cancelled by user");
+        setResponsePreview("Request cancelled by user");
         setResponseStatus({
           status: 0,
-          statusText: 'Cancelled',
+          statusText: "Cancelled",
           requestTime: endTime - startTime,
-          type: 'cancelled',
+          type: "cancelled",
         });
       } else {
         setResponseBody(`Network Error: ${error.message}`);
         setResponsePreview(`Network Error: ${error.message}`);
         setResponseStatus({
           status: 500,
-          statusText: 'Network Error',
+          statusText: "Network Error",
           requestTime: endTime - startTime,
-          type: 'error',
+          type: "error",
         });
       }
     } finally {
       setIsSending(false);
       setAbortController(null);
     }
-  }, [baseUrl, requestBody, streamEnabled, clearResponse, handleStreamingResponse, handleNonStreamingResponse]);
+  }, [
+    baseUrl,
+    requestBody,
+    streamEnabledState,
+    clearResponse,
+    handleStreamingResponse,
+    handleNonStreamingResponse,
+  ]);
 
   const stopRequest = useCallback(() => {
     if (abortController) {

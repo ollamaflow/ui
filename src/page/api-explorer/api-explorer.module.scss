@@ -1,18 +1,18 @@
 .container {
   width: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, sans-serif;
   background-color: var(--ant-color-bg-base);
   color: #333;
   line-height: 1.6;
 }
 
 .mainContent {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   gap: 20px;
-  min-height: 600px;
+  flex: 1;
 
   @media (max-width: 1024px) {
-    grid-template-columns: 1fr;
+    flex-direction: column;
   }
 }

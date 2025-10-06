@@ -55,11 +55,6 @@ export default function ApiExplorerResponse({
 
   const tabItems = [
     {
-      key: "body",
-      label: "Body",
-      children: <div className={styles.responseDisplay}>{responseBody}</div>,
-    },
-    {
       key: "preview",
       label: "Preview",
       children: (
@@ -69,6 +64,11 @@ export default function ApiExplorerResponse({
           dangerouslySetInnerHTML={renderMarkdownPreview(responsePreview)}
         />
       ),
+    },
+    {
+      key: "body",
+      label: "Body",
+      children: <div className={styles.responseDisplay}>{responseBody}</div>,
     },
     {
       key: "headers",
@@ -104,6 +104,10 @@ export default function ApiExplorerResponse({
                 <span className={styles.statusLabel}>Request Time:</span>
                 <span>{responseStatus.requestTime}ms</span>
               </div>
+              <div className={styles.statusItem}>
+                <span className={styles.statusLabel}>Request Type:</span>
+                <span>{responseStatus.statusText}ms</span>
+              </div>
             </OllamaFlowSpace>
           )}
         </div>
@@ -115,7 +119,7 @@ export default function ApiExplorerResponse({
     <div className={styles.rightPanel}>
       <OllamaFlowCard title="Response" className={styles.responseCard}>
         <Tabs
-          defaultActiveKey="body"
+          defaultActiveKey="preview"
           items={tabItems}
           className={styles.responseTabs}
         />

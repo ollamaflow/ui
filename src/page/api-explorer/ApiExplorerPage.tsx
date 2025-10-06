@@ -12,6 +12,7 @@ import styles from "./api-explorer.module.scss";
 
 export default function ApiExplorerPage() {
   const apiExplorer = useApiExplorer();
+  console.log(apiExplorer);
   const [localSettings, setLocalSettings] = useState({
     apiType: "ollama",
     requestType: "chat",
