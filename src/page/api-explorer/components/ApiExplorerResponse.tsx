@@ -11,6 +11,8 @@ interface StatusInfo {
   statusText: string;
   requestTime: number;
   type: "success" | "error" | "cancelled";
+  timeToFirstToken?: number;
+  totalStreamingTime?: number;
 }
 
 interface ApiExplorerResponseProps {
@@ -104,10 +106,22 @@ export default function ApiExplorerResponse({
                 <span className={styles.statusLabel}>Request Time:</span>
                 <span>{responseStatus.requestTime}ms</span>
               </div>
-              <div className={styles.statusItem}>
-                <span className={styles.statusLabel}>Request Type:</span>
-                <span>{responseStatus.statusText}ms</span>
-              </div>
+              {responseStatus.timeToFirstToken !== undefined && (
+                <div className={styles.statusItem}>
+                  <span className={styles.statusLabel}>
+                    Time to First Token:
+                  </span>
+                  <span>{responseStatus.timeToFirstToken}ms</span>
+                </div>
+              )}
+              {responseStatus.totalStreamingTime !== undefined && (
+                <div className={styles.statusItem}>
+                  <span className={styles.statusLabel}>
+                    Total Streaming Time:
+                  </span>
+                  <span>{responseStatus.totalStreamingTime}ms</span>
+                </div>
+              )}
             </OllamaFlowSpace>
           )}
         </div>

@@ -5,6 +5,8 @@ interface StatusInfo {
   statusText: string;
   requestTime: number;
   type: "success" | "error" | "cancelled";
+  timeToFirstToken?: number;
+  totalStreamingTime?: number;
 }
 
 interface UseApiExplorerReturn {
@@ -107,7 +109,7 @@ const requestBodies = {
       keep_alive: "5m",
     },
     pull: {
-      name: "llama2",
+      model: "llama2",
     },
     list: {},
     delete: {
@@ -307,13 +309,21 @@ export function useApiExplorer(): UseApiExplorerReturn {
   }, []);
 
   const displayStatus = useCallback(
-    (status: number, statusText: string, requestTime: number) => {
+    (
+      status: number,
+      statusText: string,
+      requestTime: number,
+      timeToFirstToken?: number,
+      totalStreamingTime?: number
+    ) => {
       const type = status >= 200 && status < 300 ? "success" : "error";
       setResponseStatus({
         status,
         statusText,
         requestTime,
         type,
+        timeToFirstToken,
+        totalStreamingTime,
       });
     },
     []
@@ -411,6 +421,8 @@ export function useApiExplorer(): UseApiExplorerReturn {
       let buffer = "";
       let isStreamActive = true;
       let currentPreview = "";
+      let firstTokenTime: number | null = null;
+      let lastTokenTime: number | null = null;
 
       displayHeaders(response.headers);
       setResponseBody("");
@@ -423,15 +435,26 @@ export function useApiExplorer(): UseApiExplorerReturn {
 
           if (done) {
             const endTime = Date.now();
+            const timeToFirstToken = firstTokenTime
+              ? firstTokenTime - startTime
+              : undefined;
+            const totalStreamingTime =
+              firstTokenTime && lastTokenTime
+                ? lastTokenTime - firstTokenTime
+                : undefined;
+
             displayStatus(
               response.status,
               response.statusText,
-              endTime - startTime
+              endTime - startTime,
+              timeToFirstToken,
+              totalStreamingTime
             );
             isStreamActive = false;
             break;
           }
 
+          const currentTime = Date.now();
           buffer += decoder.decode(value, { stream: true });
           const lines = buffer.split("\n");
           buffer = lines.pop() || ""; // Keep the last incomplete line in buffer
@@ -439,23 +462,44 @@ export function useApiExplorer(): UseApiExplorerReturn {
           for (const line of lines) {
             if (line.trim()) {
               setResponseBody((prev) => prev + line + "\n");
+              const previousPreview = currentPreview;
               currentPreview = extractAndDisplayPreview(
                 line,
                 currentPreview,
                 setResponsePreview
               );
+
+              // Check if we got new content (first token)
+              if (currentPreview !== previousPreview && !firstTokenTime) {
+                firstTokenTime = currentTime;
+              }
+
+              // Update last token time if we got new content
+              if (currentPreview !== previousPreview) {
+                lastTokenTime = currentTime;
+              }
             }
           }
         }
 
         // Process any remaining data in buffer
         if (buffer.trim()) {
+          const currentTime = Date.now();
           setResponseBody((prev) => prev + buffer + "\n");
+          const previousPreview = currentPreview;
           currentPreview = extractAndDisplayPreview(
             buffer,
             currentPreview,
             setResponsePreview
           );
+
+          // Check if we got new content from remaining buffer
+          if (currentPreview !== previousPreview) {
+            if (!firstTokenTime) {
+              firstTokenTime = currentTime;
+            }
+            lastTokenTime = currentTime;
+          }
         }
       } catch (error: any) {
         const errorMsg = `\n\nError: ${error.message}`;
@@ -473,7 +517,13 @@ export function useApiExplorer(): UseApiExplorerReturn {
       displayStatus(response.status, response.statusText, endTime - startTime);
 
       try {
-        const data = await response.json();
+        const responseText = await response.text();
+        if (!responseText) {
+          setResponseBody(response.statusText);
+          setResponsePreview(response.statusText);
+          return;
+        }
+        const data = JSON.parse(responseText);
         setResponseBody(JSON.stringify(data, null, 2));
 
         let content = "";
@@ -524,7 +574,6 @@ export function useApiExplorer(): UseApiExplorerReturn {
 
   const sendRequest = useCallback(async () => {
     clearResponse();
-    console.log("requestBody", requestBody);
     let requestBodyParsed: any;
     try {
       requestBodyParsed = JSON.parse(requestBody);
@@ -551,7 +600,11 @@ export function useApiExplorer(): UseApiExplorerReturn {
     setIsSending(true);
 
     const startTime = Date.now();
-    const method = baseUrl.endsWith("/api/tags") ? "GET" : "POST";
+    const method = baseUrl.endsWith("/api/tags")
+      ? "GET"
+      : baseUrl.endsWith("/api/delete")
+      ? "DELETE"
+      : "POST";
     try {
       const response = await fetch(baseUrl, {
         method: method,
@@ -561,8 +614,7 @@ export function useApiExplorer(): UseApiExplorerReturn {
         body: method === "GET" ? undefined : JSON.stringify(requestBodyParsed),
         signal: controller.signal,
       });
-      console.log("response", requestBodyParsed);
-      if (requestBodyParsed.stream) {
+      if (requestBodyParsed.stream || baseUrl.endsWith("api/pull")) {
         await handleStreamingResponse(response, startTime);
       } else {
         await handleNonStreamingResponse(response, startTime);

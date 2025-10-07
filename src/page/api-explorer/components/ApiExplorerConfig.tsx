@@ -5,8 +5,10 @@ import OllamaFlowCard from "#/components/base/card/Card";
 import OllamaFlowFormItem from "#/components/base/form/FormItem";
 import OllamaFlowInput from "#/components/base/input/Input";
 import OllamaFlowSelect, { OptionProps } from "#/components/base/select/Select";
-import { Checkbox } from "antd";
+import { Checkbox, Row, Col } from "antd";
 import styles from "./apiExplorerConfig.module.scss";
+import OllamaFlowCollpase from "#/components/base/collapse/Collpase";
+import OllamaFlowText from "#/components/base/typograpghy/Text";
 
 interface ApiExplorerConfigProps {
   onUrlChange: (url: string) => void;
@@ -77,7 +79,7 @@ export default function ApiExplorerConfig({
         case "ps":
           return "/api/ps";
         case "embeddings":
-          return "/api/embeddings";
+          return "/api/embed";
         case "embed":
           return "/api/embed";
         default:
@@ -140,61 +142,90 @@ export default function ApiExplorerConfig({
   );
 
   return (
-    <OllamaFlowCard title="Settings" className={styles.configCard}>
-      <div className={styles.configContent}>
-        <div className={styles.configUrlRow}>
-          <OllamaFlowFormItem label="Base URL" className={styles.configItem}>
-            <OllamaFlowInput
-              placeholder="http://localhost:43411/api/chat"
-              value={baseUrl}
-              onChange={(e) => {
-                setBaseUrl(e.target.value);
-              }}
-            />
-          </OllamaFlowFormItem>
-          <OllamaFlowFormItem
-            label="Streaming"
-            className={styles.configCheckbox}
-          >
-            {streamingCheckbox}
-          </OllamaFlowFormItem>
-        </div>
-        <div className={styles.configGrid}>
-          <OllamaFlowFormItem
-            label="Request Format"
-            className={styles.configItem}
-          >
-            <OllamaFlowSelect
-              options={apiTypeOptions}
-              value={apiType}
-              onChange={(value: string | number | string[]) => {
-                setApiType(String(value));
-              }}
-            />
-          </OllamaFlowFormItem>
-          <OllamaFlowFormItem
-            label="Request Type"
-            className={styles.configItem}
-          >
-            <OllamaFlowSelect
-              options={(requestTypeOptions as any)[apiType]}
-              value={requestType}
-              onChange={(value: string | number | string[]) => {
-                setRequestType(String(value));
-              }}
-            />
-          </OllamaFlowFormItem>
-          <OllamaFlowFormItem label="Model" className={styles.configItem}>
-            <OllamaFlowInput
-              placeholder="llama2"
-              value={modelName}
-              onChange={(e) => {
-                setModelName(e.target.value);
-              }}
-            />
-          </OllamaFlowFormItem>
-        </div>
-      </div>
-    </OllamaFlowCard>
+    <OllamaFlowCollpase
+      defaultActiveKey={["1"]}
+      items={[
+        {
+          key: "1",
+          label: <OllamaFlowText weight={600}>Settings</OllamaFlowText>,
+          children: (
+            <div className={styles.configContent}>
+              {/* Base URL and Streaming Row */}
+              <Row gutter={[16, 16]} className={styles.configUrlRow}>
+                <Col xs={24} sm={24} md={16} lg={18} xl={20}>
+                  <OllamaFlowFormItem
+                    label="Base URL"
+                    className={styles.configItem}
+                  >
+                    <OllamaFlowInput
+                      placeholder="http://localhost:43411/api/chat"
+                      value={baseUrl}
+                      onChange={(e) => {
+                        setBaseUrl(e.target.value);
+                      }}
+                    />
+                  </OllamaFlowFormItem>
+                </Col>
+                <Col xs={24} sm={24} md={8} lg={6} xl={4}>
+                  <OllamaFlowFormItem
+                    label="Streaming"
+                    className={styles.configCheckbox}
+                  >
+                    {streamingCheckbox}
+                  </OllamaFlowFormItem>
+                </Col>
+              </Row>
+
+              {/* Request Format, Request Type, and Model Row */}
+              <Row gutter={[16, 16]} className={styles.configGrid}>
+                <Col xs={24} sm={12} md={8} lg={8} xl={8}>
+                  <OllamaFlowFormItem
+                    label="Request Format"
+                    className={styles.configItem}
+                  >
+                    <OllamaFlowSelect
+                      options={apiTypeOptions}
+                      value={apiType}
+                      onChange={(value: string | number | string[]) => {
+                        setApiType(String(value));
+                      }}
+                    />
+                  </OllamaFlowFormItem>
+                </Col>
+                <Col xs={24} sm={12} md={8} lg={8} xl={8}>
+                  <OllamaFlowFormItem
+                    label="Request Type"
+                    className={styles.configItem}
+                  >
+                    <OllamaFlowSelect
+                      options={(requestTypeOptions as any)[apiType]}
+                      value={requestType}
+                      onChange={(value: string | number | string[]) => {
+                        setRequestType(String(value));
+                      }}
+                    />
+                  </OllamaFlowFormItem>
+                </Col>
+                <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+                  <OllamaFlowFormItem
+                    label="Model"
+                    className={styles.configItem}
+                  >
+                    <OllamaFlowInput
+                      placeholder="llama2"
+                      value={modelName}
+                      onChange={(e) => {
+                        setModelName(e.target.value);
+                      }}
+                    />
+                  </OllamaFlowFormItem>
+                </Col>
+              </Row>
+            </div>
+          ),
+        },
+      ]}
+      className={styles.configCard}
+    ></OllamaFlowCollpase>
   );
 }

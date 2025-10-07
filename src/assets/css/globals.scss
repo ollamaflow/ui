@@ -282,16 +282,16 @@ a {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--ollamaflow-bg-light);
+  background: var(--ant-color-bg-elevated);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--ollamaflow-border-base);
+  background: var(--ant-color-border);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--ollamaflow-sub-heading);
+  background: var(--ant-color-text-secondary);
 }
 
 // Modal styles

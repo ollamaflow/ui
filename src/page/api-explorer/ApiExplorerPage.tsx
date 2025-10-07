@@ -12,7 +12,6 @@ import styles from "./api-explorer.module.scss";
 
 export default function ApiExplorerPage() {
   const apiExplorer = useApiExplorer();
-  console.log(apiExplorer);
   const [localSettings, setLocalSettings] = useState({
     apiType: "ollama",
     requestType: "chat",
@@ -20,12 +19,9 @@ export default function ApiExplorerPage() {
     streamEnabled: true,
   });
 
-  const handleUrlChange = useCallback(
-    (url: string) => {
-      apiExplorer.updateBaseUrl(url);
-    },
-    [apiExplorer]
-  );
+  const handleUrlChange = useCallback((url: string) => {
+    apiExplorer.updateBaseUrl(url);
+  }, []);
 
   const handleApiTypeChange = useCallback((apiType: string) => {
     setLocalSettings((prev) => ({ ...prev, apiType }));
@@ -33,6 +29,7 @@ export default function ApiExplorerPage() {
 
   const handleRequestTypeChange = useCallback((requestType: string) => {
     setLocalSettings((prev) => ({ ...prev, requestType }));
+    apiExplorer.clearResponse();
   }, []);
 
   const handleModelChange = useCallback((model: string) => {
@@ -50,7 +47,7 @@ export default function ApiExplorerPage() {
       localSettings.modelName,
       localSettings.streamEnabled
     );
-  }, [localSettings, apiExplorer]);
+  }, [localSettings]);
 
   return (
     <PageContainer pageTitle="Api Explorer">

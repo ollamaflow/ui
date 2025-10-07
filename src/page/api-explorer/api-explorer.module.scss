@@ -5,13 +5,14 @@
   background-color: var(--ant-color-bg-base);
   color: #333;
   line-height: 1.6;
+  min-height: calc(100vh - 170px);
 }
 
 .mainContent {
   display: flex;
   gap: 20px;
-  flex: 1;
-
+  flex: 1 1;
+  min-height: calc(100vh - 270px);
   @media (max-width: 1024px) {
     flex-direction: column;
   }

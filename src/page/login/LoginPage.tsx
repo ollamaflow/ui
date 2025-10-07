@@ -89,7 +89,7 @@ const AdminLoginPage = () => {
         }}
       >
         <Form.Item
-          label="Ollama Server URL"
+          label="OllamaFlow Server URL"
           name="url"
           rules={[
             {

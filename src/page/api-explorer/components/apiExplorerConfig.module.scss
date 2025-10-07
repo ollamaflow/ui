@@ -15,17 +15,11 @@
 }
 
 .configUrlRow {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 16px;
   margin-bottom: 16px;
   align-items: end;
 }
 
 .configGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
   margin-top: 16px;
 }
 

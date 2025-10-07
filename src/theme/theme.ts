@@ -122,9 +122,6 @@ export const darkTheme: ThemeConfig = {
       padding: 18,
       borderColor: "var(--ant-color-border)",
     },
-    Collapse: {
-      headerBg: LightGraphTheme.white,
-    },
     Input: {
       borderRadiusLG: 3,
       borderRadius: 3,
