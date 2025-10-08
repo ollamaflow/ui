@@ -50,7 +50,7 @@ export default function ApiExplorerPage() {
   }, [localSettings]);
 
   return (
-    <PageContainer pageTitle="Api Explorer">
+    <PageContainer pageTitle="API Explorer">
       <div className={styles.container}>
         <ApiExplorerConfig
           onUrlChange={handleUrlChange}

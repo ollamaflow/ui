@@ -391,6 +391,9 @@ export function useApiExplorer(): UseApiExplorerReturn {
             ).toFixed(1);
             content += ` ${percent}%`;
           }
+          if (jsonData.downloaded) {
+            content += ` ${(jsonData.downloaded / (1024 * 1024)).toFixed(1)}MB`;
+          }
           if (jsonData.digest) {
             content += ` ${jsonData.digest}`;
           }
@@ -600,11 +603,12 @@ export function useApiExplorer(): UseApiExplorerReturn {
     setIsSending(true);
 
     const startTime = Date.now();
-    const method = baseUrl.endsWith("/api/tags")
-      ? "GET"
-      : baseUrl.endsWith("/api/delete")
-      ? "DELETE"
-      : "POST";
+    const method =
+      baseUrl.endsWith("/api/tags") || baseUrl.endsWith("/api/ps")
+        ? "GET"
+        : baseUrl.endsWith("/api/delete")
+        ? "DELETE"
+        : "POST";
     try {
       const response = await fetch(baseUrl, {
         method: method,
