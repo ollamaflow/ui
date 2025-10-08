@@ -44,7 +44,7 @@ export default function ApiExplorerRequest({
                 disabled={isSending}
                 className={styles.sendButton}
               >
-                {isSending ? "Sending..." : "Send Request"}
+                {isSending ? "Sending..." : "Send"}
               </OllamaFlowButton>
               <OllamaFlowButton
                 id="stop-button"
