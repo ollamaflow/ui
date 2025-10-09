@@ -1,16 +1,21 @@
 import { ColumnsType } from "antd/es/table";
-import { Backend, BackendHealth } from "#/lib/store/slice/types";
-import { Tag, Space } from "antd";
+import { BackendHealth } from "#/lib/store/slice/types";
+import { Tag, Popover } from "antd";
 import OllamaFlowTooltip from "#/components/base/tooltip/Tooltip";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import {
+  EditOutlined,
+  DeleteOutlined,
+  InfoCircleOutlined,
+} from "@ant-design/icons";
 import OllamaFlowFlex from "#/components/base/flex/Flex";
 import Link from "next/link";
-import { NOT_AVAILABLE, paths } from "../../constants/constant";
-import { formatDate } from "#/utils/utils";
+import { paths } from "../../constants/constant";
+import { BackendWithHealth } from "./types";
+import BackendHealthInfo from "./components/BackendHealthInfo";
 
 export const columns: (
-  deleteBackendHandler: (backend: Backend) => void
-) => ColumnsType<Backend> = (deleteBackendHandler) => [
+  deleteBackendHandler: (backend: BackendWithHealth) => void
+) => ColumnsType<BackendWithHealth> = (deleteBackendHandler) => [
   {
     title: (
       <OllamaFlowTooltip title="A unique identifier for the backend">
@@ -43,7 +48,7 @@ export const columns: (
     dataIndex: "Hostname",
     key: "Hostname",
     width: 150,
-    render: (text: string, record: Backend) => (
+    render: (text: string, record: BackendWithHealth) => (
       <span>
         {text}:{record.Port}
       </span>
@@ -94,6 +99,29 @@ export const columns: (
   },
   {
     title: (
+      <OllamaFlowTooltip title="Health of the backend">
+        Health
+      </OllamaFlowTooltip>
+    ),
+    dataIndex: "health",
+    key: "health",
+    width: 150,
+    render: (health: BackendHealth) => {
+      return (
+        <Popover
+          placement="left"
+          content={<BackendHealthInfo health={health} />}
+        >
+          <Tag color={health.HealthySinceUtc ? "success" : "error"}>
+            {health.HealthySinceUtc ? "Healthy" : "Unhealthy"}{" "}
+          </Tag>
+          <InfoCircleOutlined />
+        </Popover>
+      );
+    },
+  },
+  {
+    title: (
       <OllamaFlowTooltip title="Timestamp from which the backend was created">
         Created
       </OllamaFlowTooltip>
@@ -113,7 +141,7 @@ export const columns: (
     title: "Actions",
     key: "actions",
     width: 120,
-    render: (record: Backend) => (
+    render: (record: BackendWithHealth) => (
       <OllamaFlowFlex align="center" justify="space-around">
         <Link href={`${paths.EditBackend}/${record.Identifier}`}>
           <EditOutlined
@@ -132,123 +160,4 @@ export const columns: (
       </OllamaFlowFlex>
     ),
   },
-];
-export const healthColumns: (
-  deleteBackendHandler: (backend: BackendHealth) => void
-) => ColumnsType<BackendHealth> = (deleteBackendHandler) => [
-  {
-    title: (
-      <OllamaFlowTooltip title="A unique identifier for the backend">
-        Identifier
-      </OllamaFlowTooltip>
-    ),
-    dataIndex: "Identifier",
-    key: "Identifier",
-    width: 150,
-    render: (text: string) => (
-      <OllamaFlowTooltip title={text}>{text}</OllamaFlowTooltip>
-    ),
-  },
-  {
-    title: (
-      <OllamaFlowTooltip title="The name of the backend">
-        Name
-      </OllamaFlowTooltip>
-    ),
-    dataIndex: "Name",
-    key: "Name",
-    width: 200,
-  },
-  {
-    title: (
-      <OllamaFlowTooltip title="The timestamp at which the backend became healthy">
-        Healthy Since
-      </OllamaFlowTooltip>
-    ),
-    dataIndex: "HealthySinceUtc",
-    key: "HealthySinceUtc",
-    width: 150,
-    render: (date: string) => {
-      if (!date) return <Tag color="default">{NOT_AVAILABLE}</Tag>;
-      return formatDate(date);
-    },
-  },
-  {
-    title: (
-      <OllamaFlowTooltip title="The timestamp at which the backend became unhealthy">
-        Unhealthy Since
-      </OllamaFlowTooltip>
-    ),
-    dataIndex: "UnhealthySinceUtc",
-    key: "UnhealthySinceUtc",
-    width: 150,
-    render: (date: string) => {
-      if (!date) return <Tag color="default">{NOT_AVAILABLE}</Tag>;
-      return formatDate(date);
-    },
-  },
-  {
-    title: (
-      <OllamaFlowTooltip title="The amount of time the backend has been healthy, of the form hours:minutes:seconds.subseconds">
-        Uptime
-      </OllamaFlowTooltip>
-    ),
-    dataIndex: "Uptime",
-    key: "Uptime",
-    width: 120,
-    render: (uptime: string) => {
-      if (!uptime) return <Tag color="default">N/A</Tag>;
-      return <span style={{ fontFamily: "monospace" }}>{uptime}</span>;
-    },
-  },
-  {
-    title: (
-      <OllamaFlowTooltip title="The amount of time the backend has been unhealthy, of the form hours:minutes:seconds.subseconds">
-        Downtime
-      </OllamaFlowTooltip>
-    ),
-    dataIndex: "Downtime",
-    key: "Downtime",
-    width: 120,
-    render: (downtime: string) => {
-      if (!downtime) return <Tag color="default">N/A</Tag>;
-      return <span style={{ fontFamily: "monospace" }}>{downtime}</span>;
-    },
-  },
-  {
-    title: (
-      <OllamaFlowTooltip title="The number of requests currently being actively served by this backend">
-        Active Requests
-      </OllamaFlowTooltip>
-    ),
-    dataIndex: "ActiveRequests",
-    key: "ActiveRequests",
-    width: 120,
-    render: (count: number) => (
-      <Tag color={count > 0 ? "processing" : "default"}>{count || 0}</Tag>
-    ),
-  },
-  // {
-  //   title: "Actions",
-  //   key: "actions",
-  //   width: 120,
-  //   render: (record: BackendHealth) => (
-  //     <OllamaFlowFlex align="center" justify="space-around">
-  //       <Link href={`${paths.EditBackend}/${record.Identifier}`}>
-  //         <EditOutlined
-  //           style={{ cursor: "pointer", color: "#1890ff" }}
-  //           title="Edit Backend"
-  //         />{" "}
-  //       </Link>
-  //       <DeleteOutlined
-  //         style={{ cursor: "pointer", color: "#ff4d4f" }}
-  //         title="Delete Backend"
-  //         onClick={() => {
-  //           // This will be handled by the parent component
-  //           deleteBackendHandler(record);
-  //         }}
-  //       />
-  //     </OllamaFlowFlex>
-  //   ),
-  // },
 ];

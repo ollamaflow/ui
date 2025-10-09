@@ -11,7 +11,7 @@ import {
   useDeleteBackendMutation,
   useGetBackendQuery,
 } from "#/lib/store/slice/apiSlice";
-import { columns, healthColumns } from "./constants";
+import { columns } from "./constants";
 import OllamaFlowFlex from "#/components/base/flex/Flex";
 import OllamaFlowText from "#/components/base/typograpghy/Text";
 import OllamaFlowButton from "#/components/base/button/Button";
@@ -22,6 +22,7 @@ import { paths } from "#/constants/constant";
 import styles from "./be-listing.module.scss";
 import OllamaFlowTitle from "#/components/base/typograpghy/Title";
 import OllamaFlowDivider from "#/components/base/divider/Divider";
+import { getBackendWithHealth } from "./utils";
 
 const BackendsListingPage: React.FC = () => {
   const router = useRouter();
@@ -46,6 +47,7 @@ const BackendsListingPage: React.FC = () => {
   } = useGetBackendQuery();
   const isBackendLoading = isL1 || isF1;
   const isBackendHealthLoading = isLoading || isFetching;
+  const backendsWithHealth = getBackendWithHealth(backends, backendsHealth);
 
   const [deleteBackend, { isLoading: isDeleteLoading }] =
     useDeleteBackendMutation();
@@ -117,36 +119,8 @@ const BackendsListingPage: React.FC = () => {
             className: !record.Active ? "in-active" : undefined,
           };
         }}
-        dataSource={backends}
+        dataSource={backendsWithHealth}
         loading={isBackendLoading}
-        rowKey="Identifier"
-        scroll={{ x: 1600 }}
-        pagination={{
-          showSizeChanger: true,
-          showQuickJumper: true,
-          showTotal: (total, range) =>
-            `${range[0]}-${range[1]} of ${total} backends`,
-        }}
-        size="middle"
-      />
-      <OllamaFlowTitle className="ml-xs" level={5} weight={500}>
-        Health
-      </OllamaFlowTitle>
-      <OllamaFlowDivider className="mt-xs mb-xs" />
-      <OllamaFlowTable
-        className={styles.tableContainer}
-        columns={
-          healthColumns(handleDeleteBackend) as TableColumnType<
-            Partial<BackendHealth>
-          >[]
-        }
-        onRow={(record: Partial<BackendHealth>) => {
-          return {
-            className: !record.Active ? "in-active" : undefined,
-          };
-        }}
-        dataSource={backendsHealth}
-        loading={isBackendHealthLoading}
         rowKey="Identifier"
         scroll={{ x: 1600 }}
         pagination={{
