@@ -15,6 +15,7 @@ export const mockBackendData: Backend = {
   Port: 43411,
   Ssl: false,
   UnhealthyThreshold: 3,
+  Labels: [],
   HealthyThreshold: 3,
   HealthCheckMethod: "GET",
   HealthCheckUrl: "/health",

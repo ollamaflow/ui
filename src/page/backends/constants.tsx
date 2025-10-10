@@ -41,6 +41,30 @@ export const columns: (
   },
   {
     title: (
+      <OllamaFlowTooltip title="Custom labels for the backend">
+        Labels
+      </OllamaFlowTooltip>
+    ),
+    dataIndex: "Labels",
+    key: "Labels",
+    width: 200,
+    render: (labels: string[]) => {
+      if (!labels || labels.length === 0) {
+        return <Tag color="default">No labels</Tag>;
+      }
+      return (
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "4px" }}>
+          {labels.map((label, index) => (
+            <Tag key={index} color="blue">
+              {label}
+            </Tag>
+          ))}
+        </div>
+      );
+    },
+  },
+  {
+    title: (
       <OllamaFlowTooltip title="The hostname and port to which requests will be proxied">
         Hostname:Port
       </OllamaFlowTooltip>

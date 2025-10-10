@@ -43,6 +43,7 @@ export interface Backend {
   PinnedCompletionsProperties: Record<string, any>;
   AllowEmbeddings: boolean;
   AllowCompletions: boolean;
+  Labels: string[];
   Active: boolean;
   CreatedUtc: string;
   LastUpdateUtc: string;

@@ -70,6 +70,7 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
     PinnedCompletionsProperties: {},
     AllowEmbeddings: true,
     AllowCompletions: true,
+    Labels: [],
   };
 
   const handleSubmit = (values: CreateBackendPayload) => {
@@ -118,6 +119,63 @@ const CreateEditBackend: React.FC<CreateEditBackendProps> = ({
             ]}
           >
             <Input placeholder="e.g., Default Ollama backend" />
+          </Form.Item>
+        </Col>
+      </Row>
+
+      {/* Labels Configuration */}
+      <Row gutter={16}>
+        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+          <Form.Item
+            label="Labels"
+            name="Labels"
+            tooltip="Custom labels to categorize and organize backends. Total length of all labels cannot exceed 256 characters."
+            rules={[
+              {
+                validator: (_, value) => {
+                  if (!value || value.length === 0) {
+                    return Promise.resolve();
+                  }
+                  const totalLength = value.join("").length;
+                  if (totalLength > 256) {
+                    return Promise.reject(
+                      new Error(
+                        `Total length of all labels cannot exceed 256 characters. Current: ${totalLength}`
+                      )
+                    );
+                  }
+                  return Promise.resolve();
+                },
+              },
+            ]}
+          >
+            <Select
+              mode="tags"
+              placeholder="Add labels (press Enter to add)"
+              style={{ width: "100%" }}
+              tokenSeparators={[","]}
+              onChange={(value) => {
+                // Validate total length on change
+                const totalLength = value.join("").length;
+                if (totalLength > 256) {
+                  form.setFields([
+                    {
+                      name: "Labels",
+                      errors: [
+                        `Total length of all labels cannot exceed 256 characters. Current: ${totalLength}`,
+                      ],
+                    },
+                  ]);
+                } else {
+                  form.setFields([
+                    {
+                      name: "Labels",
+                      errors: [],
+                    },
+                  ]);
+                }
+              }}
+            />
           </Form.Item>
         </Col>
       </Row>
