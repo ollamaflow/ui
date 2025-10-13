@@ -87,3 +87,11 @@ export const mockBackendHealthData: BackendHealth = {
 
 export const mockBackendListData = [mockBackendData];
 export const mockBackendHealthListData = [mockBackendHealthData];
+
+// Authentication mock data
+export const mockValidAccessKey = "valid-access-key-123";
+export const mockInvalidAccessKey = "invalid-access-key";
+export const mockValidServerUrl = "https://valid-server.com";
+export const mockInvalidServerUrl = "https://invalid-server.com";
+export const mockConnectivityResponse = { status: "ok" };
+export const mockFrontendTestResponse = [mockFrontendData];

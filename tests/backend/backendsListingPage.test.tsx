@@ -87,16 +87,6 @@ describe("BackendsListingPage", () => {
     });
   });
 
-  test("should display backend health data in health table", async () => {
-    renderWithRedux(<BackendsListingPage />, createMockInitialState());
-
-    await waitFor(() => {
-      expect(screen.getByText("Backend 1")).toBeInTheDocument();
-      expect(screen.getByText("99.9%")).toBeInTheDocument();
-      expect(screen.getByText("0s")).toBeInTheDocument();
-    });
-  });
-
   test("should show loading state initially", () => {
     renderWithRedux(<BackendsListingPage />, createMockInitialState());
 

@@ -47,7 +47,7 @@ export const columns: (
     ),
     dataIndex: "Labels",
     key: "Labels",
-    width: 200,
+    width: 500,
     render: (labels: string[]) => {
       if (!labels || labels.length === 0) {
         return <Tag color="default">No labels</Tag>;

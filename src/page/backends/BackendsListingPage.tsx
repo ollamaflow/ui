@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { ReloadOutlined, PlusOutlined } from "@ant-design/icons";
 import PageContainer from "#/components/base/pageContainer/PageContainer";
@@ -20,8 +20,6 @@ import { Backend, BackendHealth } from "#/lib/store/slice/types";
 import { useRouter } from "next/navigation";
 import { paths } from "#/constants/constant";
 import styles from "./be-listing.module.scss";
-import OllamaFlowTitle from "#/components/base/typograpghy/Title";
-import OllamaFlowDivider from "#/components/base/divider/Divider";
 import { getBackendWithHealth } from "./utils";
 
 const BackendsListingPage: React.FC = () => {
@@ -35,15 +33,16 @@ const BackendsListingPage: React.FC = () => {
     data: backendsHealth = [],
     isLoading,
     isFetching,
-    isError,
     error,
-    refetch,
+    isError: isE1,
+    refetch: refetchBackendHealth,
   } = useGetBackendHealthQuery();
   const {
     data: backends,
     isLoading: isL1,
-    isError: isE1,
+    isError,
     isFetching: isF1,
+    refetch: refetchBackend,
   } = useGetBackendQuery();
   const isBackendLoading = isL1 || isF1;
   const isBackendHealthLoading = isLoading || isFetching;
@@ -56,7 +55,10 @@ const BackendsListingPage: React.FC = () => {
   const handleCreateBackend = () => {
     router.push(paths.DashboardCreateBackend);
   };
-
+  const refetch = () => {
+    refetchBackend();
+    refetchBackendHealth();
+  };
   // Handle delete backend
   const handleDeleteBackend = (backend: BackendHealth | Backend) => {
     setDeletingBackend(backend);
@@ -86,7 +88,7 @@ const BackendsListingPage: React.FC = () => {
     setDeletingBackend(null);
   };
 
-  if (isError) {
+  if (isError || isE1) {
     return <FallBack retry={refetch} error={error} />;
   }
 
@@ -120,7 +122,7 @@ const BackendsListingPage: React.FC = () => {
           };
         }}
         dataSource={backendsWithHealth}
-        loading={isBackendLoading}
+        loading={isBackendLoading || isBackendHealthLoading}
         rowKey="Identifier"
         scroll={{ x: 1600 }}
         pagination={{

@@ -9,6 +9,14 @@ import {
 import { http, HttpResponse } from "msw";
 
 export const commonHandlers = [
+  // Authentication endpoints
+  http.get(`${ollamaServerUrl}/`, () => {
+    return HttpResponse.json({ status: "ok" });
+  }),
+  http.get(`${ollamaServerUrl}/v1.0/frontends`, () => {
+    return HttpResponse.json([mockFrontendData]);
+  }),
+
   //get backends
   http.get(`${ollamaServerUrl}/v1.0/backends`, () => {
     return HttpResponse.json([mockBackendData]);
