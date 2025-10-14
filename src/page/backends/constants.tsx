@@ -47,18 +47,30 @@ export const columns: (
     ),
     dataIndex: "Labels",
     key: "Labels",
-    width: 500,
+    width: 300,
     render: (labels: string[]) => {
       if (!labels || labels.length === 0) {
         return <Tag color="default">No labels</Tag>;
       }
+
+      const maxVisibleLabels = 6;
+      const visibleLabels = labels.slice(0, maxVisibleLabels);
+      const remainingCount = labels.length - maxVisibleLabels;
+
       return (
         <div style={{ display: "flex", flexWrap: "wrap", gap: "4px" }}>
-          {labels.map((label, index) => (
+          {visibleLabels.map((label, index) => (
             <Tag key={index} color="blue">
               {label}
             </Tag>
           ))}
+          {remainingCount > 0 && (
+            <OllamaFlowTooltip
+              title={labels.slice(maxVisibleLabels).join(", ")}
+            >
+              <Tag color="default">... ({remainingCount} more)</Tag>
+            </OllamaFlowTooltip>
+          )}
         </div>
       );
     },
