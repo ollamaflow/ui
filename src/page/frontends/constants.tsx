@@ -6,6 +6,7 @@ import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import OllamaFlowFlex from "#/components/base/flex/Flex";
 import { paths } from "../../constants/constant";
+import { formatDate } from "#/utils/utils";
 
 export const columns: (
   deleteFrontendHandler: (frontend: Frontend) => void
@@ -154,11 +155,7 @@ export const columns: (
     key: "CreatedUtc",
     width: 150,
     render: (date: string) => {
-      try {
-        return new Date(date).toLocaleDateString();
-      } catch {
-        return "Invalid Date";
-      }
+      return formatDate(date);
     },
   },
   {

@@ -12,6 +12,7 @@ import Link from "next/link";
 import { paths } from "../../constants/constant";
 import { BackendWithHealth } from "./types";
 import BackendHealthInfo from "./components/BackendHealthInfo";
+import { formatDate } from "#/utils/utils";
 
 export const columns: (
   deleteBackendHandler: (backend: BackendWithHealth) => void
@@ -166,11 +167,7 @@ export const columns: (
     key: "CreatedUtc",
     width: 150,
     render: (date: string) => {
-      try {
-        return new Date(date).toLocaleDateString();
-      } catch {
-        return "Invalid Date";
-      }
+      return formatDate(date);
     },
   },
   {

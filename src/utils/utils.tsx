@@ -1,5 +1,6 @@
 import React from "react";
 import { Select } from "antd";
+import moment from "moment";
 
 const { Option } = Select;
 
@@ -84,7 +85,7 @@ export const generateSelectOptionsWithFormatter = (
 export function formatDate(date: string) {
   if (!date) return "Invalid Date";
   try {
-    return new Date(date).toLocaleString();
+    return moment(date).format("MM/DD/YYYY HH:mm:ss");
   } catch {
     return "Invalid Date";
   }
